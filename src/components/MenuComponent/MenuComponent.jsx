@@ -10,10 +10,9 @@ import PersonIcon from "@mui/icons-material/Person";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { useLocation } from "react-router-dom";
-
+import { useLocation, NavLink } from "react-router-dom";
 import { MAIN_PATH, DIALOGS_PATH, NEWS_PATH, MUSIC_PATH } from "../../utils/constants";
-import Link from "@mui/material/Link";
+import styles from "../../App.module.css";
 
 const dataArr = [
   { text: "Profile", icon: <PersonIcon />, path: MAIN_PATH },
@@ -29,17 +28,12 @@ const MenuComponent = () => {
       <List>
         {dataArr.map((obj) => (
           <ListItem key={obj.text} disablePadding selected={location.pathname === obj.path}>
-            <Link
-              color="inherit"
-              variant="inherit"
-              href={obj.path}
-              sx={{ textDecoration: "none", width: 1 }}
-            >
+            <NavLink to={obj.path} className={styles.link}>
               <ListItemButton>
                 <ListItemIcon>{obj.icon}</ListItemIcon>
                 <ListItemText primary={obj.text} />
               </ListItemButton>
-            </Link>
+            </NavLink>
           </ListItem>
         ))}
       </List>
