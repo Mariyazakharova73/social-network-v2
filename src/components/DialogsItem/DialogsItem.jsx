@@ -3,26 +3,21 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
+import ListItemButton from "@mui/material/ListItemButton";
+import { NavLink } from "react-router-dom";
+import styles from "../../App.module.css";
 
-const DialogsItem = ({ item, index, dataArr, selectedIndex }) => {
+const DialogsItem = ({ item, index, selectedIndex, handleListItemClick }) => {
   return (
-    <ListItem
-      sx={{
-        width: "100%",
-        maxWidth: 360,
-        bgcolor: "background.paper",
-        borderRadius: 5,
-        m: 3,
-        p: 2,
-      }}
-    >
-      <ListItemAvatar>
-        <Avatar
-          alt={index % 2 === 0 ? "M" : dataArr[selectedIndex].name}
-          src="/static/images/avatar/1.jpg"
-        />
-      </ListItemAvatar>
-      <ListItemText>{item}</ListItemText>
+    <ListItem selected={selectedIndex === index} onClick={() => handleListItemClick(index)}>
+      <NavLink to={`${item.id}`} className={styles.link}>
+        <ListItemButton>
+          <ListItemAvatar>
+            <Avatar alt={item.name} src="/static/images/avatar/1.jpg" />
+          </ListItemAvatar>
+          <ListItemText primary={item.name} />
+        </ListItemButton>
+      </NavLink>
     </ListItem>
   );
 };

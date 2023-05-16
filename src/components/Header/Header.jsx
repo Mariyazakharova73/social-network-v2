@@ -11,8 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
-
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import { menuItems } from "../../utils/constants";
 
 const Header = ({ toggleDrawer }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -102,7 +101,7 @@ const Header = ({ toggleDrawer }) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {menuItems.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>

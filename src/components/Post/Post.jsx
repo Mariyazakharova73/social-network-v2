@@ -6,8 +6,13 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Avatar from "@mui/material/Avatar";
 import avatar from "../../images/images.jpg";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ToggleButton from "@mui/material/ToggleButton";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
 
-const Post = ({ message }) => {
+const Post = ({ item }) => {
+  const [selected, setSelected] = React.useState(false);
   return (
     <ListItem
       secondaryAction={
@@ -19,7 +24,22 @@ const Post = ({ message }) => {
       <ListItemAvatar>
         <Avatar alt="Cat" src={avatar} />
       </ListItemAvatar>
-      <ListItemText primary="Мария З." secondary={message} />
+      <ListItemText primary="Мария З." secondary={item.message} />
+      <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+        <Typography>{selected ? item.likesCount + 1 : item.likesCount}</Typography>
+        <ToggleButton
+          color="error"
+          sx={{ borderRadius: "50%" }}
+          size="small"
+          value="check"
+          selected={selected}
+          onChange={() => {
+            setSelected(!selected);
+          }}
+        >
+          <FavoriteIcon />
+        </ToggleButton>
+      </Stack>
     </ListItem>
   );
 };

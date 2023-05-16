@@ -5,10 +5,19 @@ import List from "@mui/material/List";
 import Post from "../Post/Post";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import SendIcon from "@mui/icons-material/Send";
 
-const MyPosts = (props) => {
-
+const MyPosts = ({ postsData, addPost }) => {
   const [postValue, setPostValue] = React.useState("");
+
+  const addNewPost = () => {
+    addPost(postValue);
+  };
+
+  const handlePostChange = (e) => {
+    setPostValue(e.target.value);
+  };
+
   return (
     <>
       <Typography mt={2} variant="h6" component="h2">
@@ -26,18 +35,18 @@ const MyPosts = (props) => {
           multiline
           variant="filled"
           fullWidth
-          value={postValue}
-          onChange={(e) => {
-            setPostValue(e.target.value);
-          }}
+          value={postsData.newPostText}
+          onChange={handlePostChange}
         />
         <Box mt={2} sx={{ textAlign: "end" }}>
-          <Button variant="contained">Send</Button>
+          <Button onClick={addNewPost} variant="contained" endIcon={<SendIcon />}>
+            Send
+          </Button>
         </Box>
         <List>
-          <Post message='11111'/>
-          <Post message='2222'/>
-          <Post message='33333'/>
+          {postsData.posts.map((item) => {
+            return <Post key={item.id} item={item} />;
+          })}
         </List>
       </Box>
     </>

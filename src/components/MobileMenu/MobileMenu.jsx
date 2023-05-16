@@ -1,8 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import MenuComponent  from "../MenuComponent/MenuComponent";
-
+import MenuComponent from "../MenuComponent/MenuComponent";
 
 const MobileMenu = ({ toggleDrawer, open }) => {
   const list = () => (
@@ -12,7 +11,7 @@ const MobileMenu = ({ toggleDrawer, open }) => {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <MenuComponent/>
+      <MenuComponent />
     </Box>
   );
 
