@@ -11,7 +11,7 @@ import useWindowSize from "./hooks/useWindowSize";
 import { Route, Routes } from "react-router-dom";
 import { DIALOGS_PATH, MAIN_PATH } from "./utils/constants";
 
-const App = ({ postsData, dialogsData, messagesData, addPost }) => {
+const App = ({ state, dispatch }) => {
   const [open, setOpen] = useState(false);
   const windowSize = useWindowSize();
 
@@ -32,10 +32,10 @@ const App = ({ postsData, dialogsData, messagesData, addPost }) => {
         <Grid item xs={windowSize < 900 ? 12 : 10}>
           <Box sx={{ p: 2, bgcolor: deepOrange[100] }}>
             <Routes>
-              <Route path={MAIN_PATH} element={<Profile postsData={postsData} addPost={addPost}/>} />
+              <Route path={MAIN_PATH} element={<Profile state={state} dispatch={dispatch}/>} />
               <Route
                 path={DIALOGS_PATH}
-                element={<Dialogs dialogsData={dialogsData} messagesData={messagesData} />}
+                element={<Dialogs state={state} dispatch={dispatch}/>}
               />
               <Route path={DIALOGS_PATH} element={<Dialogs />} />
               <Route path={DIALOGS_PATH} element={<Dialogs />} />

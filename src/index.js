@@ -2,29 +2,25 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import state, { addPost, subscribe } from "./redux/state";
+import store from "./redux/state";
 
-let rerender = (state) => {
-  const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
+let rerenderEntireTree = (state) => {
   root.render(
-    <React.StrictMode>
-      <BrowserRouter>
-        <App
-          postsData={state.profilePage}
-          dialogsData={state.dialogsPage.dialogs}
-          messagesData={state.dialogsPage.messages}
-          addPost={addPost}
-        />
-      </BrowserRouter>
-    </React.StrictMode>
+    <BrowserRouter>
+      <App
+        dispatch={store.dispatch.bind(store)}
+        state={state}
+        postsData={state.profilePage}
+        dialogsData={state.dialogsPage.dialogs}
+        messagesData={state.dialogsPage.messages}
+      />
+    </BrowserRouter>
   );
 };
 
-rerender(state);
+rerenderEntireTree(store.getState());
 
-subscribe(rerender);
-
-reportWebVitals();
+store.subscribe(rerenderEntireTree);

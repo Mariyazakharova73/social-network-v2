@@ -6,16 +6,20 @@ import Post from "../Post/Post";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
+import { updateNewPostTextActionCreator, addPostActionCreator } from "../../redux/state";
 
-const MyPosts = ({ postsData, addPost }) => {
-  const [postValue, setPostValue] = React.useState("");
+const MyPosts = ({ state, dispatch }) => {
+  let postsData = state.profilePage.posts;
+
+  let newPostElement = React.createRef();
 
   const addNewPost = () => {
-    addPost(postValue);
+    dispatch(addPostActionCreator());
   };
 
-  const handlePostChange = (e) => {
-    setPostValue(e.target.value);
+  const handlePostChange = () => {
+    let text = newPostElement.current.value;
+    dispatch(updateNewPostTextActionCreator(text));
   };
 
   return (
@@ -30,7 +34,7 @@ const MyPosts = ({ postsData, addPost }) => {
         }}
       >
         <TextField
-          id="filled-textarea"
+          inputRef={newPostElement}
           label="Your news"
           multiline
           variant="filled"
@@ -44,7 +48,7 @@ const MyPosts = ({ postsData, addPost }) => {
           </Button>
         </Box>
         <List>
-          {postsData.posts.map((item) => {
+          {postsData.map((item) => {
             return <Post key={item.id} item={item} />;
           })}
         </List>
