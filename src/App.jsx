@@ -12,6 +12,7 @@ import { Route, Routes } from "react-router-dom";
 import { DIALOGS_PATH, MAIN_PATH } from "./utils/constants";
 
 const App = ({ state, dispatch }) => {
+  
   const [open, setOpen] = useState(false);
   const windowSize = useWindowSize();
 

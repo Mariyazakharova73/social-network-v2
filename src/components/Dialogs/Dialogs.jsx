@@ -8,14 +8,14 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import Box from "@mui/material/Box";
-import { updateNewMessageBodyActionCreator, sendMessageActionCreator } from "../../redux/state";
+import { updateNewMessageBodyActionCreator, sendMessageActionCreator } from "../../redux/dialogsReducer";
 
 const Dialogs = ({ state, dispatch }) => {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
-  let messagesData = state.dialogsPage.messages;
-  let dialogsData = state.dialogsPage.dialogs;
-  let newMessageBody = state.dialogsPage.newMessageBody;
+  let messagesData = state.dialogsReducer.messages;
+  let dialogsData = state.dialogsReducer.dialogs;
+  let newMessageBody = state.dialogsReducer.newMessageBody;
 
   const handleListItemClick = (index) => {
     setSelectedIndex(index);

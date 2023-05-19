@@ -6,10 +6,10 @@ import Post from "../Post/Post";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
-import { updateNewPostTextActionCreator, addPostActionCreator } from "../../redux/state";
+import { updateNewPostTextActionCreator, addPostActionCreator } from "../../redux/profileReducer";
 
 const MyPosts = ({ state, dispatch }) => {
-  let postsData = state.profilePage.posts;
+  let postsData = state.profileReducer.posts;
 
   let newPostElement = React.createRef();
 
