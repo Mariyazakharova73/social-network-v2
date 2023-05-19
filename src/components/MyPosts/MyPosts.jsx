@@ -6,20 +6,17 @@ import Post from "../Post/Post";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
-import { updateNewPostTextActionCreator, addPostActionCreator } from "../../redux/profileReducer";
 
-const MyPosts = ({ state, dispatch }) => {
-  let postsData = state.profileReducer.posts;
-
+const MyPosts = ({ updateNewPostText, addPost, profilePage }) => {
   let newPostElement = React.createRef();
 
-  const addNewPost = () => {
-    dispatch(addPostActionCreator());
+  const onAddPost = () => {
+    addPost();
   };
 
-  const handlePostChange = () => {
+  const onPostChange = () => {
     let text = newPostElement.current.value;
-    dispatch(updateNewPostTextActionCreator(text));
+    updateNewPostText(text);
   };
 
   return (
@@ -39,16 +36,16 @@ const MyPosts = ({ state, dispatch }) => {
           multiline
           variant="filled"
           fullWidth
-          value={postsData.newPostText}
-          onChange={handlePostChange}
+          value={profilePage.newPostText}
+          onChange={onPostChange}
         />
         <Box mt={2} sx={{ textAlign: "end" }}>
-          <Button onClick={addNewPost} variant="contained" endIcon={<SendIcon />}>
+          <Button onClick={onAddPost} variant="contained" endIcon={<SendIcon />}>
             Send
           </Button>
         </Box>
         <List>
-          {postsData.map((item) => {
+          {profilePage.posts.map((item) => {
             return <Post key={item.id} item={item} />;
           })}
         </List>

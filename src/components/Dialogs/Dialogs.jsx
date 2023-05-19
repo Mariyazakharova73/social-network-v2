@@ -8,26 +8,25 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import Box from "@mui/material/Box";
-import { updateNewMessageBodyActionCreator, sendMessageActionCreator } from "../../redux/dialogsReducer";
 
-const Dialogs = ({ state, dispatch }) => {
+const Dialogs = ({ store, updateNewMessageBody, sendMessage, dialogsPage }) => {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
-  let messagesData = state.dialogsReducer.messages;
-  let dialogsData = state.dialogsReducer.dialogs;
-  let newMessageBody = state.dialogsReducer.newMessageBody;
+  let messagesData = dialogsPage.messages;
+  let dialogsData = dialogsPage.dialogs;
+  let newMessageBody = dialogsPage.newMessageBody;
 
   const handleListItemClick = (index) => {
     setSelectedIndex(index);
   };
 
   const onSendMessageClick = () => {
-    dispatch(sendMessageActionCreator());
+    sendMessage();
   };
 
   const onNewMessageChange = (e) => {
     let body = e.target.value;
-    dispatch(updateNewMessageBodyActionCreator(body));
+    updateNewMessageBody(body);
   };
 
   return (
