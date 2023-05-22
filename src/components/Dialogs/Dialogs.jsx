@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import Box from "@mui/material/Box";
 
-const Dialogs = ({ store, updateNewMessageBody, sendMessage, dialogsPage }) => {
+const Dialogs = ({ updateNewMessageBody, sendMessage, dialogsPage }) => {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   let messagesData = dialogsPage.messages;
