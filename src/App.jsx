@@ -10,9 +10,10 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import { deepOrange } from "@mui/material/colors";
 import useWindowSize from "./hooks/useWindowSize";
 import { Route, Routes } from "react-router-dom";
-import { DIALOGS_PATH, MAIN_PATH } from "./utils/constants";
+import { DIALOGS_PATH, MAIN_PATH, USERS_PATH } from "./utils/constants";
+import UsersContainer from "./components/Users/UsersContainer";
 
-const App = ({ store }) => {
+const App = () => {
   const [open, setOpen] = useState(false);
   const windowSize = useWindowSize();
 
@@ -35,7 +36,7 @@ const App = ({ store }) => {
             <Routes>
               <Route path={MAIN_PATH} element={<Profile />} />
               <Route path={DIALOGS_PATH} element={<DialogsContainer />} />
-              <Route path={DIALOGS_PATH} element={<Dialogs />} />
+              <Route path={USERS_PATH} element={<UsersContainer />} />
               <Route path={DIALOGS_PATH} element={<Dialogs />} />
             </Routes>
           </Box>

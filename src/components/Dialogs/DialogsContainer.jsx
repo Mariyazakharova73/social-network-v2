@@ -1,9 +1,9 @@
+import { connect } from "react-redux";
+import Dialogs from "./Dialogs";
 import {
   updateNewMessageBodyActionCreator,
   sendMessageActionCreator,
 } from "../../redux/dialogsReducer";
-import Dialogs from "./Dialogs";
-import { connect } from "react-redux";
 
 // отправляет данные
 const mapStateToProps = (state) => {

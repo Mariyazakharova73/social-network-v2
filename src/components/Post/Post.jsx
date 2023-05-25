@@ -29,7 +29,7 @@ const Post = ({ item }) => {
         <Typography>{selected ? item.likesCount + 1 : item.likesCount}</Typography>
         <ToggleButton
           color="error"
-          sx={{ borderRadius: "50%" }}
+          
           size="small"
           value="check"
           selected={selected}

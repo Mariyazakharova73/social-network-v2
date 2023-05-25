@@ -10,8 +10,9 @@ import PersonIcon from "@mui/icons-material/Person";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import SettingsIcon from "@mui/icons-material/Settings";
+import PeopleIcon from "@mui/icons-material/People";
 import { useLocation, NavLink } from "react-router-dom";
-import { MAIN_PATH, DIALOGS_PATH, NEWS_PATH, MUSIC_PATH } from "../../utils/constants";
+import { MAIN_PATH, DIALOGS_PATH, NEWS_PATH, MUSIC_PATH, USERS_PATH } from "../../utils/constants";
 import styles from "../../App.module.css";
 
 const dataArr = [
@@ -19,6 +20,7 @@ const dataArr = [
   { text: "Messages", icon: <MailIcon />, path: DIALOGS_PATH },
   { text: "News", icon: <NewspaperIcon />, path: NEWS_PATH },
   { text: "Music", icon: <MusicNoteIcon />, path: MUSIC_PATH },
+  { text: "Users", icon: <PeopleIcon />, path: USERS_PATH },
 ];
 
 const MenuComponent = () => {
