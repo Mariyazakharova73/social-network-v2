@@ -1,7 +1,7 @@
 import React from "react";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
-import avatar from "../../images/images.jpg";
+import avatar from "../../images/image.png";
 import Typography from "@mui/material/Typography";
 
 const ProfileInfo = () => {

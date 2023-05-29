@@ -5,7 +5,7 @@ import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Avatar from "@mui/material/Avatar";
-import avatar from "../../images/images.jpg";
+import avatar from "../../images/image.png";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ToggleButton from "@mui/material/ToggleButton";
 import Typography from "@mui/material/Typography";

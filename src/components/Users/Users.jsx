@@ -7,8 +7,17 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { grey } from "@mui/material/colors";
 import Grid from "@mui/material/Grid";
+import axios from "axios";
+import { BASE_URL } from "../../utils/constants";
+import userAvatar from "../../images/user.png";
 
-const Users = ({ users }) => {
+const Users = ({ users, follow, unfollow, setUsers }) => {
+  if (users.length === 0) {
+    axios.get(`${BASE_URL}/users`).then((res) => {
+      setUsers(res.data.items);
+    });
+  }
+
   return (
     <List>
       {users.map((user) => {
@@ -24,11 +33,29 @@ const Users = ({ users }) => {
             key={user.id}
             alignItems="flex-start"
           >
-            <Stack spacing={1} alignItems="center" sx={{ mr: 2 }}>
-              <Avatar alt={user.fullName} src="/static/images/avatar/1.jpg" />
-              <Button variant="contained" size="small">
-                Follow
-              </Button>
+            <Stack spacing={1} alignItems="center" sx={{ mr: 2, minWidth: "80px" }}>
+              <Avatar alt={user.name} src={user.photos.small != null ? user.photos.small : userAvatar} />
+              {user.followed ? (
+                <Button
+                  onClick={() => {
+                    unfollow(user.id);
+                  }}
+                  variant="contained"
+                  size="small"
+                >
+                  Unfollow
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    follow(user.id);
+                  }}
+                  variant="contained"
+                  size="small"
+                >
+                  Follow
+                </Button>
+              )}
             </Stack>
             <Stack
               sx={{
@@ -43,11 +70,11 @@ const Users = ({ users }) => {
             >
               <Grid container spacing={1}>
                 <Grid item xs={8}>
-                  <Typography>{user.fullName}</Typography>
+                  <Typography>{user.name}</Typography>
                 </Grid>
                 <Grid item xs={4}>
                   <Typography>
-                    {user.location.city}, {user.location.country}
+                    {"user.location.city"}, {"user.location.country"}
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
