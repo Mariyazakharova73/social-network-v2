@@ -11,7 +11,7 @@ import axios from "axios";
 import { BASE_URL } from "../../utils/constants";
 import userAvatar from "../../images/user.png";
 
-class Users extends React.Component {
+class UsersC extends React.Component {
   getUsers = () => {
     if (this.props.users.length === 0) {
       axios.get(`${BASE_URL}/users`).then((res) => {
@@ -23,7 +23,7 @@ class Users extends React.Component {
   render() {
     return (
       <>
-        <button onClick={this.getUsers} />
+        <button onClick={this.getUsers}>get Users</button>
         <List>
           {this.props.users.map((user) => {
             return (
@@ -98,4 +98,4 @@ class Users extends React.Component {
     );
   }
 }
-export default Users;
+export default UsersC;
