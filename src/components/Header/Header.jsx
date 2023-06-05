@@ -12,8 +12,10 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import { menuItems } from "../../utils/constants";
+import Stack from "@mui/material/Stack";
+import CustomizedSwitches from "./../MaterialUISwitch/MaterialUISwitch";
 
-const Header = ({ toggleDrawer }) => {
+const Header = ({ toggleDrawer, changeMode, mode }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenUserMenu = (event) => {
@@ -25,7 +27,7 @@ const Header = ({ toggleDrawer }) => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AcUnitIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -65,7 +67,7 @@ const Header = ({ toggleDrawer }) => {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -79,7 +81,8 @@ const Header = ({ toggleDrawer }) => {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 0 }}>
+          <Stack sx={{ flexGrow: 0 }} direction="row">
+            <CustomizedSwitches mode={mode} changeMode={changeMode} />
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Mariya" src="/static/images/avatar/2.jpg" />
@@ -107,7 +110,7 @@ const Header = ({ toggleDrawer }) => {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+          </Stack>
         </Toolbar>
       </Container>
     </AppBar>

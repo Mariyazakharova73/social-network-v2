@@ -1,46 +1,63 @@
 import React from "react";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Avatar from "@mui/material/Avatar";
-import avatar from "../../images/image.png";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ToggleButton from "@mui/material/ToggleButton";
+import { avatar } from "../../utils/constants";
 import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
+
+import Checkbox from "@mui/material/Checkbox";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Favorite from "@mui/icons-material/Favorite";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import { red } from "@mui/material/colors";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import ShareIcon from "@mui/icons-material/Share";
 
 const Post = ({ item }) => {
   const [selected, setSelected] = React.useState(false);
+
   return (
-    <ListItem
-      secondaryAction={
-        <IconButton edge="end" aria-label="delete">
-          <DeleteIcon />
-        </IconButton>
-      }
-    >
-      <ListItemAvatar>
-        <Avatar alt="Cat" src={avatar} />
-      </ListItemAvatar>
-      <ListItemText primary="Мария З." secondary={item.message} />
-      <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+    <Card sx={{ marginBottom: 5 }}>
+      <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" src={avatar}>
+            M
+          </Avatar>
+        }
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        }
+        title="Мария З."
+        subheader={item.date}
+      />
+      <CardContent>
+        <Typography variant="body2" color="text.secondary">
+          {item.message}
+        </Typography>
+      </CardContent>
+      <CardActions disableSpacing>
         <Typography>{selected ? item.likesCount + 1 : item.likesCount}</Typography>
-        <ToggleButton
-          color="error"
-          
-          size="small"
-          value="check"
+        <Checkbox
+          icon={<FavoriteBorder />}
           selected={selected}
           onChange={() => {
             setSelected(!selected);
           }}
-        >
-          <FavoriteIcon />
-        </ToggleButton>
-      </Stack>
-    </ListItem>
+          checkedIcon={<Favorite sx={{ color: "black" }} />}
+        />
+        <IconButton aria-label="share">
+          <ShareIcon />
+        </IconButton>
+        <IconButton aria-label="delete" sx={{ marginLeft: "auto" }}>
+          <DeleteIcon />
+        </IconButton>
+      </CardActions>
+    </Card>
   );
 };
 

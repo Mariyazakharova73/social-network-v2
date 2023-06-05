@@ -1,26 +1,15 @@
 import React from "react";
-import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import MenuComponent from "../MenuComponent/MenuComponent";
+import { StyledBox } from "./MobileMenuStyles";
 
 const MobileMenu = ({ toggleDrawer, open }) => {
-  const list = () => (
-    <Box
-      sx={{ width: 250 }}
-      role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
-    >
-      <MenuComponent />
-    </Box>
-  );
-
   return (
-    <div>
-      <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
-        {list()}
-      </Drawer>
-    </div>
+    <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
+      <StyledBox role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
+        <MenuComponent/>
+      </StyledBox>
+    </Drawer>
   );
 };
 

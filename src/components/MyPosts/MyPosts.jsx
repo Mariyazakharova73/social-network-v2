@@ -6,9 +6,11 @@ import Post from "../Post/Post";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
+import useWindowSize from "./../../hooks/useWindowSize";
 
 const MyPosts = ({ updateNewPostText, addPost, profilePage }) => {
   let newPostElement = React.createRef();
+  const windowSize = useWindowSize();
 
   const onAddPost = () => {
     addPost();
@@ -24,12 +26,7 @@ const MyPosts = ({ updateNewPostText, addPost, profilePage }) => {
       <Typography mt={2} variant="h6" component="h2">
         My posts
       </Typography>
-      <Box
-        sx={{
-          width: 600,
-          maxWidth: "100%",
-        }}
-      >
+      <Box sx={{ maxWidth: { sm: "70%" } }} mb={2}>
         <TextField
           inputRef={newPostElement}
           label="Your news"
@@ -40,16 +37,22 @@ const MyPosts = ({ updateNewPostText, addPost, profilePage }) => {
           onChange={onPostChange}
         />
         <Box mt={2} sx={{ textAlign: "end" }}>
-          <Button onClick={onAddPost} variant="contained" endIcon={<SendIcon />}>
+          <Button
+            onClick={onAddPost}
+            variant="contained"
+            endIcon={<SendIcon />}
+            fullWidth={windowSize < 600}
+          >
             Send
           </Button>
         </Box>
-        <List>
-          {profilePage.posts.map((item) => {
-            return <Post key={item.id} item={item} />;
-          })}
-        </List>
       </Box>
+
+      <List>
+        {profilePage.posts.map((item) => {
+          return <Post key={item.id} item={item} />;
+        })}
+      </List>
     </>
   );
 };

@@ -1,38 +1,44 @@
 import React, { useState } from "react";
 import Header from "./components/Header/Header";
 import MobileMenu from "./components/MobileMenu/MobileMenu";
-import MenuComponent from "./components/MenuComponent/MenuComponent";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import { deepOrange } from "@mui/material/colors";
-import useWindowSize from "./hooks/useWindowSize";
 import { Route, Routes } from "react-router-dom";
 import { DIALOGS_PATH, MAIN_PATH, USERS_PATH } from "./utils/constants";
 import UsersContainer from "./components/Users/UsersContainer";
+import { createTheme } from "@mui/material";
+import { ThemeProvider } from "@mui/system";
+import Stack from "@mui/material/Stack";
+import DesktopMenu from "./components/DesktopMenu/DesktopMenu";
 
 const App = () => {
+  const [mode, setMode] = useState("light");
   const [open, setOpen] = useState(false);
-  const windowSize = useWindowSize();
+
+  const theme = createTheme({
+    palette: {
+      mode: mode,
+    },
+  });
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
 
+  const changeMode = () => {
+    setMode(mode === "light" ? "dark" : "light");
+  };
+
   return (
-    <>
-      <Header toggleDrawer={toggleDrawer} />
-      <MobileMenu toggleDrawer={toggleDrawer} open={open} />
-      <Grid container spacing={2}>
-        <Grid item xs={2} sx={{ display: { xs: "none", md: "block" } }}>
-          <Box>
-            <MenuComponent />
-          </Box>
-        </Grid>
-        <Grid item xs={windowSize < 900 ? 12 : 10}>
-          <Box sx={{ p: 2, bgcolor: deepOrange[100] }}>
+    <ThemeProvider theme={theme}>
+      <Box bgcolor="background.default" color="text.primary" height="100vh">
+        <Header toggleDrawer={toggleDrawer} changeMode={changeMode} mode={mode} />
+        <Stack direction="row" spacing={2}>
+          <MobileMenu toggleDrawer={toggleDrawer} open={open} />
+          <DesktopMenu />
+          <Box flex={4} p={2}>
             <Routes>
               <Route path={MAIN_PATH} element={<Profile />} />
               <Route path={DIALOGS_PATH} element={<DialogsContainer />} />
@@ -40,9 +46,9 @@ const App = () => {
               <Route path={DIALOGS_PATH} element={<Dialogs />} />
             </Routes>
           </Box>
-        </Grid>
-      </Grid>
-    </>
+        </Stack>
+      </Box>
+    </ThemeProvider>
   );
 };
 
