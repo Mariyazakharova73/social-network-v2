@@ -1,15 +1,14 @@
 import React from "react";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { grey } from "@mui/material/colors";
 import Grid from "@mui/material/Grid";
 import axios from "axios";
 import { BASE_URL } from "../../utils/constants";
 import userAvatar from "../../images/user.png";
+import { StyledListItem, StyledStack } from './UsersStyles';
 
 const Users = ({ users, follow, unfollow, setUsers }) => {
   if (users.length === 0) {
@@ -22,19 +21,15 @@ const Users = ({ users, follow, unfollow, setUsers }) => {
     <List>
       {users.map((user) => {
         return (
-          <ListItem
-            sx={{
-              width: "100%",
-              maxWidth: 600,
-              bgcolor: "background.paper",
-              borderRadius: 5,
-              mb: 2,
-            }}
+          <StyledListItem
             key={user.id}
             alignItems="flex-start"
           >
             <Stack spacing={1} alignItems="center" sx={{ mr: 2, minWidth: "80px" }}>
-              <Avatar alt={user.name} src={user.photos.small != null ? user.photos.small : userAvatar} />
+              <Avatar
+                alt={user.name}
+                src={user.photos.small != null ? user.photos.small : userAvatar}
+              />
               {user.followed ? (
                 <Button
                   onClick={() => {
@@ -57,15 +52,7 @@ const Users = ({ users, follow, unfollow, setUsers }) => {
                 </Button>
               )}
             </Stack>
-            <Stack
-              sx={{
-                border: 1,
-                borderColor: grey[500],
-                borderRadius: "16px",
-                minHeight: "50px",
-                p: 2,
-                width: "100%",
-              }}
+            <StyledStack
               direction="row"
             >
               <Grid container spacing={1}>
@@ -81,8 +68,8 @@ const Users = ({ users, follow, unfollow, setUsers }) => {
                   <Typography>{user.status}</Typography>
                 </Grid>
               </Grid>
-            </Stack>
-          </ListItem>
+            </StyledStack>
+          </StyledListItem>
         );
       })}
     </List>

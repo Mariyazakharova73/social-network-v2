@@ -48,7 +48,7 @@ const Post = ({ item }) => {
           onChange={() => {
             setSelected(!selected);
           }}
-          checkedIcon={<Favorite sx={{ color: "black" }} />}
+          checkedIcon={<Favorite />}
         />
         <IconButton aria-label="share">
           <ShareIcon />

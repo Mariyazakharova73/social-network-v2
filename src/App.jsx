@@ -33,7 +33,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box bgcolor="background.default" color="text.primary" height="100vh">
+      <Box bgcolor="background.default" color="text.primary">
         <Header toggleDrawer={toggleDrawer} changeMode={changeMode} mode={mode} />
         <Stack direction="row" spacing={2}>
           <MobileMenu toggleDrawer={toggleDrawer} open={open} />
