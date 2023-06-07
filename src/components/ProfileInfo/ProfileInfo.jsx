@@ -1,18 +1,21 @@
 import React from "react";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
-import { avatar } from "../../utils/constants";
 import Typography from "@mui/material/Typography";
+import { CircularProgress } from "@mui/material";
 
-const ProfileInfo = () => {
+const ProfileInfo = ({ profile }) => {
+  if (!profile) {
+    return <CircularProgress />;
+  }
+ы
   return (
     <Stack direction="row" spacing={3}>
-      <Avatar alt="Avatar." src={avatar} sx={{ height: "90px", width: "90px" }} />
+      <Avatar alt="Avatar." src={profile.photos?.large} sx={{ height: "90px", width: "90px" }} />
       <Stack>
-        <Typography component="p">Захарова Мария</Typography>
-        <Typography component="p">Date of Birth: 6.09.1994</Typography>
-        <Typography component="p">City: Ulyanovsk</Typography>
-        <Typography component="p">Education: "УлГТУ"</Typography>
+        <Typography component="p">Имя: {profile.fullName}</Typography>
+        <Typography component="p">О себе: {profile.aboutMe}</Typography>
+        <Typography component="p">Информация: {profile.lookingForAJobDescription}</Typography>
       </Stack>
     </Stack>
   );

@@ -1,10 +1,10 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import ListItemButton from "@mui/material/ListItemButton";
-import { NavLink } from "react-router-dom";
 import styles from "../../App.module.css";
 
 const DialogsItem = ({ item, index, selectedIndex, handleListItemClick }) => {

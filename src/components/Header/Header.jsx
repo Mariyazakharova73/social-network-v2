@@ -1,4 +1,5 @@
 import * as React from "react";
+import CustomizedSwitches from "./../MaterialUISwitch/MaterialUISwitch";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,9 +12,8 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
-import { menuItems } from "../../utils/constants";
 import Stack from "@mui/material/Stack";
-import CustomizedSwitches from "./../MaterialUISwitch/MaterialUISwitch";
+import { menuItems } from "../../utils/constants";
 
 const Header = ({ toggleDrawer, changeMode, mode }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);

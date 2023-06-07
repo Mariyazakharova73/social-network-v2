@@ -1,17 +1,16 @@
 import React, { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import MobileMenu from "./components/MobileMenu/MobileMenu";
-import Box from "@mui/material/Box";
-import Profile from "./components/Profile/Profile";
-import Dialogs from "./components/Dialogs/Dialogs";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import { Route, Routes } from "react-router-dom";
-import { DIALOGS_PATH, MAIN_PATH, USERS_PATH } from "./utils/constants";
 import UsersContainer from "./components/Users/UsersContainer";
-import { createTheme } from "@mui/material";
-import { ThemeProvider } from "@mui/system";
-import Stack from "@mui/material/Stack";
 import DesktopMenu from "./components/DesktopMenu/DesktopMenu";
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import { DIALOGS_PATH, PROFILE_ITEM_PATH, PROFILE_PATH, USERS_PATH } from "./utils/constants";
+import { ThemeProvider } from "@mui/system";
+import { createTheme } from "@mui/material";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 
 const App = () => {
   const [mode, setMode] = useState("light");
@@ -40,10 +39,11 @@ const App = () => {
           <DesktopMenu />
           <Box flex={4} p={2}>
             <Routes>
-              <Route path={MAIN_PATH} element={<Profile />} />
+              {/* <Route path={PROFILE_PATH} element={<ProfileContainer />} /> */}
+              {/* <Route path={PROFILE_ITEM_PATH} element={<ProfileContainer />} /> */}
+              <Route path="/profile/:id?" element={<ProfileContainer />} />
               <Route path={DIALOGS_PATH} element={<DialogsContainer />} />
               <Route path={USERS_PATH} element={<UsersContainer />} />
-              <Route path={DIALOGS_PATH} element={<Dialogs />} />
             </Routes>
           </Box>
         </Stack>

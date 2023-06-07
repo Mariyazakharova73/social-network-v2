@@ -6,12 +6,18 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import userAvatar from "../../images/user.png";
 import { StyledCardActions } from "./UserCardStyles";
+import { NavLink } from "react-router-dom";
 
 const UserCard = ({ user, unfollow, follow }) => {
   return (
-    <Card sx={{ minWidth: { sm: 300, xs: 200 } }}>
+    <Card sx={{ width: { sm: 300, xs: 200 } }}>
       <StyledCardActions>
-        <Avatar alt={user.name} src={user.photos.small != null ? user.photos.small : userAvatar} />
+        <NavLink to={"/profile/" + user.id}>
+          <Avatar
+            alt={user.name}
+            src={user.photos.small != null ? user.photos.small : userAvatar}
+          />
+        </NavLink>
         {user.followed ? (
           <Button
             onClick={() => {
@@ -36,11 +42,9 @@ const UserCard = ({ user, unfollow, follow }) => {
       </StyledCardActions>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary">
-          {user.status}
+          {user.status ? user.status : "student"}
         </Typography>
-        <Typography>
-          {user.name}
-        </Typography>
+        <Typography>{user.name}</Typography>
         <Typography color="text.secondary">test</Typography>
         <Typography color="text.secondary">test</Typography>
       </CardContent>
