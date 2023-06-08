@@ -1,8 +1,6 @@
 import React from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import Users from "./Users";
-import { BASE_URL } from "../../utils/constants";
 import {
   follow,
   unfollow,
@@ -12,25 +10,25 @@ import {
   setTotalUsersCount,
 } from "../../redux/usersReducer";
 import { CircularProgress } from "@mui/material";
+import { usersAPI } from "./../../api/api";
+import { toggleFollowingProgress } from "./../../redux/usersReducer";
 
 class UsersAPIComponent extends React.Component {
   componentDidMount() {
     this.props.toggleIsFetching(true);
-    axios
-      .get(`${BASE_URL}/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-      .then((res) => {
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(res.data.items);
-        this.props.setTotalUsersCount(res.data.totalCount);
-      });
+    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then((res) => {
+      this.props.toggleIsFetching(false);
+      this.props.setUsers(res.items);
+      this.props.setTotalUsersCount(res.totalCount);
+    });
   }
 
   handlePageChange = (e, pageNumber) => {
     this.props.toggleIsFetching(true);
     this.props.setCurrentPage(pageNumber);
-    axios.get(`${BASE_URL}/users?page=${pageNumber}&count=${this.props.pageSize}`).then((res) => {
+    usersAPI.getUsers(pageNumber, this.props.pageSize).then((res) => {
       this.props.toggleIsFetching(false);
-      this.props.setUsers(res.data.items);
+      this.props.setUsers(res.items);
     });
   };
 
@@ -47,6 +45,8 @@ class UsersAPIComponent extends React.Component {
         pagesCount={this.props.pagesCount}
         users={this.props.users}
         currentPage={this.props.currentPage}
+        toggleFollowingProgress={this.props.toggleFollowingProgress}
+        followingInProgress={this.props.followingInProgress}
       />
     );
   }
@@ -59,6 +59,7 @@ const mapStateToProps = (state) => {
     totalUsersCount: state.usersReducer.totalUsersCount,
     currentPage: state.usersReducer.currentPage,
     isFetching: state.usersReducer.isFetching,
+    followingInProgress: state.usersReducer.followingInProgress,
   };
 };
 
@@ -92,6 +93,7 @@ const UsersContainer = connect(mapStateToProps, {
   setCurrentPage,
   setTotalUsersCount,
   toggleIsFetching,
+  toggleFollowingProgress,
 })(UsersAPIComponent);
 
 export default UsersContainer;

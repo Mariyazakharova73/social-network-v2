@@ -8,7 +8,7 @@ const ProfileInfo = ({ profile }) => {
   if (!profile) {
     return <CircularProgress />;
   }
-ы
+
   return (
     <Stack direction="row" spacing={3}>
       <Avatar alt="Avatar." src={profile.photos?.large} sx={{ height: "90px", width: "90px" }} />

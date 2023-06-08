@@ -11,6 +11,7 @@ import { ThemeProvider } from "@mui/system";
 import { createTheme } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 const App = () => {
   const [mode, setMode] = useState("light");
@@ -33,14 +34,12 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Box bgcolor="background.default" color="text.primary">
-        <Header toggleDrawer={toggleDrawer} changeMode={changeMode} mode={mode} />
+        <HeaderContainer toggleDrawer={toggleDrawer} changeMode={changeMode} mode={mode} />
         <Stack direction="row" spacing={2}>
           <MobileMenu toggleDrawer={toggleDrawer} open={open} />
           <DesktopMenu />
           <Box flex={4} p={2}>
             <Routes>
-              {/* <Route path={PROFILE_PATH} element={<ProfileContainer />} /> */}
-              {/* <Route path={PROFILE_ITEM_PATH} element={<ProfileContainer />} /> */}
               <Route path="/profile/:id?" element={<ProfileContainer />} />
               <Route path={DIALOGS_PATH} element={<DialogsContainer />} />
               <Route path={USERS_PATH} element={<UsersContainer />} />

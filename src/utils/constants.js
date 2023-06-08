@@ -11,7 +11,13 @@ export const DIALOGS_ITEM_PATH = "/dialogs/:id";
 export const NEWS_PATH = "/news";
 export const MUSIC_PATH = "/music";
 export const USERS_PATH = "/users";
-export const menuItems = ["Profile", "Account", "Dashboard", "Logout"];
+export const LOGIN_PATH = "/login";
+export const menuItems = [
+  { name: "Profile", link: PROFILE_PATH },
+  { name: "Account", link: "" },
+  { name: "Dashboard", link: "" },
+  { name: "Login", link: LOGIN_PATH },
+];
 
 export const BASE_URL = "https://social-network.samuraijs.com/api/1.0";
 
@@ -24,3 +30,5 @@ export const sidebarData = [
 ];
 
 export const avatar = "https://mui.com/static/images/avatar/3.jpg";
+
+export const API_KEY = "a0fe9b9a-5b25-4ddf-ad31-84dadd909d2c";

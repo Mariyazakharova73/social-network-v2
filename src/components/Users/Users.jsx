@@ -13,6 +13,8 @@ const Users = ({
   currentPage,
   handlePageChange,
   users,
+  toggleFollowingProgress,
+  followingInProgress,
 }) => {
   let pagesCount = Math.ceil(totalUsersCount / pageSize);
   return (
@@ -32,7 +34,13 @@ const Users = ({
         {users.map((user) => {
           return (
             <StyledListItem key={user.id}>
-              <UserCard user={user} unfollow={unfollow} follow={follow} />
+              <UserCard
+                user={user}
+                unfollow={unfollow}
+                follow={follow}
+                toggleFollowingProgress={toggleFollowingProgress}
+                followingInProgress={followingInProgress}
+              />
             </StyledListItem>
           );
         })}

@@ -14,6 +14,8 @@ import MenuItem from "@mui/material/MenuItem";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import Stack from "@mui/material/Stack";
 import { menuItems } from "../../utils/constants";
+import { NavLink } from "react-router-dom";
+import { StyledTypography, StyledTypographyMobile } from "./HeaderStyles";
 
 const Header = ({ toggleDrawer, changeMode, mode }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -31,25 +33,9 @@ const Header = ({ toggleDrawer, changeMode, mode }) => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AcUnitIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-              flexGrow: 1,
-            }}
-          >
+          <StyledTypography variant="h6" noWrap component="a" href="/">
             LOGO
-          </Typography>
-
+          </StyledTypography>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -63,24 +49,9 @@ const Header = ({ toggleDrawer, changeMode, mode }) => {
             </IconButton>
           </Box>
           <AcUnitIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
+          <StyledTypographyMobile variant="h5" noWrap component="a" href="/">
             LOGO
-          </Typography>
+          </StyledTypographyMobile>
           <Stack sx={{ flexGrow: 0 }} direction="row">
             <CustomizedSwitches mode={mode} changeMode={changeMode} />
             <Tooltip title="Open settings">
@@ -104,9 +75,11 @@ const Header = ({ toggleDrawer, changeMode, mode }) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {menuItems.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {menuItems.map((item) => (
+                <MenuItem key={item.name} onClick={handleCloseUserMenu}>
+                  <NavLink to={item.link} style={{ textDecoration: "none", color: "inherit" }}>
+                    <Typography textAlign="center">{item.name}</Typography>
+                  </NavLink>
                 </MenuItem>
               ))}
             </Menu>
