@@ -7,7 +7,7 @@ import {
 
 // отправляет данные
 const mapStateToProps = (state) => {
-  return { dialogsPage: state.dialogsReducer };
+  return { dialogsPage: state.dialogsReducer, isAuth: state.authReducer.isAuth };
 };
 
 // отправляет колбеки

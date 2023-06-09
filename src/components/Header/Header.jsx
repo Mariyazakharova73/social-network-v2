@@ -16,8 +16,9 @@ import Stack from "@mui/material/Stack";
 import { menuItems } from "../../utils/constants";
 import { NavLink } from "react-router-dom";
 import { StyledTypography, StyledTypographyMobile } from "./HeaderStyles";
+import { LOGIN_PATH } from "../../utils/constants";
 
-const Header = ({ toggleDrawer, changeMode, mode }) => {
+const Header = ({ toggleDrawer, changeMode, mode, isAuth }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenUserMenu = (event) => {
@@ -54,11 +55,25 @@ const Header = ({ toggleDrawer, changeMode, mode }) => {
           </StyledTypographyMobile>
           <Stack sx={{ flexGrow: 0 }} direction="row">
             <CustomizedSwitches mode={mode} changeMode={changeMode} />
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Mariya" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+            {!isAuth ? (
+              <NavLink
+                to={LOGIN_PATH}
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  alignItems: "center",
+                  display: "flex",
+                }}
+              >
+                LOGIN
+              </NavLink>
+            ) : (
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Mariya" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+            )}
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"

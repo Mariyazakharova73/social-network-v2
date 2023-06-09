@@ -1,4 +1,5 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import DialogsItem from "../DialogsItem/DialogsItem";
 import DialogsMessage from "../DialogsMessage/DialogsMessage";
 import Stack from "@mui/material/Stack";
@@ -8,8 +9,9 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import Box from "@mui/material/Box";
+import { LOGIN_PATH } from "../../utils/constants";
 
-const Dialogs = ({ updateNewMessageBody, sendMessage, dialogsPage }) => {
+const Dialogs = ({ updateNewMessageBody, sendMessage, dialogsPage, isAuth }) => {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   let messagesData = dialogsPage.messages;
@@ -28,6 +30,8 @@ const Dialogs = ({ updateNewMessageBody, sendMessage, dialogsPage }) => {
     let body = e.target.value;
     updateNewMessageBody(body);
   };
+
+  if (!isAuth) return <Navigate to={LOGIN_PATH} />;
 
   return (
     <Stack direction="row" spacing={2} divider={<Divider orientation="vertical" flexItem />}>

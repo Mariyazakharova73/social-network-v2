@@ -8,13 +8,12 @@ import { Pagination } from "@mui/material";
 const Users = ({
   totalUsersCount,
   pageSize,
-  unfollow,
-  follow,
+  followThunk,
+  unfollowThunk,
   currentPage,
   handlePageChange,
   users,
-  toggleFollowingProgress,
-  followingInProgress,
+  followingInProgress
 }) => {
   let pagesCount = Math.ceil(totalUsersCount / pageSize);
   return (
@@ -36,9 +35,8 @@ const Users = ({
             <StyledListItem key={user.id}>
               <UserCard
                 user={user}
-                unfollow={unfollow}
-                follow={follow}
-                toggleFollowingProgress={toggleFollowingProgress}
+                unfollowThunk={unfollowThunk}
+                followThunk={followThunk}
                 followingInProgress={followingInProgress}
               />
             </StyledListItem>

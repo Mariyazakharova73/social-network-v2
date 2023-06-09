@@ -6,11 +6,9 @@ import Avatar from "@mui/material/Avatar";
 import userAvatar from "../../images/user.png";
 import { StyledCardActions } from "./UserCardStyles";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
-import { BASE_URL } from "../../utils/constants";
 import LoadingButton from "@mui/lab/LoadingButton";
 
-const UserCard = ({ user, unfollow, follow, toggleFollowingProgress, followingInProgress }) => {
+const UserCard = ({ user, unfollowThunk, followThunk, followingInProgress }) => {
   return (
     <Card sx={{ width: { sm: 300, xs: 200 } }}>
       <StyledCardActions>
@@ -27,20 +25,7 @@ const UserCard = ({ user, unfollow, follow, toggleFollowingProgress, followingIn
             })}
             loadingIndicator="Loading…"
             onClick={() => {
-              toggleFollowingProgress(true, user.id);
-              axios
-                .delete(`${BASE_URL}/follow/${user.id}`, {
-                  withCredentials: true,
-                  headers: {
-                    "API-KEY": "a0fe9b9a-5b25-4ddf-ad31-84dadd909d2c",
-                  },
-                })
-                .then((res) => {
-                  if (res.data.resultCode === 0) {
-                    unfollow(user.id);
-                  }
-                  toggleFollowingProgress(false, user.id);
-                });
+              unfollowThunk(user.id);
             }}
             variant="contained"
             size="small"
@@ -54,20 +39,7 @@ const UserCard = ({ user, unfollow, follow, toggleFollowingProgress, followingIn
             })}
             loadingIndicator="Loading…"
             onClick={() => {
-              toggleFollowingProgress(true, user.id);
-              axios
-                .post(`${BASE_URL}/follow/${user.id}`, null, {
-                  withCredentials: true,
-                  headers: {
-                    "API-KEY": "a0fe9b9a-5b25-4ddf-ad31-84dadd909d2c",
-                  },
-                })
-                .then((res) => {
-                  if (res.data.resultCode === 0) {
-                    follow(user.id);
-                  }
-                  toggleFollowingProgress(false, user.id);
-                });
+              followThunk(user.id);
             }}
             variant="contained"
             size="small"
