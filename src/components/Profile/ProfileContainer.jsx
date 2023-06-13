@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import Profile from "./Profile";
-import { getUserProfileThunkCreator } from "../../redux/profileReducer";
+import { getStatusThunkCreator, getUserProfileThunkCreator } from "../../redux/profileReducer";
 import withRouter from "../../HOC/withRouter";
-import { Navigate } from "react-router-dom";
-import { LOGIN_PATH } from "../../utils/constants";
+import { compose } from "redux";
+import { updateStatusThunkCreator } from "./../../redux/profileReducer";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -14,23 +14,31 @@ class ProfileContainer extends React.Component {
     }
 
     this.props.getUserProfileThunk(userId);
+    this.props.getStatusThunk(userId);
   }
 
   render() {
-    return this.props.isAuth ? (
-      <Profile {...this.props} profile={this.props.profile} />
-    ) : (
-      <Navigate to={LOGIN_PATH} />
+    return (
+      <Profile
+        {...this.props}
+        profile={this.props.profile}
+        status={this.props.status}
+        updateStatusThunk={this.props.updateStatusThunk}
+      />
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  return { profile: state.profileReducer.profile,
-    isAuth: state.authReducer.isAuth };
+  return { profile: state.profileReducer.profile, status: state.profileReducer.status };
 };
 
-// ProfileContainer обернули в withRouter, чтобы передать url в классовый компонент
-export default connect(mapStateToProps, {
-  getUserProfileThunk: getUserProfileThunkCreator,
-})(withRouter(ProfileContainer));
+export default compose(
+  connect(mapStateToProps, {
+    getUserProfileThunk: getUserProfileThunkCreator,
+    getStatusThunk: getStatusThunkCreator,
+    updateStatusThunk: updateStatusThunkCreator,
+  }),
+  withRouter
+  // withAuthRedirect
+)(ProfileContainer);

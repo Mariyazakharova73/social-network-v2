@@ -6,13 +6,14 @@ import {
   unfollowAC,
   setCurrentPageAC,
   getUsersThunkCreator,
-  toggleFollowingProgressAC,
   unfollowThunkCreator,
 } from "../../redux/usersReducer";
 import { CircularProgress } from "@mui/material";
 import { followThunkCreator } from "./../../redux/usersReducer";
+import { withAuthRedirect } from "./../../HOC/withAuthRedirectComponent";
+import { compose } from "redux";
 
-class UsersAPIComponent extends React.Component {
+class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
@@ -52,6 +53,18 @@ const mapStateToProps = (state) => {
   };
 };
 
+export default compose(
+  connect(mapStateToProps, {
+    follow: followAC,
+    unfollow: unfollowAC,
+    setCurrentPage: setCurrentPageAC,
+    getUsers: getUsersThunkCreator,
+    unfollowThunk: unfollowThunkCreator,
+    followThunk: followThunkCreator,
+  }),
+  withAuthRedirect
+)(UsersContainer);
+
 // const mapDispatchToProps = (dispatch) => {
 //   return {
 //     follow: (userId) => {
@@ -74,14 +87,3 @@ const mapStateToProps = (state) => {
 //     },
 //   };
 // };
-
-const UsersContainer = connect(mapStateToProps, {
-  follow: followAC,
-  unfollow: unfollowAC,
-  setCurrentPage: setCurrentPageAC,
-  getUsers: getUsersThunkCreator,
-  unfollowThunk: unfollowThunkCreator,
-  followThunk: followThunkCreator,
-})(UsersAPIComponent);
-
-export default UsersContainer;

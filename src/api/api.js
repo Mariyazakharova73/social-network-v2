@@ -25,16 +25,29 @@ export const usersAPI = {
       return res.data;
     });
   },
-  getProfile(userId) {
-    return instance.get(`profile/${userId}`).then((res) => {
-      return res.data;
-    });
-  },
 };
 
 export const authAPI = {
   getMe() {
     return instance.get(`auth/me`).then((res) => {
+      return res.data;
+    });
+  },
+};
+
+export const profileAPI = {
+  getProfile(userId) {
+    return instance.get(`profile/${userId}`).then((res) => {
+      return res.data;
+    });
+  },
+  getStatus(userId) {
+    return instance.get(`profile/status/${userId}`).then((res) => {
+      return res.data;
+    });
+  },
+  updateStatus(status) {
+    return instance.put(`profile/status`, { status: status }).then((res) => {
       return res.data;
     });
   },

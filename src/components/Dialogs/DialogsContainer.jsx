@@ -1,13 +1,15 @@
 import { connect } from "react-redux";
 import Dialogs from "./Dialogs";
+import { withAuthRedirect } from "./../../HOC/withAuthRedirectComponent";
 import {
   updateNewMessageBodyActionCreator,
   sendMessageActionCreator,
 } from "../../redux/dialogsReducer";
+import { compose } from "redux";
 
 // отправляет данные
 const mapStateToProps = (state) => {
-  return { dialogsPage: state.dialogsReducer, isAuth: state.authReducer.isAuth };
+  return { dialogsPage: state.dialogsReducer };
 };
 
 // отправляет колбеки
@@ -22,10 +24,11 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs); // connect создает контейнерную компоненту.
-// Внутри она рендерит презентационную компоненту, свойства передаются через функции.
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuthRedirect
 
-export default DialogsContainer;
+)(Dialogs);
 
 // const DialogsContainer = () => {
 //   return (
