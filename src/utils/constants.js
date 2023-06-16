@@ -15,8 +15,8 @@ export const LOGIN_PATH = "/login";
 export const menuItems = [
   { name: "Profile", link: PROFILE_PATH },
   { name: "Account", link: "" },
-  { name: "Dashboard", link: "" },
   { name: "Login", link: LOGIN_PATH },
+  { name: "LogOut", link: LOGIN_PATH },
 ];
 
 export const BASE_URL = "https://social-network.samuraijs.com/api/1.0";

@@ -26,6 +26,16 @@ const App = () => {
   const theme = createTheme({
     palette: {
       mode: mode,
+      primary: {
+        main: "#057147",
+      },
+      secondary: {
+        main: "#d29262",
+      },
+      // background: {
+      //   default: mode==='light'? '#FAFAFA': '#3F3F3F',
+      //   paper: '#6d6a6a',
+      // },
     },
   });
 

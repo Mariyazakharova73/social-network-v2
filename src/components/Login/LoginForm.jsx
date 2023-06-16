@@ -10,12 +10,13 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Stack from "@mui/material/Stack";
+import Notifications from "./../Notifications/Notifications";
 
-const LoginForm = () => {
+const LoginForm = ({ loginThunk }) => {
   const [showPassword, setShowPassword] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -23,28 +24,36 @@ const LoginForm = () => {
     event.preventDefault();
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
   return (
     <Formik
       initialValues={{
-        login: "",
+        email: "",
         password: "",
         rememberMe: true,
       }}
-      onSubmit={(values, { resetForm }) => {
-        console.log(values);
+      onSubmit={(values, { resetForm, setStatus }) => {
+        const { email, password, rememberMe } = values;
+        loginThunk(email, password, rememberMe, setStatus, setOpen);
         resetForm();
       }}
       validationSchema={loginSchema}
     >
-      {({ values, handleChange, errors, touched, dirty }) => (
+      {({ values, handleChange, errors, touched, dirty, status }) => (
         <Box sx={{ maxWidth: { sm: "70%" } }}>
           <FormikForm>
             <Stack spacing={2}>
               <Field
                 as={TextField}
                 variant="filled"
-                name="login"
-                placeholder="Login"
+                name="email"
+                placeholder="Email"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -53,8 +62,8 @@ const LoginForm = () => {
                   ),
                 }}
                 fullWidth
-                error={touched && !!errors.login}
-                helperText={touched && errors.login}
+                error={touched.email && !!errors.email}
+                helperText={touched.email && errors.email}
                 type="text"
               />
               <Field
@@ -63,8 +72,8 @@ const LoginForm = () => {
                 placeholder="Password"
                 fullWidth
                 variant="filled"
-                error={touched && !!errors.password}
-                helperText={touched && errors.password}
+                error={touched.password && !!errors.password}
+                helperText={touched.password && errors.password}
                 type={showPassword ? "text" : "password"}
                 InputProps={{
                   endAdornment: (
@@ -85,7 +94,7 @@ const LoginForm = () => {
                   variant="contained"
                   type="submit"
                   endIcon={<SendIcon />}
-                  disabled={!dirty || !!errors.login || !!errors.password}
+                  disabled={!dirty || !!errors.email || !!errors.password}
                   fullWidth
                 >
                   Send
@@ -96,6 +105,7 @@ const LoginForm = () => {
                 </label>
               </Box>
             </Stack>
+            <Notifications text={status?.testError} open={open} handleClose={handleClose} />
           </FormikForm>
         </Box>
       )}

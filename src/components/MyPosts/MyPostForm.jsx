@@ -21,7 +21,6 @@ const MyPostForm = ({ onAddPost }) => {
         resetForm();
       }}
       validationSchema={newPostTextSchema}
-      validateOnBlur
     >
       {({ values, handleChange, errors, touched, dirty }) => (
         <Box sx={{ maxWidth: { sm: "70%" } }} mb={2}>
@@ -33,8 +32,8 @@ const MyPostForm = ({ onAddPost }) => {
               fullWidth
               variant="filled"
               multiline
-              error={touched && !!errors.newPostText}
-              helperText={touched && errors.newPostText}
+              error={touched.newPostText && !!errors.newPostText}
+              helperText={touched.newPostText && errors.newPostText}
               type="text"
             />
             <Box mt={2} sx={{ textAlign: "end" }}>

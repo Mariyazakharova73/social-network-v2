@@ -29,8 +29,8 @@ const DialogsForm = ({ addNewMessage }) => {
             fullWidth
             variant="filled"
             multiline
-            error={touched && !!errors.newMessageBody}
-            helperText={touched && errors.newMessageBody}
+            error={touched.newMessageBody && !!errors.newMessageBody}
+            helperText={touched.newMessageBody && errors.newMessageBody}
             type="text"
           />
           <Box mt={2} sx={{ textAlign: "end" }}>

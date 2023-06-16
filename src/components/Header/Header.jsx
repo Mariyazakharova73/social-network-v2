@@ -11,14 +11,16 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AcUnitIcon from "@mui/icons-material/AcUnit";
+import ForestTwoToneIcon from "@mui/icons-material/ForestTwoTone";
 import Stack from "@mui/material/Stack";
 import { menuItems } from "../../utils/constants";
 import { NavLink } from "react-router-dom";
 import { StyledTypography, StyledTypographyMobile } from "./HeaderStyles";
 import { LOGIN_PATH } from "../../utils/constants";
+import Button from "@mui/material/Button";
+import LogoutIcon from "@mui/icons-material/Logout";
 
-const Header = ({ toggleDrawer, changeMode, mode, isAuth }) => {
+const Header = ({ toggleDrawer, changeMode, mode, isAuth, logoutThunk }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenUserMenu = (event) => {
@@ -33,9 +35,9 @@ const Header = ({ toggleDrawer, changeMode, mode, isAuth }) => {
     <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AcUnitIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <ForestTwoToneIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <StyledTypography variant="h6" noWrap component="a" href="/">
-            LOGO
+            logo
           </StyledTypography>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -49,9 +51,9 @@ const Header = ({ toggleDrawer, changeMode, mode, isAuth }) => {
               <MenuIcon />
             </IconButton>
           </Box>
-          <AcUnitIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <ForestTwoToneIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <StyledTypographyMobile variant="h5" noWrap component="a" href="/">
-            LOGO
+            logo
           </StyledTypographyMobile>
           <Stack sx={{ flexGrow: 0 }} direction="row">
             <CustomizedSwitches mode={mode} changeMode={changeMode} />
@@ -92,9 +94,15 @@ const Header = ({ toggleDrawer, changeMode, mode, isAuth }) => {
             >
               {menuItems.map((item) => (
                 <MenuItem key={item.name} onClick={handleCloseUserMenu}>
-                  <NavLink to={item.link} style={{ textDecoration: "none", color: "inherit" }}>
-                    <Typography textAlign="center">{item.name}</Typography>
-                  </NavLink>
+                  {item.name === "LogOut" ? (
+                    <Button size="small" onClick={logoutThunk} endIcon={<LogoutIcon />}>
+                      LogOut
+                    </Button>
+                  ) : (
+                    <NavLink to={item.link} style={{ textDecoration: "none", color: "inherit" }}>
+                      <Typography textAlign="center">{item.name}</Typography>
+                    </NavLink>
+                  )}
                 </MenuItem>
               ))}
             </Menu>
