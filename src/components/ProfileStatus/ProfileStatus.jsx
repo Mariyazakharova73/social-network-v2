@@ -21,13 +21,15 @@ const ProfileStatus = ({
       </IconButton>
     </Stack>
   ) : (
-    <TextField
-      onChange={onStatusChange}
-      variant="standard"
-      value={status}
-      onBlur={deactivateEditMode}
-      autoFocus
-    />
+    <form>
+      <TextField
+        onChange={onStatusChange}
+        variant="standard"
+        value={status}
+        onBlur={deactivateEditMode}
+        autoFocus
+      />
+    </form>
   );
 };
 

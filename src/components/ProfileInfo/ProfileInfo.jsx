@@ -37,7 +37,6 @@ class ProfileInfo extends React.Component {
   }
 
   render() {
-    console.log("render");
     return (
       <Stack direction="row" spacing={3}>
         <Avatar
@@ -69,13 +68,15 @@ class ProfileInfo extends React.Component {
               </IconButton>
             </Stack>
           ) : (
-            <TextField
-              onChange={this.onStatusChange}
-              variant="standard"
-              value={this.state.status}
-              onBlur={this.deactivateEditMode}
-              autoFocus
-            />
+            <form>
+              <TextField
+                onChange={this.onStatusChange}
+                variant="standard"
+                value={this.state.status}
+                onBlur={this.deactivateEditMode}
+                autoFocus
+              />
+            </form>
           )}
         </Stack>
       </Stack>

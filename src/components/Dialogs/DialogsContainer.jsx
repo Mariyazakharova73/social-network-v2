@@ -1,10 +1,7 @@
 import { connect } from "react-redux";
 import Dialogs from "./Dialogs";
 import { withAuthRedirect } from "./../../HOC/withAuthRedirectComponent";
-import {
-  updateNewMessageBodyActionCreator,
-  sendMessageActionCreator,
-} from "../../redux/dialogsReducer";
+import { sendMessageActionCreator } from "../../redux/dialogsReducer";
 import { compose } from "redux";
 
 // отправляет данные
@@ -15,20 +12,13 @@ const mapStateToProps = (state) => {
 // отправляет колбеки
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateNewMessageBody: (body) => {
-      dispatch(updateNewMessageBodyActionCreator(body));
-    },
-    sendMessage: () => {
-      dispatch(sendMessageActionCreator());
+    sendMessage: (newMessageBody) => {
+      dispatch(sendMessageActionCreator(newMessageBody));
     },
   };
 };
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withAuthRedirect
-
-)(Dialogs);
+export default compose(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogs);
 
 // const DialogsContainer = () => {
 //   return (

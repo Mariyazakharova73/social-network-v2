@@ -5,7 +5,7 @@
 Социальная сеть
 
 ## Technologies
-`Material UI, React, Redux, TypeScript`
+`Material UI, React, Redux, TypeScript, formik`
 
 ## Available Scripts
 

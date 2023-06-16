@@ -1,24 +1,13 @@
 import React from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import Post from "../Post/Post";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import SendIcon from "@mui/icons-material/Send";
-import useWindowSize from "./../../hooks/useWindowSize";
+import MyPostForm from "./MyPostForm";
 
-const MyPosts = ({ updateNewPostText, addPost, profilePage }) => {
-  let newPostElement = React.createRef();
-  const windowSize = useWindowSize();
-
-  const onAddPost = () => {
-    addPost();
-  };
-
-  const onPostChange = () => {
-    let text = newPostElement.current.value;
-    updateNewPostText(text);
+const MyPosts = ({ addPost, profilePage }) => {
+  
+  const onAddPost = (data) => {
+    addPost(data);
   };
 
   return (
@@ -26,28 +15,7 @@ const MyPosts = ({ updateNewPostText, addPost, profilePage }) => {
       <Typography mt={2} variant="h6" component="h2">
         My posts
       </Typography>
-      <Box sx={{ maxWidth: { sm: "70%" } }} mb={2}>
-        <TextField
-          inputRef={newPostElement}
-          label="Your news"
-          multiline
-          variant="filled"
-          fullWidth
-          value={profilePage.newPostText}
-          onChange={onPostChange}
-        />
-        <Box mt={2} sx={{ textAlign: "end" }}>
-          <Button
-            onClick={onAddPost}
-            variant="contained"
-            endIcon={<SendIcon />}
-            fullWidth={windowSize < 600}
-          >
-            Send
-          </Button>
-        </Box>
-      </Box>
-
+      <MyPostForm onAddPost={onAddPost} />
       <List>
         {profilePage.posts.map((item) => {
           return <Post key={item.id} item={item} />;

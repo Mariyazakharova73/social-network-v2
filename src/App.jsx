@@ -5,13 +5,19 @@ import UsersContainer from "./components/Users/UsersContainer";
 import DesktopMenu from "./components/DesktopMenu/DesktopMenu";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import { DIALOGS_PATH, LOGIN_PATH, PROFILE_ITEM_PATH, PROFILE_PATH, USERS_PATH } from "./utils/constants";
+import {
+  DIALOGS_PATH,
+  LOGIN_PATH,
+  PROFILE_ITEM_PATH,
+  PROFILE_PATH,
+  USERS_PATH,
+} from "./utils/constants";
 import { ThemeProvider } from "@mui/system";
 import { createTheme } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import Login from './components/Login/Login';
+import Login from "./components/Login/Login";
 
 const App = () => {
   const [mode, setMode] = useState("light");
