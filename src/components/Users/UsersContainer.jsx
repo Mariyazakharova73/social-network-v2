@@ -62,7 +62,7 @@ export default compose(
     unfollowThunk: unfollowThunkCreator,
     followThunk: followThunkCreator,
   }),
-  withAuthRedirect
+  // withAuthRedirect
 )(UsersContainer);
 
 // const mapDispatchToProps = (dispatch) => {

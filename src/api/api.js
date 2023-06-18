@@ -40,7 +40,7 @@ export const authAPI = {
   },
   logout() {
     return instance.delete(`auth/login`).then((res) => {
-      return res.data.data;
+      return res.data;
     });
   },
 };

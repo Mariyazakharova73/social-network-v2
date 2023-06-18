@@ -5,13 +5,21 @@ import { getStatusThunkCreator, getUserProfileThunkCreator } from "../../redux/p
 import withRouter from "../../HOC/withRouter";
 import { compose } from "redux";
 import { updateStatusThunkCreator } from "./../../redux/profileReducer";
+import { LOGIN_PATH } from "../../utils/constants";
+import { withAuthRedirect } from './../../HOC/withAuthRedirectComponent';
 
 class ProfileContainer extends React.Component {
-  
   componentDidMount() {
     let userId = this.props.router.params.id;
+
     if (userId === "*") {
       userId = this.props.authorizedUserId;
+      if (!userId) {
+        console.log("tut");
+        console.log(this.props)
+        this.props.navigate("/login");
+        window.location.replace('/login')
+      }
     }
 
     this.props.getUserProfileThunk(userId);
@@ -19,14 +27,12 @@ class ProfileContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props.authorizedUserId, 'authorizedUserId');
     return (
       <Profile
         {...this.props}
         profile={this.props.profile}
         status={this.props.status}
         updateStatusThunk={this.props.updateStatusThunk}
-        
       />
     );
   }
@@ -37,7 +43,7 @@ const mapStateToProps = (state) => {
     profile: state.profileReducer.profile,
     status: state.profileReducer.status,
     authorizedUserId: state.authReducer.userId,
-    isAuth: state.authReducer.isAuth
+    isAuth: state.authReducer.isAuth,
   };
 };
 
@@ -47,6 +53,6 @@ export default compose(
     getStatusThunk: getStatusThunkCreator,
     updateStatusThunk: updateStatusThunkCreator,
   }),
-  withRouter
-  // withAuthRedirect
+  withRouter,
+  withAuthRedirect
 )(ProfileContainer);

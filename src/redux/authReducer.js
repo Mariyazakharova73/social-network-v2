@@ -27,9 +27,10 @@ export const setAuthUserDataAC = (userId, email, login, isAuth) => {
 
 export const getAuthUserDataThunkCreator = () => {
   return (dispatch) => {
-    authAPI.getMe().then((res) => {
+    return authAPI.getMe().then((res) => {
       if (res.resultCode === 0) {
-        let { id, email, login } = res;
+        console.log(res.resultCode, 'res.resultCode,')
+        let { id, email, login } = res.data;
         dispatch(setAuthUserDataAC(id, email, login, true));
       }
     });
@@ -55,7 +56,8 @@ export const logoutThunkCreator = () => {
     authAPI.logout().then((res) => {
       if (res.resultCode === 0) {
         //  зачищаем информацию о себе
-        dispatch(setAuthUserDataAC(null, null, null, false));
+         dispatch(setAuthUserDataAC(null, null, null, false));
+        
       }
     });
   };

@@ -8,7 +8,7 @@ function withRouter(Component) {
     let navigate = useNavigate();
     let params = useParams();
 
-    return <Component {...props} router={{ location, navigate, params }} />;
+    return <Component {...props} router={{ location, navigate, params }} navigate={navigate}/>;
   }
 
   return ComponentWithRouterProp;
