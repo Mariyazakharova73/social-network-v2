@@ -12,6 +12,14 @@ import { CircularProgress } from "@mui/material";
 import { followThunkCreator } from "./../../redux/usersReducer";
 import { withAuthRedirect } from "./../../HOC/withAuthRedirectComponent";
 import { compose } from "redux";
+import {
+  getPageSize,
+  requestUsers,
+  getTotalUsersCount,
+  getCurrentPage,
+  getIsFetching,
+  getFollowingInProgress,
+} from "./../../redux/usersSelectors";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
@@ -44,12 +52,12 @@ class UsersContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.usersReducer.users,
-    pageSize: state.usersReducer.pageSize,
-    totalUsersCount: state.usersReducer.totalUsersCount,
-    currentPage: state.usersReducer.currentPage,
-    isFetching: state.usersReducer.isFetching,
-    followingInProgress: state.usersReducer.followingInProgress,
+    users: requestUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    followingInProgress: getFollowingInProgress(state),
   };
 };
 
@@ -61,7 +69,7 @@ export default compose(
     getUsers: getUsersThunkCreator,
     unfollowThunk: unfollowThunkCreator,
     followThunk: followThunkCreator,
-  }),
+  })
   // withAuthRedirect
 )(UsersContainer);
 

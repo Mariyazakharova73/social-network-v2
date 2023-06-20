@@ -18,7 +18,6 @@ const authReducer = (state = initialState, action) => {
 };
 
 export const setAuthUserDataAC = (userId, email, login, isAuth) => {
-  console.log("email", email);
   return {
     type: SET_USER_DATA,
     payload: { userId, email, login, isAuth },
@@ -29,7 +28,6 @@ export const getAuthUserDataThunkCreator = () => {
   return (dispatch) => {
     return authAPI.getMe().then((res) => {
       if (res.resultCode === 0) {
-        console.log(res.resultCode, 'res.resultCode,')
         let { id, email, login } = res.data;
         dispatch(setAuthUserDataAC(id, email, login, true));
       }
@@ -56,8 +54,7 @@ export const logoutThunkCreator = () => {
     authAPI.logout().then((res) => {
       if (res.resultCode === 0) {
         //  зачищаем информацию о себе
-         dispatch(setAuthUserDataAC(null, null, null, false));
-        
+        dispatch(setAuthUserDataAC(null, null, null, false));
       }
     });
   };

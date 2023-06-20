@@ -6,7 +6,7 @@ import withRouter from "../../HOC/withRouter";
 import { compose } from "redux";
 import { updateStatusThunkCreator } from "./../../redux/profileReducer";
 import { LOGIN_PATH } from "../../utils/constants";
-import { withAuthRedirect } from './../../HOC/withAuthRedirectComponent';
+import { withAuthRedirect } from "./../../HOC/withAuthRedirectComponent";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -16,9 +16,9 @@ class ProfileContainer extends React.Component {
       userId = this.props.authorizedUserId;
       if (!userId) {
         console.log("tut");
-        console.log(this.props)
+        console.log(this.props);
         this.props.navigate("/login");
-        window.location.replace('/login')
+        window.location.replace(LOGIN_PATH);
       }
     }
 

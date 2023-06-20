@@ -1,21 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-const ProfileStatus = ({
-  deactivateEditMode,
-  status,
-  activateEditMode,
-  editMode,
-  onStatusChange,
-  textStatus,
-}) => {
+const ProfileStatus = ({ updateStatusThunk, prevStatus }) => {
+  const [editMode, setEditMode] = useState(false);
+  const [status, setStatus] = useState(prevStatus);
+
+  useEffect(() => {
+    setStatus(prevStatus)
+  }, [prevStatus]);
+
+  const activateEditMode = () => {
+    setEditMode(true);
+  };
+
+  const deactivateEditMode = () => {
+    setEditMode(false);
+    updateStatusThunk(status);
+  };
+
+  const onStatusChange = (e) => {
+    setStatus(e.target.value);
+  };
+
   return !editMode ? (
     <Stack direction="row" alignItems="center" spacing={1}>
-      <Typography component="p">Статус: {textStatus ? textStatus : "Не задан"}</Typography>
+      <Typography component="p">Статус: {prevStatus ? prevStatus : "Не задан"}</Typography>
       <IconButton aria-label="delete" size="small" onClick={activateEditMode}>
         <EditIcon fontSize="inherit" />
       </IconButton>
