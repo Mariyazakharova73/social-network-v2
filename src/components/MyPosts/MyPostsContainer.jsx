@@ -3,7 +3,7 @@ import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
-  return { profilePage: state.profileReducer };
+  return { posts: state.profileReducer.posts };
 };
 
 // отправляет колбеки

@@ -5,7 +5,7 @@ import ProfileInfo from "../ProfileInfo/ProfileInfo";
 const Profile = ({ profile, status, updateStatusThunk }) => {
   return (
     <>
-      <ProfileInfo profile={profile} status={status} updateStatusThunk={updateStatusThunk}/>
+      <ProfileInfo profile={profile} status={status} updateStatusThunk={updateStatusThunk} />
       <MyPostsContainer />
     </>
   );

@@ -4,11 +4,12 @@ import Post from "../Post/Post";
 import Typography from "@mui/material/Typography";
 import MyPostForm from "./MyPostForm";
 
-const MyPosts = ({ addPost, profilePage }) => {
-  
+const MyPosts = React.memo(({ addPost, posts }) => {
   const onAddPost = (data) => {
     addPost(data);
   };
+
+  console.log("data");
 
   return (
     <>
@@ -17,12 +18,12 @@ const MyPosts = ({ addPost, profilePage }) => {
       </Typography>
       <MyPostForm onAddPost={onAddPost} />
       <List>
-        {profilePage.posts.map((item) => {
+        {posts.map((item) => {
           return <Post key={item.id} item={item} />;
         })}
       </List>
     </>
   );
-};
+});
 
 export default MyPosts;
