@@ -12,12 +12,11 @@ class ProfileContainer extends React.Component {
   componentDidMount() {
     let userId = this.props.router.params.id;
 
-    if (userId === "*") {
+    if (userId === "*" || !userId) {
       userId = this.props.authorizedUserId;
+      
       if (!userId) {
-        console.log("tut");
-        console.log(this.props);
-        this.props.navigate("/login");
+        this.props.navigate(LOGIN_PATH);
         window.location.replace(LOGIN_PATH);
       }
     }

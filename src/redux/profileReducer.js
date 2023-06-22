@@ -59,30 +59,27 @@ export const deletePostAC = (postId) => ({ type: DELETE_POST, postId });
 export const setUserProfileAC = (profile) => ({ type: SET_USER_PROFILE, profile });
 
 export const getUserProfileThunkCreator = (userId) => {
-  return (dispatch) => {
-    profileAPI.getProfile(userId).then((res) => {
-      dispatch(setUserProfileAC(res));
-    });
+  return async (dispatch) => {
+    const res = await profileAPI.getProfile(userId);
+    dispatch(setUserProfileAC(res));
   };
 };
 
 export const setStatusAC = (status) => ({ type: SET_STATUS, status });
 
 export const getStatusThunkCreator = (userId) => {
-  return (dispatch) => {
-    profileAPI.getStatus(userId).then((res) => {
-      dispatch(setStatusAC(res));
-    });
+  return async (dispatch) => {
+    const res = await profileAPI.getStatus(userId);
+    dispatch(setStatusAC(res));
   };
 };
 
 export const updateStatusThunkCreator = (status) => {
-  return (dispatch) => {
-    profileAPI.updateStatus(status).then((res) => {
-      if (res.resultCode === 0) {
-        dispatch(setStatusAC(status));
-      }
-    });
+  return async (dispatch) => {
+    const res = await profileAPI.updateStatus(status);
+    if (res.resultCode === 0) {
+      dispatch(setStatusAC(status));
+    }
   };
 };
 

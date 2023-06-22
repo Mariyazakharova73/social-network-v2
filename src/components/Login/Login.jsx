@@ -7,9 +7,8 @@ import { Navigate } from "react-router-dom";
 import { PROFILE_PATH } from "../../utils/constants";
 
 const Login = ({ loginThunk, isAuth }) => {
-
   if (isAuth) {
-    return <Navigate to={PROFILE_PATH} />;
+    return <Navigate to={`${PROFILE_PATH}/*`} />;
   }
 
   return (
@@ -23,6 +22,4 @@ const mapStateToProps = (state) => {
   return { isAuth: state.authReducer.isAuth };
 };
 
-export default connect(mapStateToProps, { loginThunk: loginThunkCreator })(
-  Login
-);
+export default connect(mapStateToProps, { loginThunk: loginThunkCreator })(Login);

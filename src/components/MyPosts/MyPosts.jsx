@@ -5,11 +5,10 @@ import Typography from "@mui/material/Typography";
 import MyPostForm from "./MyPostForm";
 
 const MyPosts = React.memo(({ addPost, posts }) => {
+
   const onAddPost = (data) => {
     addPost(data);
   };
-
-  console.log("data");
 
   return (
     <>

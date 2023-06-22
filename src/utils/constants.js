@@ -4,7 +4,7 @@ import NewspaperIcon from "@mui/icons-material/Newspaper";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import PeopleIcon from "@mui/icons-material/People";
 
-export const PROFILE_PATH = "/profile/*";
+export const PROFILE_PATH = "/profile";
 export const PROFILE_ITEM_PATH = "/profile/:id";
 export const DIALOGS_PATH = "/dialogs/*";
 export const DIALOGS_ITEM_PATH = "/dialogs/:id";

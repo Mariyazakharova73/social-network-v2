@@ -7,12 +7,13 @@ import userAvatar from "../../images/user.png";
 import { StyledCardActions } from "./UserCardStyles";
 import { NavLink } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { PROFILE_PATH } from "./../../utils/constants";
 
 const UserCard = ({ user, unfollowThunk, followThunk, followingInProgress }) => {
   return (
     <Card sx={{ width: { sm: 300, xs: 200 } }}>
       <StyledCardActions>
-        <NavLink to={"/profile/" + user.id}>
+        <NavLink to={`${PROFILE_PATH}/${user.id}`}>
           <Avatar
             alt={user.name}
             src={user.photos.small != null ? user.photos.small : userAvatar}

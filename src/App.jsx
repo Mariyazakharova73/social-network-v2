@@ -1,17 +1,11 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import { Route, Routes } from "react-router-dom";
 import MobileMenu from "./components/MobileMenu/MobileMenu";
 import UsersContainer from "./components/Users/UsersContainer";
 import DesktopMenu from "./components/DesktopMenu/DesktopMenu";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import {
-  DIALOGS_PATH,
-  LOGIN_PATH,
-  PROFILE_ITEM_PATH,
-  PROFILE_PATH,
-  USERS_PATH,
-} from "./utils/constants";
+import { DIALOGS_PATH, LOGIN_PATH, PROFILE_ITEM_PATH, USERS_PATH } from "./utils/constants";
 import { ThemeProvider } from "@mui/system";
 import { createTheme } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -85,7 +79,7 @@ class App extends Component {
             <DesktopMenu />
             <Box flex={4} p={2}>
               <Routes>
-                <Route path="/profile/:id?" element={<ProfileContainer />} />
+                <Route path={`${PROFILE_ITEM_PATH}?`} element={<ProfileContainer />} />
                 <Route path={DIALOGS_PATH} element={<DialogsContainer />} />
                 <Route path={USERS_PATH} element={<UsersContainer />} />
                 <Route path={LOGIN_PATH} element={<Login />} />
@@ -103,4 +97,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { initializeAppThunk: initializeAppThunkCreator })(App);
-
