@@ -39,6 +39,7 @@ class App extends Component {
     this.setState({ ...this.state, mode: this.state.mode === "light" ? "dark" : "light" });
     // setMode(mode === "light" ? "dark" : "light");
   };
+
   render() {
     if (!this.props.initialized) {
       return <Preloader initialized={this.props.initialized} />;
@@ -72,26 +73,14 @@ class App extends Component {
             <MobileMenu toggleDrawer={this.toggleDrawer} open={this.state.open} />
             <DesktopMenu />
             <Box flex={4} p={2}>
-              <Routes>
-                <Route
-                  path={`${PROFILE_ITEM_PATH}?`}
-                  element={
-                    <Suspense fallback={<Preloader initialized={false} />}>
-                      <ProfileContainer />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path={DIALOGS_PATH}
-                  element={
-                    <Suspense fallback={<Preloader initialized={false} />}>
-                      <DialogsContainer />
-                    </Suspense>
-                  }
-                />
-                <Route path={USERS_PATH} element={<UsersContainer />} />
-                <Route path={LOGIN_PATH} element={<Login />} />
-              </Routes>
+              <Suspense fallback={<Preloader initialized={false} />}>
+                <Routes>
+                  <Route path={`${PROFILE_ITEM_PATH}?`} element={<ProfileContainer />} />
+                  <Route path={DIALOGS_PATH} element={<DialogsContainer />} />
+                  <Route path={USERS_PATH} element={<UsersContainer />} />
+                  <Route path={LOGIN_PATH} element={<Login />} />
+                </Routes>
+              </Suspense>
             </Box>
           </Stack>
         </Box>
