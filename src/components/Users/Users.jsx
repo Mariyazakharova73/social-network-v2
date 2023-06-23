@@ -1,4 +1,4 @@
-import React from "react";
+ import React from "react";
 import List from "@mui/material/List";
 import { StyledListItem } from "./UsersStyles";
 import Stack from "@mui/material/Stack";
@@ -6,7 +6,7 @@ import UserCard from "../UserCard/UserCard";
 import { Pagination } from "@mui/material";
 
 const Users = ({
-  totalUsersCount,
+  totalItemsCount,
   pageSize,
   followThunk,
   unfollowThunk,
@@ -15,7 +15,7 @@ const Users = ({
   users,
   followingInProgress
 }) => {
-  let pagesCount = Math.ceil(totalUsersCount / pageSize);
+  let pagesCount = Math.ceil(totalItemsCount / pageSize);
   return (
     <>
       <Stack spacing={2}>

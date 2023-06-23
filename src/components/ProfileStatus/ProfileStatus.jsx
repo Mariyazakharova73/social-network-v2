@@ -10,7 +10,7 @@ const ProfileStatus = ({ updateStatusThunk, prevStatus }) => {
   const [status, setStatus] = useState(prevStatus);
 
   useEffect(() => {
-    setStatus(prevStatus)
+    setStatus(prevStatus);
   }, [prevStatus]);
 
   const activateEditMode = () => {
@@ -29,7 +29,7 @@ const ProfileStatus = ({ updateStatusThunk, prevStatus }) => {
   return !editMode ? (
     <Stack direction="row" alignItems="center" spacing={1}>
       <Typography component="p">Статус: {prevStatus ? prevStatus : "Не задан"}</Typography>
-      <IconButton aria-label="delete" size="small" onClick={activateEditMode}>
+      <IconButton size="small" onDoubleClick={activateEditMode}>
         <EditIcon fontSize="inherit" />
       </IconButton>
     </Stack>

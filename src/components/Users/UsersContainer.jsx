@@ -36,7 +36,7 @@ class UsersContainer extends React.Component {
       <CircularProgress thickness={5} color="secondary" size={50} />
     ) : (
       <Users
-        totalUsersCount={this.props.totalUsersCount}
+      totalItemsCount={this.props.totalItemsCount}
         pageSize={this.props.pageSize}
         followThunk={this.props.followThunk}
         unfollowThunk={this.props.unfollowThunk}
@@ -54,7 +54,7 @@ const mapStateToProps = (state) => {
   return {
     users: requestUsers(state),
     pageSize: getPageSize(state),
-    totalUsersCount: getTotalUsersCount(state),
+    totalItemsCount: getTotalUsersCount(state),
     currentPage: getCurrentPage(state),
     isFetching: getIsFetching(state),
     followingInProgress: getFollowingInProgress(state),

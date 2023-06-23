@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { Component, Suspense } from "react";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { connect, Provider } from "react-redux";
+import store from "./redux/redux-store";
 import MobileMenu from "./components/MobileMenu/MobileMenu";
 import UsersContainer from "./components/Users/UsersContainer";
 import DesktopMenu from "./components/DesktopMenu/DesktopMenu";
-import ProfileContainer from "./components/Profile/ProfileContainer";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import { DIALOGS_PATH, LOGIN_PATH, PROFILE_ITEM_PATH, USERS_PATH } from "./utils/constants";
 import { ThemeProvider } from "@mui/system";
 import { createTheme } from "@mui/material";
@@ -12,10 +12,11 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
-import { connect } from "react-redux";
 import { initializeAppThunkCreator } from "./redux/appReducer";
-import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
+import Preloader from "./components/Preloader/Preloader";
+
+const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
+const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 
 class App extends Component {
   // const [mode, setMode] = useState("light");
@@ -40,14 +41,7 @@ class App extends Component {
   };
   render() {
     if (!this.props.initialized) {
-      return (
-        <Backdrop
-          open={!this.props.initialized}
-          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-      );
+      return <Preloader initialized={this.props.initialized} />;
     }
 
     const theme = createTheme({
@@ -79,8 +73,22 @@ class App extends Component {
             <DesktopMenu />
             <Box flex={4} p={2}>
               <Routes>
-                <Route path={`${PROFILE_ITEM_PATH}?`} element={<ProfileContainer />} />
-                <Route path={DIALOGS_PATH} element={<DialogsContainer />} />
+                <Route
+                  path={`${PROFILE_ITEM_PATH}?`}
+                  element={
+                    <Suspense fallback={<Preloader initialized={false} />}>
+                      <ProfileContainer />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path={DIALOGS_PATH}
+                  element={
+                    <Suspense fallback={<Preloader initialized={false} />}>
+                      <DialogsContainer />
+                    </Suspense>
+                  }
+                />
                 <Route path={USERS_PATH} element={<UsersContainer />} />
                 <Route path={LOGIN_PATH} element={<Login />} />
               </Routes>
@@ -96,4 +104,14 @@ const mapStateToProps = (state) => ({
   initialized: state.appReducer.initialized,
 });
 
-export default connect(mapStateToProps, { initializeAppThunk: initializeAppThunkCreator })(App);
+let AppContainer = connect(mapStateToProps, { initializeAppThunk: initializeAppThunkCreator })(App);
+
+export const MainApp = () => {
+  return (
+    <BrowserRouter>
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    </BrowserRouter>
+  );
+};
