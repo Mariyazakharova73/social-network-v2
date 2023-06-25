@@ -9,14 +9,12 @@ import { LOGIN_PATH } from "../../utils/constants";
 import { withAuthRedirect } from "./../../HOC/withAuthRedirectComponent";
 
 class ProfileContainer extends React.Component {
-  componentDidMount() {
+  refreshProfile() {
     let userId = this.props.router.params.id;
-
     if (userId === "*" || !userId) {
       userId = this.props.authorizedUserId;
-      
       if (!userId) {
-        this.props.navigate(LOGIN_PATH);
+        // this.props.navigate(LOGIN_PATH);
         window.location.replace(LOGIN_PATH);
       }
     }
@@ -25,10 +23,23 @@ class ProfileContainer extends React.Component {
     this.props.getStatusThunk(userId);
   }
 
+  componentDidMount() {
+    this.refreshProfile();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+
+    if (this.props.router.params.id !== prevProps.router.params.id) {
+      this.refreshProfile();
+    }
+  }
+
   render() {
+    console.log(this.props.router.params.id);
     return (
       <Profile
         {...this.props}
+        isOwner={!this.props.router.params.id}
         profile={this.props.profile}
         status={this.props.status}
         updateStatusThunk={this.props.updateStatusThunk}

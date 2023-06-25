@@ -14,10 +14,7 @@ const UserCard = ({ user, unfollowThunk, followThunk, followingInProgress }) => 
     <Card sx={{ width: { sm: 300, xs: 200 } }}>
       <StyledCardActions>
         <NavLink to={`${PROFILE_PATH}/${user.id}`}>
-          <Avatar
-            alt={user.name}
-            src={user.photos.small != null ? user.photos.small : userAvatar}
-          />
+          <Avatar alt={user.name} src={user.photos?.small || userAvatar} />
         </NavLink>
         {user.followed ? (
           <LoadingButton

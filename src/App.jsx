@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from "react";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes, HashRouter } from "react-router-dom";
 import { connect, Provider } from "react-redux";
 import store from "./redux/redux-store";
 import MobileMenu from "./components/MobileMenu/MobileMenu";
@@ -97,10 +97,10 @@ let AppContainer = connect(mapStateToProps, { initializeAppThunk: initializeAppT
 
 export const MainApp = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Provider store={store}>
         <AppContainer />
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 };

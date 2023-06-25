@@ -31,4 +31,4 @@ export const sidebarData = [
 
 export const avatar = "https://mui.com/static/images/avatar/3.jpg";
 
-export const API_KEY = "a0fe9b9a-5b25-4ddf-ad31-84dadd909d2c";
+export const API_KEY = "bc4d7bbf-98e2-4f08-9831-e79b832ca0ac";

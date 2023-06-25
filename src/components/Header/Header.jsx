@@ -19,12 +19,13 @@ import { StyledTypography, StyledTypographyMobile } from "./HeaderStyles";
 import { LOGIN_PATH } from "../../utils/constants";
 import Button from "@mui/material/Button";
 import LogoutIcon from "@mui/icons-material/Logout";
+import userAvatar from "../../images/user.png";
 
-const Header = ({ toggleDrawer, changeMode, mode, isAuth, logoutThunk }) => {
+const Header = ({ toggleDrawer, changeMode, mode, isAuth, logoutThunk, photos }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
+  const handleOpenUserMenu = (e) => {
+    setAnchorElUser(e.currentTarget);
   };
 
   const handleCloseUserMenu = () => {
@@ -40,14 +41,7 @@ const Header = ({ toggleDrawer, changeMode, mode, isAuth, logoutThunk }) => {
             logo
           </StyledTypography>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={toggleDrawer(true)}
-              color="inherit"
-            >
+            <IconButton size="large" onClick={toggleDrawer(true)} color="inherit">
               <MenuIcon />
             </IconButton>
           </Box>
@@ -72,7 +66,7 @@ const Header = ({ toggleDrawer, changeMode, mode, isAuth, logoutThunk }) => {
             ) : (
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Mariya" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="Mariya" src={photos?.large || userAvatar} />
                 </IconButton>
               </Tooltip>
             )}
