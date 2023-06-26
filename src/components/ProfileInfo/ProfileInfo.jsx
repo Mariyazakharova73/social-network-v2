@@ -1,47 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import ProfileStatus from "./../ProfileStatus/ProfileStatus";
 import ProfileAvatar from "./ProfileAvatar";
+import ProfileDataForm from "../ProfileForm/ProfileForm";
+import ProfileData from "./../ProfileData/ProfileData";
 
-class ProfileInfo extends React.Component {
-  state = {
-    anchorEl: null,
+const ProfileInfo = ({ profile, status, updateStatusThunk, isOwner, savePhoto }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
   };
 
-  handleClick = (e) => {
-    this.setState({ ...this.state, anchorEl: e.currentTarget });
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
-  handleClose = () => {
-    this.setState({ ...this.state, anchorEl: null });
+  const activateEditMode = () => {
+    setEditMode(true);
   };
 
-  render() {
-    return (
-      <Stack direction="row" spacing={3}>
-        <ProfileAvatar
-          handleClick={this.handleClick}
-          anchorEl={this.state.anchorEl}
-          handleClose={this.handleClose}
-          photo={this.props.profile.photos?.large}
-          isOwner={this.props.isOwner}
-          savePhoto={this.props.savePhoto}
+  const deactivateEditMode = () => {
+    setEditMode(false);
+    updateStatusThunk(status);
+  };
+
+  return (
+    <Stack direction="row" spacing={3}>
+      <ProfileAvatar
+        handleClick={handleClick}
+        anchorEl={anchorEl}
+        handleClose={handleClose}
+        photo={profile.photos?.large}
+        isOwner={isOwner}
+        savePhoto={savePhoto}
+      />
+      {editMode ? (
+        <ProfileDataForm />
+      ) : (
+        <ProfileData
+          status={status}
+          updateStatusThunk={updateStatusThunk}
+          profile={profile}
+          activateEditMode={activateEditMode}
+          isOwner={isOwner}
         />
-        <Stack>
-          <Typography component="p">Имя: {this.props.profile.fullName}</Typography>
-          <Typography component="p">О себе: {this.props.profile.aboutMe}</Typography>
-          <Typography component="p">
-            Информация: {this.props.profile?.lookingForAJobDescription}
-          </Typography>
-          <ProfileStatus
-            prevStatus={this.props.status}
-            updateStatusThunk={this.props.updateStatusThunk}
-          />
-        </Stack>
-      </Stack>
-    );
-  }
-}
+      )}
+    </Stack>
+  );
+};
 
 export default ProfileInfo;

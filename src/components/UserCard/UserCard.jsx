@@ -10,6 +10,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { PROFILE_PATH } from "./../../utils/constants";
 
 const UserCard = ({ user, unfollowThunk, followThunk, followingInProgress }) => {
+  console.log(user)
   return (
     <Card sx={{ width: { sm: 300, xs: 200 } }}>
       <StyledCardActions>

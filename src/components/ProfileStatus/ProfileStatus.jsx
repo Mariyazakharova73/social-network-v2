@@ -28,8 +28,8 @@ const ProfileStatus = ({ updateStatusThunk, prevStatus }) => {
 
   return !editMode ? (
     <Stack direction="row" alignItems="center" spacing={1}>
-      <Typography component="p">Статус: {prevStatus ? prevStatus : "Не задан"}</Typography>
-      <IconButton size="small" onDoubleClick={activateEditMode}>
+      <Typography component="p">Status: {prevStatus ? prevStatus : "Не задан"}</Typography>
+      <IconButton size="small" onClick={activateEditMode}>
         <EditIcon fontSize="inherit" />
       </IconButton>
     </Stack>
