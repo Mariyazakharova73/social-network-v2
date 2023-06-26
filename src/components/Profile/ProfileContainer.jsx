@@ -1,10 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import Profile from "./Profile";
-import { getStatusThunkCreator, getUserProfileThunkCreator } from "../../redux/profileReducer";
+import {
+  getStatusThunkCreator,
+  getUserProfileThunkCreator,
+  updateStatusThunkCreator,
+  savePhotoThunkCreator,
+} from "../../redux/profileReducer";
 import withRouter from "../../HOC/withRouter";
 import { compose } from "redux";
-import { updateStatusThunkCreator } from "./../../redux/profileReducer";
 import { LOGIN_PATH } from "../../utils/constants";
 import { withAuthRedirect } from "./../../HOC/withAuthRedirectComponent";
 
@@ -28,7 +32,6 @@ class ProfileContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-
     if (this.props.router.params.id !== prevProps.router.params.id) {
       this.refreshProfile();
     }
@@ -62,6 +65,7 @@ export default compose(
     getUserProfileThunk: getUserProfileThunkCreator,
     getStatusThunk: getStatusThunkCreator,
     updateStatusThunk: updateStatusThunkCreator,
+    savePhoto: savePhotoThunkCreator,
   }),
   withRouter,
   withAuthRedirect

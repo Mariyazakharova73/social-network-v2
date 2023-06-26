@@ -9,21 +9,41 @@ import PanoramaIcon from "@mui/icons-material/Panorama";
 import userAvatar from "../../images/user.png";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import BasicModal from "../BasicModal/BasicModal";
+import EditPhotoModal from "../Modal/EditPhotoModal";
+import OpenImageModal from "./../Modal/OpenImageModal";
 
-const ProfileAvatar = ({ handleClick, anchorEl, handleClose, photo, isOwner }) => {
+const ProfileAvatar = ({ handleClick, anchorEl, handleClose, photo, isOwner, savePhoto }) => {
   const open = Boolean(anchorEl);
   const [openModal, setOpenModal] = React.useState(false);
+  const [openPhotoModal, setOpenPhotoModal] = React.useState(false);
   const handleOpenModal = () => setOpenModal(true);
+  const handleOpenPhotoModal = () => setOpenPhotoModal(true);
   const handleCloseModal = () => setOpenModal(false);
+  const handleClosePhotoModal = () => setOpenPhotoModal(false);
 
   const handleClickEditPhoto = () => {
-    handleClose(handleOpenModal());
+    handleClose();
+    handleOpenModal();
+  };
+
+  const handleClickOpenPhoto = () => {
+    handleClose();
+    handleOpenPhotoModal();
   };
 
   return (
     <>
-      <BasicModal openModal={openModal} handleCloseModal={handleCloseModal} />
+      <EditPhotoModal
+        openModal={openModal}
+        handleCloseModal={handleCloseModal}
+        savePhoto={savePhoto}
+      />
+      <OpenImageModal
+        openModal={openPhotoModal}
+        handleCloseModal={handleOpenPhotoModal}
+        handleClosePhotoModal={handleClosePhotoModal}
+        photo={photo}
+      />
       <Tooltip title="Avatar settings">
         <IconButton
           onClick={handleClick}
@@ -44,18 +64,20 @@ const ProfileAvatar = ({ handleClick, anchorEl, handleClose, photo, isOwner }) =
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleClickOpenPhoto}>
           <ListItemIcon>
             <PanoramaIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText>Open photo</ListItemText>
         </MenuItem>
-        {isOwner && <MenuItem onClick={handleClickEditPhoto}>
-          <ListItemIcon>
-            <EditIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Edit photo</ListItemText>
-        </MenuItem>}
+        {isOwner && (
+          <MenuItem onClick={handleClickEditPhoto}>
+            <ListItemIcon>
+              <EditIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Edit photo</ListItemText>
+          </MenuItem>
+        )}
       </Menu>
     </>
   );

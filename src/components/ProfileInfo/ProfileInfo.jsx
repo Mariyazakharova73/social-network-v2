@@ -26,6 +26,7 @@ class ProfileInfo extends React.Component {
           handleClose={this.handleClose}
           photo={this.props.profile.photos?.large}
           isOwner={this.props.isOwner}
+          savePhoto={this.props.savePhoto}
         />
         <Stack>
           <Typography component="p">Имя: {this.props.profile.fullName}</Typography>
