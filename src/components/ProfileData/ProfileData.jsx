@@ -7,9 +7,10 @@ import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 
-const ProfileData = ({ profile, status, updateStatusThunk, activateEditMode, isOwner }) => {
+const ProfileData = ({ profile, status, updateStatusThunk, isOwner, handleOpenForm }) => {
   return (
-    <Stack>
+    // при width больше 600px ml=16px
+    <Stack ml={{ sm: 2 }}>
       <Typography component="p">Full name: {profile?.fullName}</Typography>
       <Typography component="p">About me: {profile?.aboutMe}</Typography>
       <Typography component="p">
@@ -34,7 +35,7 @@ const ProfileData = ({ profile, status, updateStatusThunk, activateEditMode, isO
             })}
         </Stack>
         {isOwner && (
-          <IconButton size="small" onClick={activateEditMode}>
+          <IconButton size="small" onClick={handleOpenForm}>
             <EditIcon fontSize="inherit" />
           </IconButton>
         )}

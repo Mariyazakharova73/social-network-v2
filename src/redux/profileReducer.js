@@ -95,8 +95,18 @@ export const savePhotoThunkCreator = (file) => {
   return async (dispatch) => {
     const res = await profileAPI.savePhoto(file);
     if (res.resultCode === 0) {
-      console.log(res, "photo");
       dispatch(savePhotoSuccessAC(res.data.photos));
+    }
+  };
+};
+
+export const saveProfieThunkCreator = (profileData) => {
+  return async (dispatch, getState) => {
+    const userId = getState().authReducer.userId;
+    const res = await profileAPI.saveProfie(profileData);
+    if (res.resultCode === 0) {
+      // т.к в res нет данных о профиле, запросим заново измененные данные
+      dispatch(getUserProfileThunkCreator(userId));
     }
   };
 };

@@ -33,8 +33,8 @@ export const authAPI = {
       return res.data;
     });
   },
-  login(email, password, rememberMe = false) {
-    return instance.post(`auth/login`, { email, password, rememberMe }).then((res) => {
+  login(email, password, rememberMe = false, captcha = null) {
+    return instance.post(`auth/login`, { email, password, rememberMe, captcha }).then((res) => {
       return res.data;
     });
   },
@@ -69,5 +69,18 @@ export const profileAPI = {
       .then((res) => {
         return res.data;
       });
+  },
+  saveProfie(profileData) {
+    return instance.put(`profile`, profileData).then((res) => {
+      return res.data;
+    });
+  },
+};
+
+export const securityAPI = {
+  getCaptchaUrl() {
+    return instance.get(`security/get-captcha-url`).then((res) => {
+      return res.data;
+    });
   },
 };

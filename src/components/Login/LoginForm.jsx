@@ -13,8 +13,10 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Checkbox from "@mui/material/Checkbox";
 import Stack from "@mui/material/Stack";
 import Notifications from "./../Notifications/Notifications";
+import s from "./LoginForm.module.css";
+import { createField } from "../../utils/helpers";
 
-const LoginForm = ({ loginThunk }) => {
+const LoginForm = ({ loginThunk, captchaUrl }) => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [open, setOpen] = React.useState(false);
 
@@ -24,7 +26,7 @@ const LoginForm = ({ loginThunk }) => {
     event.preventDefault();
   };
 
-  const handleClose = (event, reason) => {
+  const handleClose = (e, reason) => {
     if (reason === "clickaway") {
       return;
     }
@@ -37,10 +39,11 @@ const LoginForm = ({ loginThunk }) => {
         email: "",
         password: "",
         rememberMe: true,
+        captcha: "",
       }}
       onSubmit={(values, { resetForm, setStatus }) => {
-        const { email, password, rememberMe } = values;
-        loginThunk(email, password, rememberMe, setStatus, setOpen);
+        const { email, password, rememberMe, captcha } = values;
+        loginThunk(email, password, rememberMe, captcha, setStatus, setOpen);
         resetForm();
       }}
       validationSchema={loginSchema}
@@ -104,6 +107,12 @@ const LoginForm = ({ loginThunk }) => {
                   Запомнить меня
                 </label>
               </Box>
+              {captchaUrl && (
+                <div>
+                  <img className={s.image} src={captchaUrl} alt="Captcha." />{" "}
+                  {createField("captcha", "Введите код с картинки", touched, errors)}
+                </div>
+              )}
             </Stack>
             <Notifications text={status?.testError} open={open} handleClose={handleClose} />
           </FormikForm>
