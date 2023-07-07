@@ -82,9 +82,16 @@ export const getStatusThunkCreator = (userId) => {
 
 export const updateStatusThunkCreator = (status) => {
   return async (dispatch) => {
-    const res = await profileAPI.updateStatus(status);
-    if (res.resultCode === 0) {
-      dispatch(setStatusAC(status));
+    try {
+      const res = await profileAPI.updateStatus(status);
+      if (res.resultCode === 0) {
+        dispatch(setStatusAC(status));
+      }
+      if (res.resultCode === 1) {
+        Promise.reject("Максимальня длина текста - 300 символов");
+      }
+    } catch(e) {
+      console.log(e)
     }
   };
 };

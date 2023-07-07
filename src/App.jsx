@@ -1,11 +1,18 @@
 import React, { Component, Suspense } from "react";
-import { Route, Routes, HashRouter } from "react-router-dom";
+import { Route, Routes, HashRouter, Navigate } from "react-router-dom";
 import { connect, Provider } from "react-redux";
 import store from "./redux/redux-store";
 import MobileMenu from "./components/MobileMenu/MobileMenu";
 import UsersContainer from "./components/Users/UsersContainer";
 import DesktopMenu from "./components/DesktopMenu/DesktopMenu";
-import { DIALOGS_PATH, LOGIN_PATH, PROFILE_ITEM_PATH, USERS_PATH } from "./utils/constants";
+import {
+  DIALOGS_PATH,
+  LOGIN_PATH,
+  PROFILE_ITEM_PATH,
+  USERS_PATH,
+  MAIN_PATH,
+  PROFILE_PATH,
+} from "./utils/constants";
 import { ThemeProvider } from "@mui/system";
 import { createTheme } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -26,9 +33,19 @@ class App extends Component {
     open: false,
   };
 
+  // catchAllUnhandledErrors = (e) => {
+  //   alert("error");
+  //   //console.error(e);
+  // };
+
   componentDidMount() {
     this.props.initializeAppThunk();
+    // window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
   }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+  // }
 
   toggleDrawer = (newOpen) => () => {
     this.setState({ ...this.state, open: newOpen });
@@ -75,10 +92,12 @@ class App extends Component {
             <Box flex={4} p={2}>
               <Suspense fallback={<Preloader initialized={false} />}>
                 <Routes>
+                  <Route path={MAIN_PATH} element={<Navigate to={PROFILE_PATH} />} />
                   <Route path={`${PROFILE_ITEM_PATH}?`} element={<ProfileContainer />} />
                   <Route path={DIALOGS_PATH} element={<DialogsContainer />} />
                   <Route path={USERS_PATH} element={<UsersContainer />} />
                   <Route path={LOGIN_PATH} element={<Login />} />
+                  <Route path="*" element={<div>404 NOT FOUND</div>} />
                 </Routes>
               </Suspense>
             </Box>
