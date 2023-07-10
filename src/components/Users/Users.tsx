@@ -1,19 +1,31 @@
- import React from "react";
+import React, { FC } from "react";
 import List from "@mui/material/List";
 import { StyledListItem } from "./UsersStyles";
 import Stack from "@mui/material/Stack";
 import UserCard from "../UserCard/UserCard";
 import { Pagination } from "@mui/material";
+import { IUser } from "./../../types/types";
 
-const Users = ({
+interface IUsersProps {
+  totalItemsCount: number;
+  pageSize: number;
+  currentPage: number;
+  handlePageChange: any;
+  users: Array<IUser>;
+  followingInProgress: Array<number>;
+  follow: (userId: number) => void;
+  unfollow: (userId: number) => void;
+}
+
+const Users: FC<IUsersProps> = ({
   totalItemsCount,
   pageSize,
-  followThunk,
-  unfollowThunk,
+  follow,
+  unfollow,
   currentPage,
   handlePageChange,
   users,
-  followingInProgress
+  followingInProgress,
 }) => {
   let pagesCount = Math.ceil(totalItemsCount / pageSize);
   return (
@@ -35,8 +47,8 @@ const Users = ({
             <StyledListItem key={user.id}>
               <UserCard
                 user={user}
-                unfollowThunk={unfollowThunk}
-                followThunk={followThunk}
+                unfollow={unfollow}
+                follow={follow}
                 followingInProgress={followingInProgress}
               />
             </StyledListItem>

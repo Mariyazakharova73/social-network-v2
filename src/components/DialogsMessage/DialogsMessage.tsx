@@ -1,10 +1,15 @@
-import React from "react";
+import React, { FC } from "react";
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 
-const DialogsMessage = ({ message, index }) => {
+interface IDialogsMessageProps {
+  message: string;
+  index: number;
+}
+
+const DialogsMessage: FC<IDialogsMessageProps> = ({ message, index }) => {
   return (
     <ListItem
       sx={{

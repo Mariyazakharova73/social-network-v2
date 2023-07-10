@@ -1,5 +1,5 @@
-import * as React from "react";
-import CustomizedSwitches from "./../MaterialUISwitch/MaterialUISwitch";
+import React from "react";
+import CustomizedSwitches from "../MaterialUISwitch/MaterialUISwitch";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -20,11 +20,28 @@ import { LOGIN_PATH } from "../../utils/constants";
 import Button from "@mui/material/Button";
 import LogoutIcon from "@mui/icons-material/Logout";
 import userAvatar from "../../images/user.png";
+import { IPhotos } from "./../../types/types";
 
-const Header = ({ toggleDrawer, changeMode, mode, isAuth, logoutThunk, photos }) => {
+interface IHeaderProps {
+  toggleDrawer: (newOpen: boolean) => () => void;
+  changeMode: () => void;
+  mode: string;
+  isAuth: boolean;
+  logout: () => void;
+  photos: IPhotos;
+}
+
+const Header: React.FC<IHeaderProps> = ({
+  toggleDrawer,
+  changeMode,
+  mode,
+  isAuth,
+  logout,
+  photos,
+}) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleOpenUserMenu = (e) => {
+  const handleOpenUserMenu = (e: any) => {
     setAnchorElUser(e.currentTarget);
   };
 
@@ -41,7 +58,7 @@ const Header = ({ toggleDrawer, changeMode, mode, isAuth, logoutThunk, photos })
             logo
           </StyledTypography>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton size="large" onClick={toggleDrawer(true)} color="inherit">
+            <IconButton onClick={toggleDrawer(true)} color="inherit">
               <MenuIcon />
             </IconButton>
           </Box>
@@ -89,7 +106,7 @@ const Header = ({ toggleDrawer, changeMode, mode, isAuth, logoutThunk, photos })
               {menuItems.map((item) => (
                 <MenuItem key={item.name} onClick={handleCloseUserMenu}>
                   {item.name === "LogOut" ? (
-                    <Button size="small" onClick={logoutThunk} endIcon={<LogoutIcon />}>
+                    <Button size="small" onClick={logout} endIcon={<LogoutIcon />}>
                       LogOut
                     </Button>
                   ) : (

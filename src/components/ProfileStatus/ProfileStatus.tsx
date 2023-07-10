@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC, ChangeEvent } from "react";
 import TextField from "@mui/material/TextField";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-const ProfileStatus = ({ updateStatusThunk, prevStatus }) => {
+interface IProfileStatus {
+  prevStatus: string;
+  updateStatus: (status: string) => void;
+}
+
+const ProfileStatus: FC<IProfileStatus> = ({ updateStatus, prevStatus }) => {
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(prevStatus);
 
@@ -19,10 +24,10 @@ const ProfileStatus = ({ updateStatusThunk, prevStatus }) => {
 
   const deactivateEditMode = () => {
     setEditMode(false);
-    updateStatusThunk(status);
+    updateStatus(status);
   };
 
-  const onStatusChange = (e) => {
+  const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
     setStatus(e.target.value);
   };
 

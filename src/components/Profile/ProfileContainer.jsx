@@ -24,8 +24,8 @@ class ProfileContainer extends React.Component {
       }
     }
 
-    this.props.getUserProfileThunk(userId);
-    this.props.getStatusThunk(userId);
+    this.props.getUserProfile(userId);
+    this.props.getStatus(userId);
   }
 
   componentDidMount() {
@@ -45,7 +45,7 @@ class ProfileContainer extends React.Component {
         isOwner={!this.props.router.params.id}
         profile={this.props.profile}
         status={this.props.status}
-        updateStatusThunk={this.props.updateStatusThunk}
+        updateStatus={this.props.updateStatus}
         saveProfie={this.props.saveProfie}
       />
     );
@@ -63,9 +63,9 @@ const mapStateToProps = (state) => {
 
 export default compose(
   connect(mapStateToProps, {
-    getUserProfileThunk: getUserProfileThunkCreator,
-    getStatusThunk: getStatusThunkCreator,
-    updateStatusThunk: updateStatusThunkCreator,
+    getUserProfile: getUserProfileThunkCreator,
+    getStatus: getStatusThunkCreator,
+    updateStatus: updateStatusThunkCreator,
     savePhoto: savePhotoThunkCreator,
     saveProfie: saveProfieThunkCreator,
   }),

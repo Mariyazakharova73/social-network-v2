@@ -23,18 +23,18 @@ const ProfileForm = ({ openForm, handleCloseModal, saveProfie, profile }) => {
   return (
     <Formik
       initialValues={{
-        fullName: profile.fullName,
-        lookingForAJob: profile.lookingForAJob,
-        lookingForAJobDescription: profile.lookingForAJobDescription,
-        aboutMe: profile.aboutMe,
-        facebook: profile.contacts?.facebook,
-        website: profile.contacts?.website,
-        vk: profile.contacts?.vk,
-        twitter: profile.contacts?.twitter,
-        instagram: profile.contacts?.instagram,
-        youtube: profile.contacts?.youtube,
-        github: profile.contacts?.github,
-        mainLink: profile.contacts?.mainLink,
+        fullName: profile?.fullName,
+        lookingForAJob: profile?.lookingForAJob,
+        lookingForAJobDescription: profile?.lookingForAJobDescription,
+        aboutMe: profile?.aboutMe,
+        facebook: profile?.contacts?.facebook,
+        website: profile?.contacts?.website,
+        vk: profile?.contacts?.vk,
+        twitter: profile?.contacts?.twitter,
+        instagram: profile?.contacts?.instagram,
+        youtube: profile?.contacts?.youtube,
+        github: profile?.contacts?.github,
+        mainLink: profile?.contacts?.mainLink,
       }}
       enableReinitialize
       onSubmit={(values, { resetForm, setStatus }) => {
@@ -80,8 +80,8 @@ const ProfileForm = ({ openForm, handleCloseModal, saveProfie, profile }) => {
                 )}
                 {createField("aboutMe", "About me", touched, errors)}
                 <Stack direction="row" sx={{ flexWrap: "wrap" }} spacing={1}>
-                  {profile.contacts &&
-                    Object.keys(profile.contacts).map((item) => {
+                  {profile?.contacts &&
+                    Object.keys(profile?.contacts).map((item) => {
                       return (
                         <React.Fragment key={item}>
                           {createField(item, item, touched, errors)}

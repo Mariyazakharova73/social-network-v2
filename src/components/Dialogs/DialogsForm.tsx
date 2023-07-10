@@ -1,12 +1,16 @@
-import React from "react";
+import React, { FC } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
 import { Formik, Form as FormikForm, Field } from "formik";
-import { newMessageBodySchema } from "./../../utils/validators";
+import { newMessageBodySchema } from "../../utils/validators";
 
-const DialogsForm = ({ addNewMessage }) => {
+interface IDialogsFormProps {
+  addNewMessage: (newMessageBody: string) => void;
+}
+
+const DialogsForm: FC<IDialogsFormProps> = ({ addNewMessage }) => {
   return (
     <Formik
       initialValues={{

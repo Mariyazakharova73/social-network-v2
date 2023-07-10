@@ -1,16 +1,13 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { connect } from "react-redux";
 import Users from "./Users";
 import {
-  followAC,
-  unfollowAC,
   setCurrentPageAC,
   getUsersThunkCreator,
   unfollowThunkCreator,
 } from "../../redux/usersReducer";
 import { CircularProgress } from "@mui/material";
-import { followThunkCreator } from "./../../redux/usersReducer";
-import { withAuthRedirect } from "./../../HOC/withAuthRedirectComponent";
+import { followThunkCreator } from "../../redux/usersReducer";
 import { compose } from "redux";
 import {
   getPageSize,
@@ -19,14 +16,36 @@ import {
   getCurrentPage,
   getIsFetching,
   getFollowingInProgress,
-} from "./../../redux/usersSelectors";
+} from "../../redux/usersSelectors";
+import { IUser } from "./../../types/types";
+import { AppStateType } from "../../redux/redux-store";
 
-class UsersContainer extends React.Component {
+interface IMapStateProps {
+  currentPage: number;
+  pageSize: number;
+  isFetching: boolean;
+  totalItemsCount: number;
+  users: Array<IUser>;
+  followingInProgress: Array<number>;
+}
+
+interface IMapDispatchProps {
+  getUsers: (currentPage: number, pageSize: number) => void;
+  setCurrentPage: (pageNumber: number) => void;
+  follow: (userId: number) => void;
+  unfollow: (userId: number) => void;
+}
+
+interface IOwnProps {}
+
+type PropsType = IMapStateProps & IMapDispatchProps & IOwnProps;
+
+class UsersContainer extends React.Component<PropsType> {
   componentDidMount() {
     this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
 
-  handlePageChange = (e, pageNumber) => {
+  handlePageChange = (e: ChangeEvent<unknown>, pageNumber: number) => {
     this.props.setCurrentPage(pageNumber);
     this.props.getUsers(pageNumber, this.props.pageSize);
   };
@@ -36,12 +55,11 @@ class UsersContainer extends React.Component {
       <CircularProgress thickness={5} color="secondary" size={50} />
     ) : (
       <Users
-      totalItemsCount={this.props.totalItemsCount}
+        totalItemsCount={this.props.totalItemsCount}
         pageSize={this.props.pageSize}
-        followThunk={this.props.followThunk}
-        unfollowThunk={this.props.unfollowThunk}
+        follow={this.props.follow}
+        unfollow={this.props.unfollow}
         handlePageChange={this.handlePageChange}
-        pagesCount={this.props.pagesCount}
         users={this.props.users}
         currentPage={this.props.currentPage}
         followingInProgress={this.props.followingInProgress}
@@ -50,7 +68,7 @@ class UsersContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType): IMapStateProps => {
   return {
     users: requestUsers(state),
     pageSize: getPageSize(state),
@@ -62,15 +80,13 @@ const mapStateToProps = (state) => {
 };
 
 export default compose(
-  connect(mapStateToProps, {
-    follow: followAC,
-    unfollow: unfollowAC,
+  // <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}, State = DefaultState
+  connect<IMapStateProps, IMapDispatchProps, IOwnProps, AppStateType>(mapStateToProps, {
     setCurrentPage: setCurrentPageAC,
     getUsers: getUsersThunkCreator,
-    unfollowThunk: unfollowThunkCreator,
-    followThunk: followThunkCreator,
+    unfollow: unfollowThunkCreator,
+    follow: followThunkCreator,
   })
-  // withAuthRedirect
 )(UsersContainer);
 
 // const mapDispatchToProps = (dispatch) => {

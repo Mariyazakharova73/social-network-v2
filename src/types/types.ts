@@ -1,3 +1,13 @@
+export interface IDialog {
+  id: number;
+  name: string;
+}
+
+export interface IMessage {
+  id: number;
+  message: string;
+}
+
 export interface IPost {
   id: number;
   message: string;
@@ -34,6 +44,6 @@ export interface IUser {
   id: number;
   name: string;
   status: string;
-  photos: IPhotos;
+  photos?: IPhotos;
   followed: boolean;
 }

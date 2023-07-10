@@ -1,7 +1,7 @@
 import { styled } from "@mui/system";
 import Typography from "@mui/material/Typography";
 
-export const StyledTypographyMobile = styled(Typography)(({ theme }) => ({
+export const StyledTypographyMobile = styled(Typography)(({ theme}) => ({
   display: "none",
   marginRight: "2px",
   fontWeight: 700,

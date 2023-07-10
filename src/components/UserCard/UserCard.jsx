@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { PROFILE_PATH } from "./../../utils/constants";
 
-const UserCard = ({ user, unfollowThunk, followThunk, followingInProgress }) => {
+const UserCard = ({ user, unfollow, follow, followingInProgress }) => {
   return (
     <Card sx={{ width: { sm: 300, xs: 200 } }}>
       <StyledCardActions>
@@ -18,12 +18,12 @@ const UserCard = ({ user, unfollowThunk, followThunk, followingInProgress }) => 
         </NavLink>
         {user.followed ? (
           <LoadingButton
-            loading={followingInProgress.some((item) => {
+            loading={(followingInProgress.some((item) => {
               return item === user.id;
-            })}
+            }))}
             loadingIndicator="Loading…"
             onClick={() => {
-              unfollowThunk(user.id);
+              unfollow(user.id);
             }}
             variant="contained"
             size="small"
@@ -37,7 +37,7 @@ const UserCard = ({ user, unfollowThunk, followThunk, followingInProgress }) => 
             })}
             loadingIndicator="Loading…"
             onClick={() => {
-              followThunk(user.id);
+              follow(user.id);
             }}
             variant="contained"
             size="small"

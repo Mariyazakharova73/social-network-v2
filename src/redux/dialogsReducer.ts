@@ -1,14 +1,5 @@
+import { IDialog, IMessage } from './../types/types';
 const SEND_MESSAGE = "SEND_MESSAGE";
-
-interface IDialog {
-  id: number;
-  name: string;
-}
-
-interface IMessage {
-  id: number;
-  message: string;
-}
 
 const initialState = {
   dialogs: [

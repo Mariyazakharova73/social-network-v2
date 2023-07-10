@@ -3,9 +3,9 @@ import Stack from "@mui/material/Stack";
 import ProfileAvatar from "./ProfileAvatar";
 import ProfileForm from "../Modal/ProfileForm";
 import ProfileData from "./../ProfileData/ProfileData";
-import { StyledStack } from './ProfileInfoStyles';
+import { StyledStack } from "./ProfileInfoStyles";
 
-const ProfileInfo = ({ profile, status, updateStatusThunk, isOwner, savePhoto, saveProfie }) => {
+const ProfileInfo = ({ profile, status, updateStatus, isOwner, savePhoto, saveProfie }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openForm, setOpenForm] = useState(false);
 
@@ -31,7 +31,7 @@ const ProfileInfo = ({ profile, status, updateStatusThunk, isOwner, savePhoto, s
         handleClick={handleClick}
         anchorEl={anchorEl}
         handleClose={handleClose}
-        photo={profile.photos?.large}
+        photo={profile?.photos?.large}
         isOwner={isOwner}
         savePhoto={savePhoto}
       />
@@ -43,7 +43,7 @@ const ProfileInfo = ({ profile, status, updateStatusThunk, isOwner, savePhoto, s
       />
       <ProfileData
         status={status}
-        updateStatusThunk={updateStatusThunk}
+        updateStatus={updateStatus}
         profile={profile}
         isOwner={isOwner}
         handleOpenForm={handleOpenForm}

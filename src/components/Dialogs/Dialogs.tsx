@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import DialogsItem from "../DialogsItem/DialogsItem";
 import DialogsMessage from "../DialogsMessage/DialogsMessage";
 import Stack from "@mui/material/Stack";
@@ -6,19 +6,25 @@ import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import Box from "@mui/material/Box";
 import DialogsForm from "./DialogsForm";
+import { InitialStateType } from "../../redux/dialogsReducer";
 
-const Dialogs = ({ sendMessage, dialogsPage, isAuth }) => {
+interface IDialogsProps {
+  sendMessage: (message: string) => void;
+  dialogsPage: InitialStateType;
+  isAuth: boolean;
+}
+
+const Dialogs: FC<IDialogsProps> = ({ sendMessage, dialogsPage, isAuth }) => {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   let messagesData = dialogsPage.messages;
   let dialogsData = dialogsPage.dialogs;
-  let newMessageBody = dialogsPage.newMessageBody;
 
-  const handleListItemClick = (index) => {
+  const handleListItemClick = (index: number) => {
     setSelectedIndex(index);
   };
 
-  const addNewMessage = (data) => {
+  const addNewMessage = (data: string) => {
     sendMessage(data);
   };
 
