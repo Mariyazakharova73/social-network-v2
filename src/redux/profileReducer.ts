@@ -1,4 +1,5 @@
-import { profileAPI } from "./../api/api";
+import { profileAPI } from "../api/api";
+import { IPost, IProfile, IPhotos } from './../types/types';
 const ADD_POST = "ADD_POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS = "SET_STATUS";
@@ -19,12 +20,14 @@ const initialState = {
       likesCount: 5,
       date: "05.06.2023, 18:48:00",
     },
-  ],
-  profile: "null",
+  ] as Array<IPost>,
+  profile: null as IProfile | null,
   status: "",
 };
 
-const profileReducer = (state = initialState, action) => {
+export type InitialStateType = typeof initialState;
+
+const profileReducer = (state = initialState, action: any): InitialStateType => {
   switch (action.type) {
     case ADD_POST:
       let newPost = {
@@ -46,42 +49,65 @@ const profileReducer = (state = initialState, action) => {
     case SAVE_PHOTO_SUCCESS:
       return {
         ...state,
-        profile: { ...state.profile, photos: action.photos },
+        profile: { ...state.profile, photos: action.photos } as IProfile,
       };
     default:
       return state;
   }
 };
 
-export const addPostActionCreator = (newPostText) => {
+interface IAddPostAction {
+  type: typeof ADD_POST;
+  newPostText: string;
+}
+
+export const addPostActionCreator = (newPostText: string): IAddPostAction => {
   return {
     type: ADD_POST,
     newPostText,
   };
 };
 
-export const deletePostAC = (postId) => ({ type: DELETE_POST, postId });
+interface IDeletePostAction {
+  type: typeof DELETE_POST;
+  postId: number;
+}
 
-export const setUserProfileAC = (profile) => ({ type: SET_USER_PROFILE, profile });
+export const deletePostAC = (postId: number): IDeletePostAction => ({ type: DELETE_POST, postId });
 
-export const getUserProfileThunkCreator = (userId) => {
-  return async (dispatch) => {
+interface ISetUserProfileAction {
+  type: typeof SET_USER_PROFILE;
+  profile: IProfile;
+}
+
+export const setUserProfileAC = (profile: IProfile): ISetUserProfileAction => ({
+  type: SET_USER_PROFILE,
+  profile,
+});
+
+export const getUserProfileThunkCreator = (userId: number) => {
+  return async (dispatch: any) => {
     const res = await profileAPI.getProfile(userId);
     dispatch(setUserProfileAC(res));
   };
 };
 
-export const setStatusAC = (status) => ({ type: SET_STATUS, status });
+interface ISetStatusAction {
+  type: typeof SET_STATUS;
+  status: string;
+}
 
-export const getStatusThunkCreator = (userId) => {
-  return async (dispatch) => {
+export const setStatusAC = (status: string): ISetStatusAction => ({ type: SET_STATUS, status });
+
+export const getStatusThunkCreator = (userId: number) => {
+  return async (dispatch: any) => {
     const res = await profileAPI.getStatus(userId);
     dispatch(setStatusAC(res));
   };
 };
 
-export const updateStatusThunkCreator = (status) => {
-  return async (dispatch) => {
+export const updateStatusThunkCreator = (status: string) => {
+  return async (dispatch: any) => {
     try {
       const res = await profileAPI.updateStatus(status);
       if (res.resultCode === 0) {
@@ -90,16 +116,24 @@ export const updateStatusThunkCreator = (status) => {
       if (res.resultCode === 1) {
         Promise.reject("Максимальня длина текста - 300 символов");
       }
-    } catch(e) {
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
   };
 };
 
-export const savePhotoSuccessAC = (photos) => ({ type: SAVE_PHOTO_SUCCESS, photos });
+interface ISavePhotoSuccessAction {
+  type: typeof SAVE_PHOTO_SUCCESS;
+  photos: IPhotos;
+}
 
-export const savePhotoThunkCreator = (file) => {
-  return async (dispatch) => {
+export const savePhotoSuccessAC = (photos: IPhotos): ISavePhotoSuccessAction => ({
+  type: SAVE_PHOTO_SUCCESS,
+  photos,
+});
+
+export const savePhotoThunkCreator = (file: any) => {
+  return async (dispatch: any) => {
     const res = await profileAPI.savePhoto(file);
     if (res.resultCode === 0) {
       dispatch(savePhotoSuccessAC(res.data.photos));
@@ -107,8 +141,8 @@ export const savePhotoThunkCreator = (file) => {
   };
 };
 
-export const saveProfieThunkCreator = (profileData) => {
-  return async (dispatch, getState) => {
+export const saveProfieThunkCreator = (profileData: IProfile) => {
+  return async (dispatch: any, getState: any) => {
     const userId = getState().authReducer.userId;
     const res = await profileAPI.saveProfie(profileData);
     if (res.resultCode === 0) {

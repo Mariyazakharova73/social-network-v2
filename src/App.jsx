@@ -19,7 +19,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
-import { initializeAppThunkCreator } from "./redux/appReducer";
+import { initializeAppThunkCreator } from "./redux/appReducer.ts";
 import Preloader from "./components/Preloader/Preloader";
 
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
