@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import CustomizedSwitches from "../MaterialUISwitch/MaterialUISwitch";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -20,25 +20,19 @@ import { LOGIN_PATH } from "../../utils/constants";
 import Button from "@mui/material/Button";
 import LogoutIcon from "@mui/icons-material/Logout";
 import userAvatar from "../../images/user.png";
-import { IPhotos } from "./../../types/types";
+import { IProfile } from "./../../types/types";
+import { PaletteMode } from "@mui/material";
 
 interface IHeaderProps {
   toggleDrawer: (newOpen: boolean) => () => void;
   changeMode: () => void;
-  mode: string;
+  mode: PaletteMode | undefined;
   isAuth: boolean;
   logout: () => void;
-  photos: IPhotos;
+  profile: IProfile | null;
 }
 
-const Header: React.FC<IHeaderProps> = ({
-  toggleDrawer,
-  changeMode,
-  mode,
-  isAuth,
-  logout,
-  photos,
-}) => {
+const Header: FC<IHeaderProps> = ({ toggleDrawer, changeMode, mode, isAuth, logout, profile }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenUserMenu = (e: any) => {
@@ -83,7 +77,7 @@ const Header: React.FC<IHeaderProps> = ({
             ) : (
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Mariya" src={photos?.large || userAvatar} />
+                  <Avatar alt="Mariya" src={profile?.photos?.large || userAvatar} />
                 </IconButton>
               </Tooltip>
             )}

@@ -1,5 +1,5 @@
 import { profileAPI } from "../api/api";
-import { IPost, IProfile, IPhotos } from './../types/types';
+import { IPost, IProfile, IPhotos, IProfileData } from './../types/types';
 const ADD_POST = "ADD_POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS = "SET_STATUS";
@@ -141,7 +141,7 @@ export const savePhotoThunkCreator = (file: any) => {
   };
 };
 
-export const saveProfieThunkCreator = (profileData: IProfile) => {
+export const saveProfileThunkCreator = (profileData: IProfileData) => {
   return async (dispatch: any, getState: any) => {
     const userId = getState().authReducer.userId;
     const res = await profileAPI.saveProfie(profileData);

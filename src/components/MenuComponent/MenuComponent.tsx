@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
@@ -8,10 +8,10 @@ import ListItemText from "@mui/material/ListItemText";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useLocation, NavLink } from "react-router-dom";
 import styles from "../../App.module.css";
-import { sidebarData } from "./../../utils/constants";
+import { sidebarData } from "../../utils/constants";
 import { StyledBox } from "./MenuComponentStyles";
 
-const MenuComponent = () => {
+const MenuComponent: FC = () => {
   const location = useLocation();
   return (
     <StyledBox>

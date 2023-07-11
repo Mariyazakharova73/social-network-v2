@@ -1,13 +1,28 @@
-import React from "react";
+import React, { FC } from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import ProfileStatus from "./../ProfileStatus/ProfileStatus";
+import ProfileStatus from "../ProfileStatus/ProfileStatus";
 import ProfileContact from "../ProfileContact/ProfileContact";
 import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
+import { IProfile } from "../../types/types";
 
-const ProfileData = ({ profile, status, updateStatus, isOwner, handleOpenForm }) => {
+interface IProfileDataProps {
+  profile: IProfile | null;
+  status: string;
+  updateStatus: (status: string) => void;
+  isOwner: boolean;
+  handleOpenForm: () => void;
+}
+
+const ProfileData: FC<IProfileDataProps> = ({
+  profile,
+  status,
+  updateStatus,
+  isOwner,
+  handleOpenForm,
+}) => {
   return (
     // при width больше 600px ml=16px
     <Stack ml={{ sm: 2 }}>
@@ -28,7 +43,10 @@ const ProfileData = ({ profile, status, updateStatus, isOwner, handleOpenForm })
             Object.keys(profile?.contacts).map((item) => {
               return (
                 <React.Fragment key={item}>
-                  <ProfileContact contactTitle={item} contactValue={profile?.contacts[item]} />
+                  <ProfileContact contactTitle={item} 
+                 // contactValue={profile?.contacts[item]} 
+                  contactValue='test'
+                  />
                   &ensp;
                 </React.Fragment>
               );
@@ -41,7 +59,7 @@ const ProfileData = ({ profile, status, updateStatus, isOwner, handleOpenForm })
         )}
       </Stack>
       <Divider />
-      <ProfileStatus prevStatus={status} updateStatusThunk={updateStatus} />
+      <ProfileStatus prevStatus={status} updateStatus={updateStatus} />
     </Stack>
   );
 };

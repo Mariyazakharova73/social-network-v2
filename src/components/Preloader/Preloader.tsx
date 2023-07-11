@@ -1,8 +1,12 @@
-import React from "react";
+import React, { FC } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const Preloader = ({ initialized }) => {
+interface IPreloaderProps {
+  initialized: boolean;
+}
+
+const Preloader: FC<IPreloaderProps> = ({ initialized }) => {
   return (
     <Backdrop
       open={!initialized}

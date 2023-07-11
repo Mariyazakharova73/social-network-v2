@@ -6,14 +6,41 @@ import {
   getUserProfileThunkCreator,
   updateStatusThunkCreator,
   savePhotoThunkCreator,
-  saveProfieThunkCreator,
+  saveProfileThunkCreator,
 } from "../../redux/profileReducer";
 import withRouter from "../../HOC/withRouter";
 import { compose } from "redux";
 import { LOGIN_PATH } from "../../utils/constants";
-import { withAuthRedirect } from "./../../HOC/withAuthRedirectComponent";
+import { withAuthRedirect } from "../../HOC/withAuthRedirectComponent";
+import { IProfile, IProfileData } from "../../types/types";
+import { AppStateType } from "../../redux/redux-store";
 
-class ProfileContainer extends React.Component {
+interface IMapStateProps {
+  profile: IProfile | null;
+  status: string;
+  authorizedUserId: number | null;
+  isAuth: boolean;
+}
+
+interface IMapDispatchProps {
+  getUserProfile: (userId: number) => void;
+  getStatus: (userId: number) => void;
+  updateStatus: (status: string) => void;
+  savePhoto: (file: any) => void;
+  saveProfile: (data: IProfileData) => void;
+}
+
+interface IOwnProps {
+  router: {
+    location: any;
+    navigate: any;
+    params: { id: any };
+  };
+}
+
+type PropsType = IMapStateProps & IMapDispatchProps & IOwnProps;
+
+class ProfileContainer extends React.Component<PropsType> {
   refreshProfile() {
     let userId = this.props.router.params.id;
     if (userId === "*" || !userId) {
@@ -32,7 +59,7 @@ class ProfileContainer extends React.Component {
     this.refreshProfile();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: any, prevState: any) {
     if (this.props.router.params.id !== prevProps.router.params.id) {
       this.refreshProfile();
     }
@@ -46,13 +73,13 @@ class ProfileContainer extends React.Component {
         profile={this.props.profile}
         status={this.props.status}
         updateStatus={this.props.updateStatus}
-        saveProfie={this.props.saveProfie}
+        saveProfile={this.props.saveProfile}
       />
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType): IMapStateProps => {
   return {
     profile: state.profileReducer.profile,
     status: state.profileReducer.status,
@@ -62,12 +89,12 @@ const mapStateToProps = (state) => {
 };
 
 export default compose(
-  connect(mapStateToProps, {
+  connect<IMapStateProps, IMapDispatchProps, IOwnProps, AppStateType>(mapStateToProps, {
     getUserProfile: getUserProfileThunkCreator,
     getStatus: getStatusThunkCreator,
     updateStatus: updateStatusThunkCreator,
     savePhoto: savePhotoThunkCreator,
-    saveProfie: saveProfieThunkCreator,
+    saveProfile: saveProfileThunkCreator,
   }),
   withRouter,
   withAuthRedirect

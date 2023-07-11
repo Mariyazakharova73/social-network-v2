@@ -1,13 +1,19 @@
-import * as React from "react";
+import React, { FC } from "react";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { MuiFileInput } from "mui-file-input";
-import { StyledBoxforModal } from './ModalStyles';
+import { StyledBoxforModal } from "./ModalStyles";
 
-const EditPhotoModal = ({ handleCloseModal, openModal, savePhoto }) => {
+interface IEditPhotoModal {
+  openModal: boolean;
+  savePhoto: (file: any) => void;
+  handleCloseModal: () => void;
+}
+
+const EditPhotoModal: FC<IEditPhotoModal> = ({ openModal, savePhoto, handleCloseModal }) => {
   const [file, setFile] = React.useState(null);
 
-  const handleChange = (newFile) => {
+  const handleChange = (newFile: any) => {
     setFile(newFile);
     savePhoto(newFile);
     setTimeout(() => {

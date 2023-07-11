@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -7,9 +7,17 @@ import userAvatar from "../../images/user.png";
 import { StyledCardActions } from "./UserCardStyles";
 import { NavLink } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { PROFILE_PATH } from "./../../utils/constants";
+import { PROFILE_PATH } from "../../utils/constants";
+import { IUser } from "../../types/types";
 
-const UserCard = ({ user, unfollow, follow, followingInProgress }) => {
+interface IUserCardProps {
+  user: IUser;
+  followingInProgress: Array<number>;
+  follow: (userId: number) => void;
+  unfollow: (userId: number) => void;
+}
+
+const UserCard: FC<IUserCardProps> = ({ user, unfollow, follow, followingInProgress }) => {
   return (
     <Card sx={{ width: { sm: 300, xs: 200 } }}>
       <StyledCardActions>
@@ -18,9 +26,9 @@ const UserCard = ({ user, unfollow, follow, followingInProgress }) => {
         </NavLink>
         {user.followed ? (
           <LoadingButton
-            loading={(followingInProgress.some((item) => {
+            loading={followingInProgress.some((item) => {
               return item === user.id;
-            }))}
+            })}
             loadingIndicator="Loading…"
             onClick={() => {
               unfollow(user.id);

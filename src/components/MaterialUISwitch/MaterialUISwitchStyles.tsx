@@ -1,9 +1,7 @@
-import React from "react";
 import { styled } from "@mui/material/styles";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 
-const MaterialUISwitch = styled(Switch)(({ theme }) => ({
+export const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
   padding: 7,
@@ -49,14 +47,3 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     borderRadius: 20 / 2,
   },
 }));
-
-const CustomizedSwitches = ({ changeMode }) => {
-  return (
-    <FormControlLabel
-      control={<MaterialUISwitch sx={{ m: 1 }} onChange={changeMode} />}
-      // label="MUI switch"
-    />
-  );
-};
-
-export default CustomizedSwitches;

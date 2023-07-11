@@ -1,7 +1,7 @@
 import React, { Component, Suspense } from "react";
 import { Route, Routes, HashRouter, Navigate } from "react-router-dom";
 import { connect, Provider } from "react-redux";
-import store from "./redux/redux-store";
+import store, { AppStateType } from "./redux/redux-store";
 import MobileMenu from "./components/MobileMenu/MobileMenu";
 import UsersContainer from "./components/Users/UsersContainer";
 import DesktopMenu from "./components/DesktopMenu/DesktopMenu";
@@ -14,24 +14,45 @@ import {
   PROFILE_PATH,
 } from "./utils/constants";
 import { ThemeProvider } from "@mui/system";
-import { createTheme } from "@mui/material";
+import { createTheme, PaletteMode } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
-import { initializeAppThunkCreator } from "./redux/appReducer.ts";
+import { initializeAppThunkCreator } from "./redux/appReducer";
 import Preloader from "./components/Preloader/Preloader";
 
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
+// @ts-ignore
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 
-class App extends Component {
+interface IMapStateProps {
+  initialized: boolean;
+}
+
+interface IMapDispatchProps {
+  initializeApp: any;
+}
+
+interface IOwnProps {}
+
+interface IState {
+  mode: PaletteMode | undefined;
+  open: boolean;
+}
+
+type PropsType = IMapStateProps & IMapDispatchProps & IOwnProps;
+
+class App extends Component<PropsType, IState> {
   // const [mode, setMode] = useState("light");
   // const [open, setOpen] = useState(false);
-  state = {
-    mode: "light",
-    open: false,
-  };
+  constructor(props: PropsType) {
+    super(props);
+    this.state = {
+      mode: "light",
+      open: false,
+    };
+  }
 
   // catchAllUnhandledErrors = (e) => {
   //   alert("error");
@@ -39,7 +60,7 @@ class App extends Component {
   // };
 
   componentDidMount() {
-    this.props.initializeAppThunk();
+    this.props.initializeApp();
     // window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
   }
 
@@ -47,7 +68,7 @@ class App extends Component {
   //   window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
   // }
 
-  toggleDrawer = (newOpen) => () => {
+  toggleDrawer = (newOpen: boolean) => () => {
     this.setState({ ...this.state, open: newOpen });
     // setOpen(newOpen);
   };
@@ -108,11 +129,14 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType): IMapStateProps => ({
   initialized: state.appReducer.initialized,
 });
 
-let AppContainer = connect(mapStateToProps, { initializeAppThunk: initializeAppThunkCreator })(App);
+let AppContainer = connect<IMapStateProps, IMapDispatchProps, IOwnProps, AppStateType>(
+  mapStateToProps,
+  { initializeApp: initializeAppThunkCreator }
+)(App);
 
 export const MainApp = () => {
   return (

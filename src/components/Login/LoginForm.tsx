@@ -1,10 +1,10 @@
-import React from "react";
+import React, { FC, MouseEvent, SyntheticEvent } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
 import { Formik, Form as FormikForm, Field } from "formik";
-import { loginSchema } from "./../../utils/validators";
+import { loginSchema } from "../../utils/validators";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
@@ -12,21 +12,33 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Checkbox from "@mui/material/Checkbox";
 import Stack from "@mui/material/Stack";
-import Notifications from "./../Notifications/Notifications";
+import Notifications from "../Notifications/Notifications";
 import s from "./LoginForm.module.css";
 import { createField } from "../../utils/helpers";
 
-const LoginForm = ({ loginThunk, captchaUrl }) => {
+interface ILoginFormProps {
+  login: (
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    captcha: string,
+    setStatus: () => void,
+    setOpen: any
+  ) => void;
+  captchaUrl: string | null;
+}
+
+const LoginForm: FC<ILoginFormProps> = ({ login, captchaUrl }) => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [open, setOpen] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
+  const handleMouseDownPassword = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
   };
 
-  const handleClose = (e, reason) => {
+  const handleClose = (e: SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
@@ -43,7 +55,7 @@ const LoginForm = ({ loginThunk, captchaUrl }) => {
       }}
       onSubmit={(values, { resetForm, setStatus }) => {
         const { email, password, rememberMe, captcha } = values;
-        loginThunk(email, password, rememberMe, captcha, setStatus, setOpen);
+        login(email, password, rememberMe, captcha, setStatus, setOpen);
         resetForm();
       }}
       validationSchema={loginSchema}

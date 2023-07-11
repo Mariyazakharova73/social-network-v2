@@ -32,12 +32,21 @@ export interface IPhotos {
 }
 
 export interface IProfile {
-  userId: number;
+  userId?: number;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
   fullName: string;
   contacts: IContacts;
-  photos: IPhotos;
+  photos?: IPhotos;
+  aboutMe?: string;
+}
+
+export interface IProfileData {
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  fullName: string;
+  contacts: IContacts;
+  aboutMe: string;
 }
 
 export interface IUser {

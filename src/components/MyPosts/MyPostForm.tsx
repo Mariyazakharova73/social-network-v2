@@ -1,13 +1,17 @@
-import React from "react";
+import React, { FC } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
-import useWindowSize from "./../../hooks/useWindowSize";
+import useWindowSize from "../../hooks/useWindowSize";
 import { Formik, Form as FormikForm, Field } from "formik";
-import { newPostTextSchema } from "./../../utils/validators";
+import { newPostTextSchema } from "../../utils/validators";
 
-const MyPostForm = ({ onAddPost }) => {
+interface IMyPostForm {
+  onAddPost: (post: string) => void;
+}
+
+const MyPostForm: FC<IMyPostForm> = ({ onAddPost }) => {
   const windowSize = useWindowSize();
 
   return (
@@ -16,7 +20,7 @@ const MyPostForm = ({ onAddPost }) => {
         newPostText: "",
       }}
       onSubmit={(values, { resetForm }) => {
-        console.log('submitmypost')
+        console.log("submitmypost");
         onAddPost(values.newPostText);
         resetForm();
       }}
@@ -41,7 +45,7 @@ const MyPostForm = ({ onAddPost }) => {
                 variant="contained"
                 type="submit"
                 endIcon={<SendIcon />}
-                fullWidth={windowSize < 600}
+                fullWidth={windowSize ? windowSize < 600 : false}
                 disabled={!dirty || !!errors.newPostText}
               >
                 Send

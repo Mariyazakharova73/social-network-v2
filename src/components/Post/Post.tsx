@@ -1,10 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Avatar from "@mui/material/Avatar";
 import { avatar } from "../../utils/constants";
 import Typography from "@mui/material/Typography";
-
 import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
@@ -15,8 +14,13 @@ import CardActions from "@mui/material/CardActions";
 import { red } from "@mui/material/colors";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
+import { IPost } from "../../types/types";
 
-const Post = ({ item }) => {
+interface IPostProps {
+  item: IPost;
+}
+
+const Post: FC<IPostProps> = ({ item }) => {
   const [selected, setSelected] = React.useState(false);
 
   return (
@@ -44,7 +48,7 @@ const Post = ({ item }) => {
         <Typography>{selected ? item.likesCount + 1 : item.likesCount}</Typography>
         <Checkbox
           icon={<FavoriteBorder />}
-          selected={selected}
+          checked={selected}
           onChange={() => {
             setSelected(!selected);
           }}

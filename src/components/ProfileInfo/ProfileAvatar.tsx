@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, MouseEvent } from "react";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -10,9 +10,25 @@ import userAvatar from "../../images/user.png";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import EditPhotoModal from "../Modal/EditPhotoModal";
-import OpenImageModal from "./../Modal/OpenImageModal";
+import OpenImageModal from "../Modal/OpenImageModal";
 
-const ProfileAvatar = ({ handleClick, anchorEl, handleClose, photo, isOwner, savePhoto }) => {
+interface IProfileAvatarProps {
+  handleClick: (e: MouseEvent<HTMLButtonElement>) => void;
+  anchorEl: any;
+  handleClose: () => void;
+  photo: string;
+  isOwner: boolean;
+  savePhoto: (file: any) => void;
+}
+
+const ProfileAvatar: FC<IProfileAvatarProps> = ({
+  handleClick,
+  anchorEl,
+  handleClose,
+  photo,
+  isOwner,
+  savePhoto,
+}) => {
   const open = Boolean(anchorEl);
   const [openModal, setOpenModal] = React.useState(false);
   const [openPhotoModal, setOpenPhotoModal] = React.useState(false);
@@ -40,7 +56,6 @@ const ProfileAvatar = ({ handleClick, anchorEl, handleClose, photo, isOwner, sav
       />
       <OpenImageModal
         openModal={openPhotoModal}
-        handleCloseModal={handleOpenPhotoModal}
         handleClosePhotoModal={handleClosePhotoModal}
         photo={photo}
       />

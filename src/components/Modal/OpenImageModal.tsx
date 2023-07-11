@@ -1,11 +1,17 @@
-import React from "react";
+import React, { FC } from "react";
 import Modal from "@mui/material/Modal";
 import { StyledBoxImgModal, StyledIconButton } from "./ModalStyles";
 import CloseIcon from "@mui/icons-material/Close";
 import s from "./Modal.module.css";
 import userAvatar from "../../images/user.png";
 
-const OpenImageModal = ({ openModal, handleClosePhotoModal, photo }) => {
+interface IOpenImageModal {
+  openModal: boolean;
+  handleClosePhotoModal: () => void;
+  photo: string;
+}
+
+const OpenImageModal: FC<IOpenImageModal> = ({ openModal, handleClosePhotoModal, photo }) => {
   return (
     <div>
       <Modal open={openModal} onClose={handleClosePhotoModal}>

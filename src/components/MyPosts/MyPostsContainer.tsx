@@ -1,21 +1,35 @@
 import { addPostActionCreator } from "../../redux/profileReducer";
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
+import { AppStateType } from "../../redux/redux-store";
+import { IPost } from "./../../types/types";
 
-const mapStateToProps = (state) => {
+interface IMapStateProps {
+  posts: Array<IPost>;
+}
+
+interface IMapDispatchProps {
+  addPost: (post: string) => void;
+}
+
+interface IOwnProps {}
+
+type PropsType = IMapStateProps & IMapDispatchProps & IOwnProps;
+
+const mapStateToProps = (state: AppStateType):IMapStateProps  => {
   return { posts: state.profileReducer.posts };
 };
 
 // отправляет колбеки
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
-    addPost: (newPostText) => {
+    addPost: (newPostText: string) => {
       dispatch(addPostActionCreator(newPostText));
     },
   };
 };
 
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
+const MyPostsContainer = connect<IMapStateProps, IMapDispatchProps, IOwnProps, AppStateType>(mapStateToProps, mapDispatchToProps)(MyPosts);
 
 export default MyPostsContainer;
 

@@ -1,12 +1,17 @@
-import React from "react";
+import React, { FC } from "react";
 import List from "@mui/material/List";
 import Post from "../Post/Post";
 import Typography from "@mui/material/Typography";
 import MyPostForm from "./MyPostForm";
+import { IPost } from "./../../types/types";
 
-const MyPosts = React.memo(({ addPost, posts }) => {
+interface IMyPosts {
+  addPost: (post: string) => void;
+  posts: Array<IPost>;
+}
 
-  const onAddPost = (data) => {
+const MyPosts: FC<IMyPosts> = React.memo(({ addPost, posts }) => {
+  const onAddPost = (data: string) => {
     addPost(data);
   };
 
