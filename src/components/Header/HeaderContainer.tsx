@@ -1,9 +1,9 @@
 import React from "react";
 import Header from "./Header";
 import { connect } from "react-redux";
-import { logoutThunkCreator } from "../../redux/authReducer";
+import { logoutThunkCreator } from "../../redux/actions/authActions";
 import { AppStateType } from "../../redux/redux-store";
-import { IPhotos, IProfile } from "../../types/types";
+import { IProfile } from "../../types/types";
 import { PaletteMode } from "@mui/material";
 
 interface IMapStateProps {

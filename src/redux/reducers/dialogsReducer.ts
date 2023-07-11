@@ -1,5 +1,6 @@
-import { IDialog, IMessage } from './../types/types';
-const SEND_MESSAGE = "SEND_MESSAGE";
+import { ISendMessageAction } from '../types/dialogsTypes';
+import { IDialog, IMessage } from './../../types/types';
+import { SEND_MESSAGE } from './../types/dialogsTypes';
 
 const initialState = {
   dialogs: [
@@ -50,7 +51,7 @@ const initialState = {
 
 export type InitialStateType = typeof initialState;
 
-const dialogsReducer = (state = initialState, action: any): InitialStateType => {
+const dialogsReducer = (state = initialState, action: ISendMessageAction): InitialStateType => {
   switch (action.type) {
     case SEND_MESSAGE:
       let body = action.newMessageBody;
@@ -63,16 +64,6 @@ const dialogsReducer = (state = initialState, action: any): InitialStateType => 
   }
 };
 
-interface ISendMessageAction {
-  type: typeof SEND_MESSAGE,
-  newMessageBody: string
-}
 
-export const sendMessageActionCreator = (newMessageBody: string): ISendMessageAction => {
-  return {
-    type: SEND_MESSAGE,
-    newMessageBody,
-  };
-};
 
 export default dialogsReducer;

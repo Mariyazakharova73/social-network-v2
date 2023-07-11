@@ -5,9 +5,9 @@ import {
   setCurrentPageAC,
   getUsersThunkCreator,
   unfollowThunkCreator,
-} from "../../redux/usersReducer";
+  followThunkCreator,
+} from "../../redux/actions/usersActions";
 import { CircularProgress } from "@mui/material";
-import { followThunkCreator } from "../../redux/usersReducer";
 import { compose } from "redux";
 import {
   getPageSize,

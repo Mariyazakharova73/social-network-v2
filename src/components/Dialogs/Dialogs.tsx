@@ -6,7 +6,7 @@ import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import Box from "@mui/material/Box";
 import DialogsForm from "./DialogsForm";
-import { InitialStateType } from "../../redux/dialogsReducer";
+import { InitialStateType } from "../../redux/reducers/dialogsReducer";
 
 interface IDialogsProps {
   sendMessage: (message: string) => void;

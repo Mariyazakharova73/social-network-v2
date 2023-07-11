@@ -7,7 +7,7 @@ import {
   updateStatusThunkCreator,
   savePhotoThunkCreator,
   saveProfileThunkCreator,
-} from "../../redux/profileReducer";
+} from "../../redux/actions/profileActions";
 import withRouter from "../../HOC/withRouter";
 import { compose } from "redux";
 import { LOGIN_PATH } from "../../utils/constants";
@@ -59,7 +59,7 @@ class ProfileContainer extends React.Component<PropsType> {
     this.refreshProfile();
   }
 
-  componentDidUpdate(prevProps: any, prevState: any) {
+  componentDidUpdate(prevProps: PropsType) {
     if (this.props.router.params.id !== prevProps.router.params.id) {
       this.refreshProfile();
     }

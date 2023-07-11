@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import Stack from "@mui/material/Stack";
 import LoginForm from "./LoginForm";
 import { connect } from "react-redux";
-import { loginThunkCreator } from "./../../redux/authReducer";
+import { loginThunkCreator } from "./../../redux/actions/authActions";
 import { Navigate } from "react-router-dom";
 import { PROFILE_PATH } from "../../utils/constants";
 import { AppStateType } from "../../redux/redux-store";
