@@ -11,10 +11,9 @@ import { InitialStateType } from "../../redux/reducers/dialogsReducer";
 interface IDialogsProps {
   sendMessage: (message: string) => void;
   dialogsPage: InitialStateType;
-  isAuth: boolean;
 }
 
-const Dialogs: FC<IDialogsProps> = ({ sendMessage, dialogsPage, isAuth }) => {
+const Dialogs: FC<IDialogsProps> = ({ sendMessage, dialogsPage }) => {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   let messagesData = dialogsPage.messages;

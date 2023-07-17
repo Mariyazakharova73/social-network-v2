@@ -1,14 +1,16 @@
 import { getAuthUserDataThunkCreator } from "../actions/authActions";
-import { IInitializedSuccessAction, ThunkType } from "../types/appTypes";
+import { BaseThunkType } from "../redux-store";
+import { IInitializedSuccessAction, INITIALIZED_SUCCESS } from "../types/appTypes";
 
 export const initializedSuccessAction = (): IInitializedSuccessAction => ({
-  type: "INITIALIZED_SUCCESS",
+  type: INITIALIZED_SUCCESS,
 });
 
-export const initializeAppThunkCreator = (): ThunkType => (dispatch) => {
-  // id, email, login
-  let promise = dispatch(getAuthUserDataThunkCreator());
-  Promise.all([promise]).then(() => {
-    dispatch(initializedSuccessAction());
-  });
-};
+export const initializeAppThunkCreator =
+  (): BaseThunkType<IInitializedSuccessAction, void> => (dispatch) => {
+    // id, email, login
+    let promise = dispatch(getAuthUserDataThunkCreator());
+    Promise.all([promise]).then(() => {
+      dispatch(initializedSuccessAction());
+    });
+  };

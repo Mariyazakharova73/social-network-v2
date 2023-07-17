@@ -1,12 +1,10 @@
 import { INITIALIZED_SUCCESS, IInitializedSuccessAction } from "../types/appTypes";
 
-export interface IInitialState {
-  initialized: boolean;
-}
-
-const initialState: IInitialState = {
+const initialState = {
   initialized: false,
 };
+
+export type IInitialState = typeof initialState;
 
 const appReducer = (state = initialState, action: IInitializedSuccessAction): IInitialState => {
   switch (action.type) {

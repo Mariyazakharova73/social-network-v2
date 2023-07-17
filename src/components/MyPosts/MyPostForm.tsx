@@ -1,15 +1,21 @@
 import React, { FC } from "react";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
 import useWindowSize from "../../hooks/useWindowSize";
-import { Formik, Form as FormikForm, Field } from "formik";
+import { Formik, Form as FormikForm } from "formik";
 import { newPostTextSchema } from "../../utils/validators";
+import { createField } from "../../utils/helpers";
 
 interface IMyPostForm {
   onAddPost: (post: string) => void;
 }
+
+interface IMyPostFormValues {
+  newPostText: string;
+}
+
+export type MyPostFormTypeKeys = Extract<keyof IMyPostFormValues, string>;
 
 const MyPostForm: FC<IMyPostForm> = ({ onAddPost }) => {
   const windowSize = useWindowSize();
@@ -20,7 +26,6 @@ const MyPostForm: FC<IMyPostForm> = ({ onAddPost }) => {
         newPostText: "",
       }}
       onSubmit={(values, { resetForm }) => {
-        console.log("submitmypost");
         onAddPost(values.newPostText);
         resetForm();
       }}
@@ -29,17 +34,18 @@ const MyPostForm: FC<IMyPostForm> = ({ onAddPost }) => {
       {({ values, handleChange, errors, touched, dirty }) => (
         <Box sx={{ maxWidth: { sm: "70%" } }} mb={2}>
           <FormikForm>
-            <Field
-              as={TextField}
-              name="newPostText"
-              label="Your news"
-              fullWidth
-              variant="filled"
-              multiline
-              error={touched.newPostText && !!errors.newPostText}
-              helperText={touched.newPostText && errors.newPostText}
-              type="text"
-            />
+            {createField<MyPostFormTypeKeys>(
+              "newPostText",
+              null,
+              touched,
+              errors,
+              "text",
+              "medium",
+              true,
+              "Your news",
+              "filled",
+              true
+            )}
             <Box mt={2} sx={{ textAlign: "end" }}>
               <Button
                 variant="contained"

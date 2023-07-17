@@ -11,7 +11,7 @@ import {
 import withRouter from "../../HOC/withRouter";
 import { compose } from "redux";
 import { LOGIN_PATH } from "../../utils/constants";
-import { withAuthRedirect } from "../../HOC/withAuthRedirectComponent";
+import { withAuthRedirect } from "../../HOC/withAuthRedirect";
 import { IProfile, IProfileData } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
 
@@ -46,7 +46,7 @@ class ProfileContainer extends React.Component<PropsType> {
     if (userId === "*" || !userId) {
       userId = this.props.authorizedUserId;
       if (!userId) {
-        // this.props.navigate(LOGIN_PATH);
+        // this.props.navigate(LOGIN_PATH); 
         window.location.replace(LOGIN_PATH);
       }
     }
@@ -88,7 +88,7 @@ const mapStateToProps = (state: AppStateType): IMapStateProps => {
   };
 };
 
-export default compose(
+export default compose<React.ComponentType>(
   connect<IMapStateProps, IMapDispatchProps, IOwnProps, AppStateType>(mapStateToProps, {
     getUserProfile: getUserProfileThunkCreator,
     getStatus: getStatusThunkCreator,

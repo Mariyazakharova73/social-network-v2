@@ -14,11 +14,11 @@ import {
   TOGGLE_IS_FETCHING,
   IToggleFollowingProgressAction,
   TOGGLE_IS_FOLLOWING_PROGRESS,
-  ThunkType,
   ActionTypes,
 } from "./../types/usersTypes";
-import { usersAPI } from "./../../api/api";
 import { Dispatch } from "redux";
+import { usersAPI } from "../../api/usersApi";
+import { BaseThunkType } from "../redux-store";
 
 const _followUnfollowFlow = async (
   dispatch: Dispatch<ActionTypes>,
@@ -60,7 +60,10 @@ export const setTotalUsersCountAC = (totalUsersCount: number): ISetTotalUsersCou
   totalUsersCount,
 });
 
-export const getUsersThunkCreator = (page: number, pageSize: number): ThunkType => {
+export const getUsersThunkCreator = (
+  page: number,
+  pageSize: number
+): BaseThunkType<ActionTypes> => {
   return async (dispatch) => {
     dispatch(toggleIsFetchingAC(true));
     dispatch(setCurrentPageAC(page));
@@ -73,7 +76,7 @@ export const getUsersThunkCreator = (page: number, pageSize: number): ThunkType 
 
 export const followAC = (userId: number): IFollowAction => ({ type: FOLLOW, userId });
 
-export const followThunkCreator = (id: number): ThunkType => {
+export const followThunkCreator = (id: number): BaseThunkType<ActionTypes> => {
   return async (dispatch) => {
     _followUnfollowFlow(dispatch, id, usersAPI.follow.bind(usersAPI), followAC);
   };
@@ -81,7 +84,7 @@ export const followThunkCreator = (id: number): ThunkType => {
 
 export const unfollowAC = (userId: number): IUnfollowAction => ({ type: UNFOLLOW, userId });
 
-export const unfollowThunkCreator = (id: number): ThunkType => {
+export const unfollowThunkCreator = (id: number): BaseThunkType<ActionTypes> => {
   return async (dispatch) => {
     _followUnfollowFlow(dispatch, id, usersAPI.unfollow.bind(usersAPI), unfollowAC);
   };

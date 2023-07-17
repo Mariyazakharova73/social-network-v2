@@ -28,6 +28,15 @@ interface ILoginFormProps {
   captchaUrl: string | null;
 }
 
+interface ILoginFormValues {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+  captcha: string;
+}
+
+type LoginFormValuesTypeKeys = keyof ILoginFormValues;
+
 const LoginForm: FC<ILoginFormProps> = ({ login, captchaUrl }) => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -121,7 +130,7 @@ const LoginForm: FC<ILoginFormProps> = ({ login, captchaUrl }) => {
               </Box>
               {captchaUrl && (
                 <div>
-                  <img className={s.image} src={captchaUrl} alt="Captcha." />{" "}
+                  <img className={s.image} src={captchaUrl} alt="Captcha." />
                   {createField("captcha", "Введите код с картинки", touched, errors)}
                 </div>
               )}

@@ -1,4 +1,6 @@
+import { profileAPI } from "../../api/profileApi";
 import { IPhotos, IProfile, IProfileData } from "../../types/types";
+import { BaseThunkType } from "../redux-store";
 import {
   DELETE_POST,
   IAddPostAction,
@@ -10,9 +12,8 @@ import {
   ISavePhotoSuccessAction,
   SAVE_PHOTO_SUCCESS,
   ISetUserProfileAction,
-  ThunkType,
+  ActionTypes,
 } from "../types/profileTypes";
-import { profileAPI } from "./../../api/api";
 
 export const addPostAC = (newPostText: string): IAddPostAction => {
   return {
@@ -28,8 +29,8 @@ export const setUserProfileAC = (profile: IProfile): ISetUserProfileAction => ({
   profile,
 });
 
-export const getUserProfileThunkCreator = (userId: number): ThunkType => {
-  return async (dispatch: any) => {
+export const getUserProfileThunkCreator = (userId: number): BaseThunkType<ActionTypes> => {
+  return async (dispatch) => {
     const res = await profileAPI.getProfile(userId);
     dispatch(setUserProfileAC(res));
   };
@@ -37,15 +38,15 @@ export const getUserProfileThunkCreator = (userId: number): ThunkType => {
 
 export const setStatusAC = (status: string): ISetStatusAction => ({ type: SET_STATUS, status });
 
-export const getStatusThunkCreator = (userId: number): ThunkType => {
-  return async (dispatch: any) => {
+export const getStatusThunkCreator = (userId: number): BaseThunkType<ActionTypes> => {
+  return async (dispatch) => {
     const res = await profileAPI.getStatus(userId);
     dispatch(setStatusAC(res));
   };
 };
 
-export const updateStatusThunkCreator = (status: string): ThunkType => {
-  return async (dispatch: any) => {
+export const updateStatusThunkCreator = (status: string): BaseThunkType<ActionTypes> => {
+  return async (dispatch) => {
     try {
       const res = await profileAPI.updateStatus(status);
       if (res.resultCode === 0) {
@@ -65,8 +66,8 @@ export const savePhotoSuccessAC = (photos: IPhotos): ISavePhotoSuccessAction => 
   photos,
 });
 
-export const savePhotoThunkCreator = (file: any): ThunkType => {
-  return async (dispatch: any) => {
+export const savePhotoThunkCreator = (file: any): BaseThunkType<ActionTypes> => {
+  return async (dispatch) => {
     const res = await profileAPI.savePhoto(file);
     if (res.resultCode === 0) {
       dispatch(savePhotoSuccessAC(res.data.photos));
@@ -74,13 +75,15 @@ export const savePhotoThunkCreator = (file: any): ThunkType => {
   };
 };
 
-export const saveProfileThunkCreator = (profileData: IProfileData): ThunkType => {
-  return async (dispatch: any, getState: any) => {
+export const saveProfileThunkCreator = (profileData: IProfileData): BaseThunkType<ActionTypes> => {
+  return async (dispatch, getState) => {
     const userId = getState().authReducer.userId;
     const res = await profileAPI.saveProfie(profileData);
     if (res.resultCode === 0) {
       // т.к в res нет данных о профиле, запросим заново измененные данные
-      dispatch(getUserProfileThunkCreator(userId));
+      if (userId) {
+        dispatch(getUserProfileThunkCreator(userId));
+      }
     }
   };
 };

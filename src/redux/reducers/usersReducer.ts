@@ -1,4 +1,5 @@
 import { updateObjectInArray } from "../../utils/helpers";
+import { ActionTypesV2 } from "../actions/usersActionsV2";
 import { IUser } from "./../../types/types";
 import {
   FOLLOW,
@@ -22,7 +23,7 @@ const initialState = {
 
 export type InitialStateType = typeof initialState;
 
-const usersReducer = (state = initialState, action: ActionTypes): InitialStateType => {
+const usersReducer = (state = initialState, action: ActionTypesV2): InitialStateType => {
   switch (action.type) {
     case FOLLOW:
       return {

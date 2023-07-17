@@ -19,6 +19,23 @@ interface IProfileForm {
   profile: IProfile | null;
 }
 
+interface IProfileFormValues {
+  fullName: string;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  aboutMe: string;
+  facebook: string;
+  website: string;
+  vk: string;
+  twitter: string;
+  instagram: string;
+  youtube: string;
+  github: string;
+  mainLink: string;
+}
+
+export type ProfileFormTypeKeys = Extract<keyof IProfileFormValues, string>;
+
 const ProfileForm: FC<IProfileForm> = ({ openForm, handleCloseModal, saveProfile, profile }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -76,18 +93,18 @@ const ProfileForm: FC<IProfileForm> = ({ openForm, handleCloseModal, saveProfile
           <StyledModalForm>
             <FormikForm>
               <Stack spacing={2}>
-                {createField("fullName", "Full name", touched, errors)}
+                {createField<ProfileFormTypeKeys>("fullName", "Full name", touched, errors)}
                 <label>
                   <Field size="small" as={Checkbox} name="lookingForAJob" type="checkbox" />
                   Looking for a job
                 </label>
-                {createField(
+                {createField<ProfileFormTypeKeys>(
                   "lookingForAJobDescription",
                   "My professional skills",
                   touched,
                   errors
                 )}
-                {createField("aboutMe", "About me", touched, errors)}
+                {createField<ProfileFormTypeKeys>("aboutMe", "About me", touched, errors)}
                 <Stack direction="row" sx={{ flexWrap: "wrap" }} spacing={1}>
                   {profile?.contacts &&
                     Object.keys(profile?.contacts).map((item) => {

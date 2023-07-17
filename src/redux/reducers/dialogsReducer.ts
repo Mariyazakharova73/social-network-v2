@@ -64,6 +64,4 @@ const dialogsReducer = (state = initialState, action: ISendMessageAction): Initi
   }
 };
 
-
-
 export default dialogsReducer;

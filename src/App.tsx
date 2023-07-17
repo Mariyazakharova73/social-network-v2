@@ -23,7 +23,6 @@ import { initializeAppThunkCreator } from "./redux/actions/appActions";
 import Preloader from "./components/Preloader/Preloader";
 
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
-// @ts-ignore
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 
 interface IMapStateProps {

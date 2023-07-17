@@ -2,11 +2,11 @@ import React, { ChangeEvent } from "react";
 import { connect } from "react-redux";
 import Users from "./Users";
 import {
-  setCurrentPageAC,
+  actions,
   getUsersThunkCreator,
   unfollowThunkCreator,
   followThunkCreator,
-} from "../../redux/actions/usersActions";
+} from "../../redux/actions/usersActionsV2";
 import { CircularProgress } from "@mui/material";
 import { compose } from "redux";
 import {
@@ -82,7 +82,7 @@ const mapStateToProps = (state: AppStateType): IMapStateProps => {
 export default compose(
   // <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}, State = DefaultState
   connect<IMapStateProps, IMapDispatchProps, IOwnProps, AppStateType>(mapStateToProps, {
-    setCurrentPage: setCurrentPageAC,
+    setCurrentPage: actions.setCurrentPageAC,
     getUsers: getUsersThunkCreator,
     unfollow: unfollowThunkCreator,
     follow: followThunkCreator,

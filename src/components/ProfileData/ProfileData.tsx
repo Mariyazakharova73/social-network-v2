@@ -6,7 +6,7 @@ import ProfileContact from "../ProfileContact/ProfileContact";
 import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
-import { IProfile } from "../../types/types";
+import { IContacts, IProfile } from "../../types/types";
 
 interface IProfileDataProps {
   profile: IProfile | null;
@@ -43,10 +43,7 @@ const ProfileData: FC<IProfileDataProps> = ({
             Object.keys(profile?.contacts).map((item) => {
               return (
                 <React.Fragment key={item}>
-                  <ProfileContact contactTitle={item} 
-                 // contactValue={profile?.contacts[item]} 
-                  contactValue='test'
-                  />
+                  <ProfileContact contactTitle={item} contactValue={profile?.contacts[item as keyof IContacts]} />
                   &ensp;
                 </React.Fragment>
               );

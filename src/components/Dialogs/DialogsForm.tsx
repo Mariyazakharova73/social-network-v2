@@ -1,14 +1,20 @@
 import React, { FC } from "react";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
-import { Formik, Form as FormikForm, Field } from "formik";
+import { Formik, Form as FormikForm } from "formik";
 import { newMessageBodySchema } from "../../utils/validators";
+import { createField } from "../../utils/helpers";
 
 interface IDialogsFormProps {
   addNewMessage: (newMessageBody: string) => void;
 }
+
+interface IDialogsFormValues {
+  newMessageBody: string;
+}
+
+export type DialogsFormTypeKeys = Extract<keyof IDialogsFormValues, string>;
 
 const DialogsForm: FC<IDialogsFormProps> = ({ addNewMessage }) => {
   return (
@@ -17,7 +23,6 @@ const DialogsForm: FC<IDialogsFormProps> = ({ addNewMessage }) => {
         newMessageBody: "",
       }}
       onSubmit={(values, { resetForm }) => {
-        console.log(values);
         addNewMessage(values.newMessageBody);
         resetForm();
       }}
@@ -26,7 +31,19 @@ const DialogsForm: FC<IDialogsFormProps> = ({ addNewMessage }) => {
     >
       {({ values, handleChange, errors, touched, dirty }) => (
         <FormikForm>
-          <Field
+          {createField<DialogsFormTypeKeys>(
+            "newMessageBody",
+            null,
+            touched,
+            errors,
+            "text",
+            "medium",
+            true,
+            "Enter your message",
+            "filled",
+            true
+          )}
+          {/* <Field
             as={TextField}
             name="newMessageBody"
             label="Enter your message"
@@ -36,7 +53,7 @@ const DialogsForm: FC<IDialogsFormProps> = ({ addNewMessage }) => {
             error={touched.newMessageBody && !!errors.newMessageBody}
             helperText={touched.newMessageBody && errors.newMessageBody}
             type="text"
-          />
+          /> */}
           <Box mt={2} sx={{ textAlign: "end" }}>
             <Button
               variant="contained"

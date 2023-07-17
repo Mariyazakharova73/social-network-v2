@@ -1,13 +1,5 @@
 import { ActionTypes, GET_CAPTCHA_URL_SUCCESS, SET_USER_DATA } from "./../types/authTypes";
 
-// export interface IInitialState {
-//   userId: number | null;
-//   email: string | null;
-//   login: string | null;
-//   isAuth: boolean;
-//   captchaUrl: string | null;
-// }
-
 const initialState = {
   userId: null as number | null,
   email: null as string | null,
@@ -30,4 +22,13 @@ const authReducer = (state = initialState, action: ActionTypes): InitialStateTyp
 };
 
 export default authReducer;
+
 //   maria7373
+
+// export interface IInitialState {
+//   userId: number | null;
+//   email: string | null;
+//   login: string | null;
+//   isAuth: boolean;
+//   captchaUrl: string | null;
+// }

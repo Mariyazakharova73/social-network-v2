@@ -1,14 +1,12 @@
-import { ThunkAction } from "redux-thunk";
 import { IUser } from "../../types/types";
-import { AppStateType } from "../redux-store";
 
-export const FOLLOW = "FOLLOW";
-export const UNFOLLOW = "UNFOLLOW";
-export const SET_USERS = "SET_USERS";
-export const SET_CURRENT_PAGE = "SET_CURENT_PAGE";
-export const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
-export const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
-export const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE_IS_FOLLOWING_PROGRESS";
+export const FOLLOW = "users/FOLLOW";
+export const UNFOLLOW = "users/UNFOLLOW";
+export const SET_USERS = "users/SET_USERS";
+export const SET_CURRENT_PAGE = "users/SET_CURENT_PAGE";
+export const SET_TOTAL_USERS_COUNT = "users/SET_TOTAL_USERS_COUNT";
+export const TOGGLE_IS_FETCHING = "users/TOGGLE_IS_FETCHING";
+export const TOGGLE_IS_FOLLOWING_PROGRESS = "users/TOGGLE_IS_FOLLOWING_PROGRESS";
 
 export interface IFollowAction {
   type: typeof FOLLOW;
@@ -54,5 +52,3 @@ export type ActionTypes =
   | ISetTotalUsersCountAction
   | IToggleIsFetchingAction
   | IToggleFollowingProgressAction;
-
-export type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>;
