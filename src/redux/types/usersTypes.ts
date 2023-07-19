@@ -7,6 +7,7 @@ export const SET_CURRENT_PAGE = "users/SET_CURENT_PAGE";
 export const SET_TOTAL_USERS_COUNT = "users/SET_TOTAL_USERS_COUNT";
 export const TOGGLE_IS_FETCHING = "users/TOGGLE_IS_FETCHING";
 export const TOGGLE_IS_FOLLOWING_PROGRESS = "users/TOGGLE_IS_FOLLOWING_PROGRESS";
+export const SET_FILTER = "users/SET_FILTER";
 
 export interface IFollowAction {
   type: typeof FOLLOW;
@@ -44,6 +45,11 @@ export interface IToggleFollowingProgressAction {
   userId: number;
 }
 
+export interface ISetFilterAction {
+  type: typeof SET_FILTER;
+  payload: { term: string };
+}
+
 export type ActionTypes =
   | IFollowAction
   | IUnfollowAction
@@ -51,4 +57,5 @@ export type ActionTypes =
   | ISetCurrentPageAction
   | ISetTotalUsersCountAction
   | IToggleIsFetchingAction
+  | ISetFilterAction
   | IToggleFollowingProgressAction;

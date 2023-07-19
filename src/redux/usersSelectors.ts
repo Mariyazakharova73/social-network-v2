@@ -25,6 +25,10 @@ export const getFollowingInProgress = (state: AppStateType) => {
   return state.usersReducer.followingInProgress;
 };
 
+export const getUsersFilter = (state: AppStateType) => {
+  return state.usersReducer.filter;
+};
+
 // export const getUsersTestSelector = createSelector(requestUsers, (users) => {
 //   return users.filter((u) => true);
 // });

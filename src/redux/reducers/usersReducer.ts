@@ -9,6 +9,7 @@ import {
   SET_TOTAL_USERS_COUNT,
   TOGGLE_IS_FETCHING,
   TOGGLE_IS_FOLLOWING_PROGRESS,
+  SET_FILTER,
 } from "./../types/usersTypes";
 
 const initialState = {
@@ -18,9 +19,11 @@ const initialState = {
   currentPage: 1,
   isFetching: false,
   followingInProgress: [] as Array<number>, // array of users id,
+  filter: { term: "", friend: null as null | boolean },
 };
 
 export type InitialStateType = typeof initialState;
+export type FilterType = typeof initialState.filter;
 
 const usersReducer = (state = initialState, action: ActionTypesV2): InitialStateType => {
   switch (action.type) {
@@ -67,6 +70,11 @@ const usersReducer = (state = initialState, action: ActionTypesV2): InitialState
         followingInProgress: action.followingInProgress
           ? [...state.followingInProgress, action.userId]
           : state.followingInProgress.filter((item) => item !== action.userId),
+      };
+    case SET_FILTER:
+      return {
+        ...state,
+        filter: action.payload,
       };
     default:
       return state;

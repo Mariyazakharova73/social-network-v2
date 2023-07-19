@@ -5,6 +5,8 @@ import Stack from "@mui/material/Stack";
 import UserCard from "../UserCard/UserCard";
 import { Pagination } from "@mui/material";
 import { IUser } from "./../../types/types";
+import UsersSearchForm from "../UsersSearchForm/UsersSearchForm";
+import { FilterType } from "../../redux/reducers/usersReducer";
 
 interface IUsersProps {
   totalItemsCount: number;
@@ -15,6 +17,7 @@ interface IUsersProps {
   followingInProgress: Array<number>;
   follow: (userId: number) => void;
   unfollow: (userId: number) => void;
+  onFilterChanged: (filter: FilterType) => void;
 }
 
 const Users: FC<IUsersProps> = ({
@@ -26,11 +29,13 @@ const Users: FC<IUsersProps> = ({
   handlePageChange,
   users,
   followingInProgress,
+  onFilterChanged,
 }) => {
   let pagesCount = Math.ceil(totalItemsCount / pageSize);
   return (
     <>
       <Stack spacing={2}>
+        <UsersSearchForm onFilterChanged={onFilterChanged}/>
         <Pagination
           page={currentPage}
           onChange={handlePageChange}
