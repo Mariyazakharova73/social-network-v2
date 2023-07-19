@@ -11,6 +11,7 @@ import {
 import { Dispatch } from "redux";
 import { usersAPI } from "../../api/usersApi";
 import { BaseThunkType } from "../redux-store";
+import { IResponse } from "../../api/api";
 
 export const actions = {
   toggleFollowingProgressAC: (followingInProgress: any, userId: number) =>
@@ -47,12 +48,15 @@ export const actions = {
 const _followUnfollowFlow = async (
   dispatch: Dispatch<ActionTypesV2>,
   id: number,
-  apiMethod: any,
-  actionCreator: (userId: number) => ActionTypesV2
+  apiMethod: (id: number) => Promise<IResponse>,
+  actionCreator: (id: number) => ActionTypesV2
 ) => {
   dispatch(actions.toggleFollowingProgressAC(true, id));
   const res = await apiMethod(id);
+  // console.log(res)
+  // console.log(res.messages)
   if (res.resultCode === 0) {
+    
     dispatch(actionCreator(id));
   }
   dispatch(actions.toggleFollowingProgressAC(false, id));
@@ -74,13 +78,13 @@ export const getUsersThunkCreator = (
 
 export const followThunkCreator = (id: number): BaseThunkType<ActionTypesV2> => {
   return async (dispatch) => {
-    _followUnfollowFlow(dispatch, id, usersAPI.follow.bind(usersAPI), actions.followAC);
+    await _followUnfollowFlow(dispatch, id, usersAPI.follow.bind(usersAPI), actions.followAC);
   };
 };
 
 export const unfollowThunkCreator = (id: number): BaseThunkType<ActionTypesV2> => {
   return async (dispatch) => {
-    _followUnfollowFlow(dispatch, id, usersAPI.unfollow.bind(usersAPI), actions.unfollowAC);
+    await _followUnfollowFlow(dispatch, id, usersAPI.unfollow.bind(usersAPI), actions.unfollowAC);
   };
 };
 

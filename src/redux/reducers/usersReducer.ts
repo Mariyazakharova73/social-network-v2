@@ -9,7 +9,6 @@ import {
   SET_TOTAL_USERS_COUNT,
   TOGGLE_IS_FETCHING,
   TOGGLE_IS_FOLLOWING_PROGRESS,
-  ActionTypes,
 } from "./../types/usersTypes";
 
 const initialState = {
