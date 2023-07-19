@@ -15,11 +15,14 @@ import {
   IToggleFollowingProgressAction,
   TOGGLE_IS_FOLLOWING_PROGRESS,
   ActionTypes,
+  ISetFilterAction,
+  SET_FILTER,
 } from "./../types/usersTypes";
 import { Dispatch } from "redux";
 import { usersAPI } from "../../api/usersApi";
 import { BaseThunkType } from "../redux-store";
 import { IResponse } from "../../api/api";
+import { FilterType } from "../reducers/usersReducer";
 
 const _followUnfollowFlow = async (
   dispatch: Dispatch<ActionTypes>,
@@ -63,12 +66,15 @@ export const setTotalUsersCountAC = (totalUsersCount: number): ISetTotalUsersCou
 
 export const getUsersThunkCreator = (
   page: number,
-  pageSize: number
+  pageSize: number,
+  filter: FilterType
 ): BaseThunkType<ActionTypes> => {
   return async (dispatch) => {
     dispatch(toggleIsFetchingAC(true));
     dispatch(setCurrentPageAC(page));
-    const res = await usersAPI.getUsers(page, pageSize);
+
+    dispatch(setFilterAC(filter));
+    const res = await usersAPI.getUsers(page, pageSize, filter.term, filter.friend);
     dispatch(toggleIsFetchingAC(false));
     dispatch(setUsersAC(res.items));
     dispatch(setTotalUsersCountAC(res.totalCount));
@@ -90,3 +96,8 @@ export const unfollowThunkCreator = (id: number): BaseThunkType<ActionTypes> => 
     await _followUnfollowFlow(dispatch, id, usersAPI.unfollow.bind(usersAPI), unfollowAC);
   };
 };
+
+export const setFilterAC = (filter: FilterType): ISetFilterAction => ({
+  type: SET_FILTER,
+  payload: filter,
+});

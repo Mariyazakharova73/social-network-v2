@@ -16,9 +16,11 @@ import {
   getCurrentPage,
   getIsFetching,
   getFollowingInProgress,
+  getUsersFilter,
 } from "../../redux/usersSelectors";
 import { IUser } from "./../../types/types";
 import { AppStateType } from "../../redux/redux-store";
+import { FilterType } from "../../redux/reducers/usersReducer";
 
 interface IMapStateProps {
   currentPage: number;
@@ -27,10 +29,11 @@ interface IMapStateProps {
   totalItemsCount: number;
   users: Array<IUser>;
   followingInProgress: Array<number>;
+  filter: FilterType;
 }
 
 interface IMapDispatchProps {
-  getUsers: (currentPage: number, pageSize: number) => void;
+  getUsers: (currentPage: number, pageSize: number, filter: FilterType) => void;
   setCurrentPage: (pageNumber: number) => void;
   follow: (userId: number) => void;
   unfollow: (userId: number) => void;
@@ -42,12 +45,18 @@ type PropsType = IMapStateProps & IMapDispatchProps & IOwnProps;
 
 class UsersContainer extends React.Component<PropsType> {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    const { currentPage, pageSize, filter } = this.props;
+    this.props.getUsers(currentPage, pageSize, filter);
   }
 
   handlePageChange = (e: ChangeEvent<unknown>, pageNumber: number) => {
-    this.props.setCurrentPage(pageNumber);
-    this.props.getUsers(pageNumber, this.props.pageSize);
+    const {  pageSize, filter } = this.props;
+    this.props.getUsers(pageNumber, pageSize, filter);
+  };
+
+  onFilterChanged = (filter: FilterType) => {
+    const { pageSize } = this.props;
+    this.props.getUsers(1, pageSize, filter);
   };
 
   render() {
@@ -63,6 +72,7 @@ class UsersContainer extends React.Component<PropsType> {
         users={this.props.users}
         currentPage={this.props.currentPage}
         followingInProgress={this.props.followingInProgress}
+        onFilterChanged={this.onFilterChanged}
       />
     );
   }
@@ -76,6 +86,7 @@ const mapStateToProps = (state: AppStateType): IMapStateProps => {
     currentPage: getCurrentPage(state),
     isFetching: getIsFetching(state),
     followingInProgress: getFollowingInProgress(state),
+    filter: getUsersFilter(state),
   };
 };
 
