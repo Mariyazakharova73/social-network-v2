@@ -1,14 +1,21 @@
 import React, { FC } from "react";
 import { Formik, Form, Field } from "formik";
 import { FilterType } from "../../redux/reducers/usersReducer";
+import { useSelector } from "react-redux";
+import { getUsersFilter } from "./../../redux/usersSelectors";
+import { changeStrValues } from "./../../utils/helpers";
 
 interface IUsersSearchFormProps {
   onFilterChanged: (filter: FilterType) => void;
+  searchParams: URLSearchParams;
+  setSearchParams: any;
 }
+
+type FriendFormType = "true" | "false" | "null";
 
 interface IFormValues {
   term: string;
-  friend: "true" | "false" | "null";
+  friend: FriendFormType;
 }
 
 const usersSearchFormValidate = (values: any) => {
@@ -16,31 +23,40 @@ const usersSearchFormValidate = (values: any) => {
   return errors;
 };
 
-const UsersSearchForm: FC<IUsersSearchFormProps> = ({ onFilterChanged }) => {
+const UsersSearchForm: FC<IUsersSearchFormProps> = ({
+  onFilterChanged,
+  searchParams,
+  setSearchParams,
+}) => {
+  const filter = useSelector(getUsersFilter);
+
   const submit = (
-    values: any,
+    values: IFormValues,
     { setSubmitting }: { setSubmitting: (isSubmiting: boolean) => void }
   ) => {
-
-    const filter: FilterType = {
+    onFilterChanged({
       term: values.term,
-      friend: values.friend === "null" ? null : values.friend === "true" ? true : false,
-    };
-    onFilterChanged(filter);
+      friend: changeStrValues(values.friend),
+    });
+
     //setSubmitting(false);
   };
 
+  // const searchString = searchParams.get("term");
+  // const searchFriendFilter = searchParams.get("friend");
+
   return (
     <Formik
-      initialValues={{ term: "", friend: "null" }}
+      initialValues={{ term: filter.term, friend: String(filter.friend) as FriendFormType }}
       validate={usersSearchFormValidate}
       onSubmit={submit}
+      enableReinitialize
     >
       {({ isSubmitting }) => (
         <Form>
           <Field type="text" name="term" />
           <Field component="select" id="location" name="friend">
-            <option value="nul">All</option>
+            <option value="null">All</option>
             <option value="true">Only followed</option>
             <option value="false">Only unfollowed</option>
           </Field>

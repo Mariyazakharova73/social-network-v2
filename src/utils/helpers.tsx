@@ -45,3 +45,16 @@ export function createField<FormKeysType extends string>(
     />
   );
 }
+
+export const changeStrValues = (dataFriend: string) => {
+  switch (dataFriend) {
+    case "null":
+      return null;
+    case "true":
+      return true;
+    case "false":
+      return false;
+    default:
+      return null;
+  }
+};

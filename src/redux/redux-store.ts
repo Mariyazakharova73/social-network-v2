@@ -32,6 +32,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 //  thunk здесь - thunkMiddleware
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
+export type AppDispatch = typeof store.dispatch 
+
 // @ts-ignore
 window.__store__ = store;
 

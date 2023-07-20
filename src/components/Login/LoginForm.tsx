@@ -15,16 +15,11 @@ import Stack from "@mui/material/Stack";
 import Notifications from "../Notifications/Notifications";
 import s from "./LoginForm.module.css";
 import { createField } from "../../utils/helpers";
+import { useDispatch } from "react-redux";
+import { loginThunkCreator } from "./../../redux/actions/authActions";
+import { AppDispatch } from "../../redux/redux-store";
 
 interface ILoginFormProps {
-  login: (
-    email: string,
-    password: string,
-    rememberMe: boolean,
-    captcha: string,
-    setStatus: () => void,
-    setOpen: any
-  ) => void;
   captchaUrl: string | null;
 }
 
@@ -37,9 +32,11 @@ interface ILoginFormValues {
 
 type LoginFormValuesTypeKeys = keyof ILoginFormValues;
 
-const LoginForm: FC<ILoginFormProps> = ({ login, captchaUrl }) => {
+const LoginForm: FC<ILoginFormProps> = ({ captchaUrl }) => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+
+  const dispatch: AppDispatch = useDispatch();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -64,7 +61,8 @@ const LoginForm: FC<ILoginFormProps> = ({ login, captchaUrl }) => {
       }}
       onSubmit={(values, { resetForm, setStatus }) => {
         const { email, password, rememberMe, captcha } = values;
-        login(email, password, rememberMe, captcha, setStatus, setOpen);
+
+        dispatch(loginThunkCreator(email, password, rememberMe, captcha, setStatus, setOpen));
         resetForm();
       }}
       validationSchema={loginSchema}

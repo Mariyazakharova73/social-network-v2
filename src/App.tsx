@@ -3,7 +3,7 @@ import { Route, Routes, HashRouter, Navigate } from "react-router-dom";
 import { connect, Provider } from "react-redux";
 import store, { AppStateType } from "./redux/redux-store";
 import MobileMenu from "./components/MobileMenu/MobileMenu";
-import UsersContainer from "./components/Users/UsersContainer";
+import UsersPage from "./components/Users/UsersPage";
 import DesktopMenu from "./components/DesktopMenu/DesktopMenu";
 import {
   DIALOGS_PATH,
@@ -18,7 +18,7 @@ import { createTheme, PaletteMode } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import Login from "./components/Login/Login";
+import LoginPage from "./components/Login/LoginPage";
 import { initializeAppThunkCreator } from "./redux/actions/appActions";
 import Preloader from "./components/Preloader/Preloader";
 
@@ -115,8 +115,8 @@ class App extends Component<PropsType, IState> {
                   <Route path={MAIN_PATH} element={<Navigate to={PROFILE_PATH} />} />
                   <Route path={`${PROFILE_ITEM_PATH}?`} element={<ProfileContainer />} />
                   <Route path={DIALOGS_PATH} element={<DialogsContainer />} />
-                  <Route path={USERS_PATH} element={<UsersContainer />} />
-                  <Route path={LOGIN_PATH} element={<Login />} />
+                  <Route path={USERS_PATH} element={<UsersPage />} />
+                  <Route path={LOGIN_PATH} element={<LoginPage />} />
                   <Route path="*" element={<div>404 NOT FOUND</div>} />
                 </Routes>
               </Suspense>
