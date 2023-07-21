@@ -24,11 +24,3 @@ const authReducer = (state = initialState, action: ActionTypes): InitialStateTyp
 export default authReducer;
 
 //   maria7373
-
-// export interface IInitialState {
-//   userId: number | null;
-//   email: string | null;
-//   login: string | null;
-//   isAuth: boolean;
-//   captchaUrl: string | null;
-// }

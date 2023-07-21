@@ -1,9 +1,13 @@
 import React, { FC, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Users from "./Users";
-import { getCurrentPage, getPageSize, getUsersFilter } from "./../../redux/usersSelectors";
+import {
+  getCurrentPage,
+  getPageSize,
+  getUsersFilter,
+  getIsFetching,
+} from "../../redux/selectors/usersSelectors";
 import { CircularProgress } from "@mui/material";
-import { getIsFetching } from "../../redux/usersSelectors";
 import { AppDispatch } from "../../redux/redux-store";
 import { getUsersThunkCreator } from "../../redux/actions/usersActionsV2";
 import { useLocation, useSearchParams } from "react-router-dom";

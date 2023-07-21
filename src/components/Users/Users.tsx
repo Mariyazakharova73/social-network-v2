@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect } from "react";
+import React, { ChangeEvent, FC } from "react";
 import List from "@mui/material/List";
 import { StyledListItem } from "./UsersStyles";
 import Stack from "@mui/material/Stack";
@@ -14,14 +14,13 @@ import {
   getUsersFilter,
   requestUsers,
   getFollowingInProgress,
-} from "./../../redux/usersSelectors";
+} from "../../redux/selectors/usersSelectors";
 import {
   getUsersThunkCreator,
   unfollowThunkCreator,
   followThunkCreator,
 } from "../../redux/actions/usersActionsV2";
 import { AppDispatch } from "../../redux/redux-store";
-import { useLocation } from "react-router-dom";
 
 interface IUsersProps {
   searchParams: URLSearchParams;

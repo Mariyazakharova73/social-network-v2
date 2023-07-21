@@ -13,27 +13,30 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import ForestTwoToneIcon from "@mui/icons-material/ForestTwoTone";
 import Stack from "@mui/material/Stack";
-import { menuItems } from "../../utils/constants";
+import { menuItems, LOGIN_PATH } from "../../utils/constants";
 import { NavLink } from "react-router-dom";
 import { StyledTypography, StyledTypographyMobile } from "./HeaderStyles";
-import { LOGIN_PATH } from "../../utils/constants";
 import Button from "@mui/material/Button";
 import LogoutIcon from "@mui/icons-material/Logout";
 import userAvatar from "../../images/user.png";
-import { IProfile } from "./../../types/types";
 import { PaletteMode } from "@mui/material";
+import { selectIsAuth, selectCurrentUser } from "./../../redux/selectors/authSelectors";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../redux/redux-store";
+import { logoutThunkCreator } from "../../redux/actions/authActions";
 
 interface IHeaderProps {
   toggleDrawer: (newOpen: boolean) => () => void;
   changeMode: () => void;
   mode: PaletteMode | undefined;
-  isAuth: boolean;
-  logout: () => void;
-  profile: IProfile | null;
 }
 
-const Header: FC<IHeaderProps> = ({ toggleDrawer, changeMode, mode, isAuth, logout, profile }) => {
+const Header: FC<IHeaderProps> = ({ toggleDrawer, changeMode, mode }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const dispatch: AppDispatch = useDispatch();
+  const isAuth = useSelector(selectIsAuth);
+  const profile = useSelector(selectCurrentUser);
 
   const handleOpenUserMenu = (e: any) => {
     setAnchorElUser(e.currentTarget);
@@ -41,6 +44,10 @@ const Header: FC<IHeaderProps> = ({ toggleDrawer, changeMode, mode, isAuth, logo
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const logout = () => {
+    dispatch(logoutThunkCreator());
   };
 
   return (

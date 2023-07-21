@@ -4,15 +4,12 @@ import { withAuthRedirect } from "../../HOC/withAuthRedirect";
 import { sendMessageActionCreator } from "../../redux/actions/dialogsActions";
 import { compose } from "redux";
 import { AppStateType } from "../../redux/redux-store";
-import { FC } from 'react';
 import { ISendMessageAction } from "../../redux/types/dialogsTypes";
 
-// отправляет данные
 const mapStateToProps = (state: AppStateType) => {
   return { dialogsPage: state.dialogsReducer };
 };
 
-// отправляет колбеки
 const mapDispatchToProps = (dispatch: (arg0: ISendMessageAction) => void) => {
   return {
     sendMessage: (newMessageBody: string) => {
@@ -22,27 +19,3 @@ const mapDispatchToProps = (dispatch: (arg0: ISendMessageAction) => void) => {
 };
 
 export default compose<React.ComponentType>(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogs);
-
-// const DialogsContainer = () => {
-//   return (
-//     <StoreContext.Consumer>
-//       {(store) => {
-//         let state = store.getState();
-//         const onSendMessageClick = () => {
-//           store.dispatch(sendMessageActionCreator());
-//         };
-
-//         const onNewMessageChange = (body) => {
-//           store.dispatch(updateNewMessageBodyActionCreator(body));
-//         };
-//         return (
-//           <Dialogs
-//             updateNewMessageBody={onNewMessageChange}
-//             sendMessage={onSendMessageClick}
-//             dialogsPage={state.dialogsReducer}
-//           />
-//         );
-//       }}
-//     </StoreContext.Consumer>
-//   );
-// };

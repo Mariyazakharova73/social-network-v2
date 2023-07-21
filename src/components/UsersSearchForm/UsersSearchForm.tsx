@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Formik, Form, Field } from "formik";
 import { FilterType } from "../../redux/reducers/usersReducer";
 import { useSelector } from "react-redux";
-import { getUsersFilter } from "./../../redux/usersSelectors";
+import { getUsersFilter } from "../../redux/selectors/usersSelectors";
 import { changeStrValues } from "./../../utils/helpers";
 
 interface IUsersSearchFormProps {
@@ -41,9 +41,6 @@ const UsersSearchForm: FC<IUsersSearchFormProps> = ({
 
     //setSubmitting(false);
   };
-
-  // const searchString = searchParams.get("term");
-  // const searchFriendFilter = searchParams.get("friend");
 
   return (
     <Formik

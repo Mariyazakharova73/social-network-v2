@@ -36,27 +36,3 @@ const MyPostsContainer = connect<IMapStateProps, IMapDispatchProps, IOwnProps, A
 )(MyPosts);
 
 export default MyPostsContainer;
-
-// const MyPostsContainer = () => {
-//   return (
-//     <StoreContext.Consumer>
-//       {(store) => {
-//         let state = store.getState();
-//         const addPost = () => {
-//           store.dispatch(addPostActionCreator());
-//         };
-
-//         const onPostChange = (text) => {
-//           store.dispatch(updateNewPostTextActionCreator(text));
-//         };
-//         return (
-//           <MyPosts
-//             updateNewPostText={onPostChange}
-//             addPost={addPost}
-//             profilePage={state.profileReducer}
-//           />
-//         );
-//       }}
-//     </StoreContext.Consumer>
-//   );
-// };

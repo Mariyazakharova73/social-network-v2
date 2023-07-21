@@ -12,18 +12,20 @@ import {
   USERS_PATH,
   MAIN_PATH,
   PROFILE_PATH,
+  CHAT_PATH,
 } from "./utils/constants";
 import { ThemeProvider } from "@mui/system";
 import { createTheme, PaletteMode } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/Login/LoginPage";
 import { initializeAppThunkCreator } from "./redux/actions/appActions";
 import Preloader from "./components/Preloader/Preloader";
+import Header from "./components/Header/Header";
 
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
+const ChatPage = React.lazy(() => import("./components/pages/ChatPage/ChatPage"));
 
 interface IMapStateProps {
   initialized: boolean;
@@ -101,7 +103,7 @@ class App extends Component<PropsType, IState> {
     return (
       <ThemeProvider theme={theme}>
         <Box bgcolor="background.default" color="text.primary">
-          <HeaderContainer
+          <Header
             toggleDrawer={this.toggleDrawer}
             changeMode={this.changeMode}
             mode={this.state.mode}
@@ -117,6 +119,7 @@ class App extends Component<PropsType, IState> {
                   <Route path={DIALOGS_PATH} element={<DialogsContainer />} />
                   <Route path={USERS_PATH} element={<UsersPage />} />
                   <Route path={LOGIN_PATH} element={<LoginPage />} />
+                  <Route path={CHAT_PATH} element={<ChatPage />} />
                   <Route path="*" element={<div>404 NOT FOUND</div>} />
                 </Routes>
               </Suspense>
