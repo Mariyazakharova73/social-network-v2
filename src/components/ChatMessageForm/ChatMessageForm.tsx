@@ -1,18 +1,17 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
 import { Formik, Form as FormikForm } from "formik";
 import { messageSchema } from "../../utils/validators";
 import { createField } from "../../utils/helpers";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/redux-store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, AppStateType } from "../../redux/redux-store";
 import { sendMessageThunkCreator } from "../../redux/actions/chatActions";
 
 const ChatMessageForm: FC = () => {
-  const [readyStatus, setReadyStatus] = useState<"pending" | "ready">("pending");
-
   const dispatch: AppDispatch = useDispatch();
+  const status = useSelector((state: AppStateType) => state.chatReducer.status);
 
   return (
     <Formik
@@ -47,7 +46,7 @@ const ChatMessageForm: FC = () => {
               variant="contained"
               type="submit"
               endIcon={<SendIcon />}
-              disabled={!dirty || !!errors.message}
+              disabled={!dirty || !!errors.message || status !== "ready"}
             >
               Send
             </Button>

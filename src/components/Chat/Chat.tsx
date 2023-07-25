@@ -1,16 +1,16 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import ChatMessages from "./../ChatMessages/ChatMessages";
 import ChatMessageForm from "./../ChatMessageForm/ChatMessageForm";
-import { WS_URL } from "./../../utils/constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   startMessagesListeningThunkCreator,
   stopMessagesListeningThunkCreator,
 } from "../../redux/actions/chatActions";
-import { AppDispatch } from "../../redux/redux-store";
+import { AppDispatch, AppStateType } from "../../redux/redux-store";
 
 const Chat: FC = () => {
   const dispatch: AppDispatch = useDispatch();
+  const status = useSelector((state: AppStateType) => state.chatReducer.status);
 
   useEffect(() => {
     dispatch(startMessagesListeningThunkCreator());
@@ -21,6 +21,7 @@ const Chat: FC = () => {
 
   return (
     <>
+      {status === "error" && <p>Some error occured. Please refresh the page</p>}
       <ChatMessages />
       <ChatMessageForm />
     </>

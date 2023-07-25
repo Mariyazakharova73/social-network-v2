@@ -1,29 +1,24 @@
-import React, { FC, useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { FC, UIEvent, useEffect, useRef, useState } from "react";
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
-import ListItemButton from "@mui/material/ListItemButton";
 import List from "@mui/material/List";
 import styles from "../../App.module.css";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import { WS_URL } from "../../utils/constants";
 import { IChatMessage } from "./../../redux/types/chatTypes";
 import { useSelector } from "react-redux";
 import { AppStateType } from "../../redux/redux-store";
 
 interface IChatMessageProps {
   message: IChatMessage;
-  index: number;
-  selectedIndex: number;
-  handleListItemClick: (index: number) => void;
 }
 
-const Message: FC<IChatMessageProps> = ({ message, index, selectedIndex, handleListItemClick }) => {
+const Message: FC<IChatMessageProps> = React.memo(({ message }) => {
+   
   return (
-    <React.Fragment>
+    <>
       <ListItem>
         <ListItemAvatar>
           <Avatar alt={message.userName} src={message.photo} />
@@ -31,7 +26,7 @@ const Message: FC<IChatMessageProps> = ({ message, index, selectedIndex, handleL
         <ListItemText
           primary={message.userName}
           secondary={
-            <React.Fragment>
+            <>
               <Typography
                 sx={{ display: "inline" }}
                 component="span"
@@ -40,37 +35,44 @@ const Message: FC<IChatMessageProps> = ({ message, index, selectedIndex, handleL
               >
                 {message.message}
               </Typography>
-            </React.Fragment>
+            </>
           }
         />
       </ListItem>
       <Divider variant="inset" component="li" />
-    </React.Fragment>
+    </>
   );
-};
+});
 
 const ChatMessages: FC = () => {
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const handleListItemClick = (index: number) => {
-    setSelectedIndex(index);
-  };
-
   const messages = useSelector((state: AppStateType) => state.chatReducer.messages);
+  const ref = useRef<HTMLDivElement>(null);
+  const [isAutoScroll, setIsAutoScroll] = useState(true);
+
+  const scrollHandler = (e: UIEvent<HTMLDivElement>) => {
+    const element = e.currentTarget;
+    if (element.scrollHeight - element.scrollTop === element.clientHeight) {
+      !isAutoScroll && setIsAutoScroll(true);
+    } else {
+      isAutoScroll && setIsAutoScroll(false);
+    }
+  };
+  useEffect(() => {
+    if (isAutoScroll) {
+      ref.current?.scrollIntoView(true);
+    }
+  }, [messages]);
 
   return (
-    <div style={{ height: "400px", overflowY: "auto", marginBottom: "50px" }}>
+    <div
+      style={{ height: "400px", overflowY: "auto", marginBottom: "50px" }}
+      onScroll={scrollHandler}
+    >
       <List>
-        {messages.reverse().map((message, index) => {
-          return (
-            <Message
-              key={index}
-              handleListItemClick={handleListItemClick}
-              message={message}
-              index={index}
-              selectedIndex={selectedIndex}
-            />
-          );
+        {messages.map((message, index) => {
+          return <Message key={index} message={message} />;
         })}
+        <div ref={ref}></div>
       </List>
     </div>
   );
