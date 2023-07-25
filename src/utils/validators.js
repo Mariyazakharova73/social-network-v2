@@ -29,7 +29,7 @@ export const loginSchema = Yup.object().shape({
     .min(6, "Минимальная длина пароля - 6 символов")
     .required("Поле должно быть заполнено"),
   rememberMe: Yup.boolean(),
-  captcha: Yup.string()
+  captcha: Yup.string(),
 });
 
 export const statusSchema = Yup.object().shape({
@@ -49,4 +49,8 @@ export const profileSchema = Yup.object().shape({
   youtube: validateUrl(),
   github: validateUrl(),
   mainLink: validateUrl(),
+});
+
+export const messageSchema = Yup.object().shape({
+  message: validateText(),
 });

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
@@ -9,23 +9,27 @@ import List from "@mui/material/List";
 import styles from "../../App.module.css";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
+import { WS_URL } from "../../utils/constants";
+import { IChatMessage } from "./../../redux/types/chatTypes";
+import { useSelector } from "react-redux";
+import { AppStateType } from "../../redux/redux-store";
 
-interface IChatItemProps {
-  message: any;
+interface IChatMessageProps {
+  message: IChatMessage;
   index: number;
   selectedIndex: number;
   handleListItemClick: (index: number) => void;
 }
 
-const Message: FC<IChatItemProps> = ({ message, index, selectedIndex, handleListItemClick }) => {
+const Message: FC<IChatMessageProps> = ({ message, index, selectedIndex, handleListItemClick }) => {
   return (
     <React.Fragment>
       <ListItem>
         <ListItemAvatar>
-          <Avatar alt={message.name} src={message.url} />
+          <Avatar alt={message.userName} src={message.photo} />
         </ListItemAvatar>
         <ListItemText
-          primary={message.author}
+          primary={message.userName}
           secondary={
             <React.Fragment>
               <Typography
@@ -34,7 +38,7 @@ const Message: FC<IChatItemProps> = ({ message, index, selectedIndex, handleList
                 variant="body2"
                 color="text.primary"
               >
-                {message.text}
+                {message.message}
               </Typography>
             </React.Fragment>
           }
@@ -46,55 +50,20 @@ const Message: FC<IChatItemProps> = ({ message, index, selectedIndex, handleList
 };
 
 const ChatMessages: FC = () => {
-  const [messages, setMessages] = useState([
-    {
-      url: "/static/images/avatar/1.jpg",
-      author: "Mary",
-      text: "ghhhh",
-    },
-    {
-      url: "/static/images/avatar/1.jpg",
-      author: "Mary",
-      text: "ghhhh",
-    },
-    {
-      url: "/static/images/avatar/1.jpg",
-      author: "Mary",
-      text: "ghhhh",
-    },
-    {
-      url: "/static/images/avatar/1.jpg",
-      author: "Mary",
-      text: "ghhhh",
-    },
-    {
-      url: "/static/images/avatar/1.jpg",
-      author: "Mary",
-      text: "ghhhh",
-    },
-    {
-      url: "/static/images/avatar/1.jpg",
-      author: "Mary",
-      text: "ghhhh",
-    },
-  ]);
-
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const handleListItemClick = (index: number) => {
     setSelectedIndex(index);
   };
 
-  const addNewMessage = (data: string) => {
-    // sendMessage(data);
-  };
+  const messages = useSelector((state: AppStateType) => state.chatReducer.messages);
 
   return (
     <div style={{ height: "400px", overflowY: "auto", marginBottom: "50px" }}>
       <List>
-        {messages.map((message, index) => {
+        {messages.reverse().map((message, index) => {
           return (
             <Message
-              key={message.author}
+              key={index}
               handleListItemClick={handleListItemClick}
               message={message}
               index={index}

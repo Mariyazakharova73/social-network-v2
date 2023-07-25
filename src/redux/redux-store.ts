@@ -7,6 +7,7 @@ import sidebarReducer from "./reducers/sidebarReducer";
 import usersReducer from "./reducers/usersReducer";
 import authReducer from "./reducers/authReducer";
 import appReducer from "./reducers/appReducer";
+import chatReducer from "./reducers/chatReducer";
 
 export const rootReducer = combineReducers({
   profileReducer: profileReducer,
@@ -15,6 +16,7 @@ export const rootReducer = combineReducers({
   sidebarReducer: sidebarReducer,
   authReducer: authReducer,
   appReducer: appReducer,
+  chatReducer: chatReducer,
 });
 
 type RootReducerType = typeof rootReducer;
