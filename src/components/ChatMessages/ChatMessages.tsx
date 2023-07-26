@@ -16,7 +16,6 @@ interface IChatMessageProps {
 }
 
 const Message: FC<IChatMessageProps> = React.memo(({ message }) => {
-   
   return (
     <>
       <ListItem>
@@ -27,12 +26,7 @@ const Message: FC<IChatMessageProps> = React.memo(({ message }) => {
           primary={message.userName}
           secondary={
             <>
-              <Typography
-                sx={{ display: "inline" }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
+              <Typography component="span" variant="body2" color="text.primary">
                 {message.message}
               </Typography>
             </>
