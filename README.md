@@ -1,14 +1,23 @@
-# Social network
+## Social network
 
-## О проекте
+### О проекте
 
 Социальная сеть. Пользователь может авторизоваться, видеть список других пользователей, фильтровать список, искать пользователя по имени, отправить сообщение в общий чат, видеть сообщения других пользователей, подписываться/отписываться, изменить информацию о себе, аватар. Также реализована возможность смены темы, языка, валидация форм. Написаны тесты для некоторых редьюсеров и санок.
 
-## Технологии
+### Технологии
 
-`React, Redux, TypeScript, Material UI, formik, WebSocket`
+<div>
+  <img height='25px' src="https://img.shields.io/badge/React-20232A??style=plastic&logo=react&logoColor=61DAFB" alt="React">
+  <img height='25px' src="https://img.shields.io/badge/TypeScript-20232A??style=plastic&logo=typescript&logoColor=3178C6" alt="TypeScript">
+  <img height='25px' src="https://img.shields.io/badge/Redux-20232A??style=plastic&logo=redux&logoColor=764ABC" alt="Redux">
+  <img height='25px' src="https://img.shields.io/badge/Material UI-20232A??style=for-the-badge&logo=MUI&logoColor=007FFF" alt="MUI">
+  <img height='25px' src="https://img.shields.io/badge/Formik-20232A??style=for-the-badge" alt="Formik">
+  <img height='25px' src="https://img.shields.io/badge/WebSocket-20232A??style=for-the-badge" alt="WebSocket">
+  <img height='25px' src="https://img.shields.io/badge/Jest-20232A??style=for-the-badge&logo=jest&logoColor=C21325" alt="Jest">
 
-## Установка и запуск приложения
+</div>
+
+### Установка и запуск приложения
 
 <details><summary><b>Развернуть</b></summary>
 
@@ -33,5 +42,5 @@
 [Ссылка на проект Social network](https://mariyazakharova73.github.io/social-network-v2/)
 
 <div align="center">
-  <img width="575" alt="Основной функционал приложения" src="https://mariyazakharova73.github.io/social-network-v2/images/app.png">
+  <img width="575" alt="Основной функционал приложения" src="./src/images/app.png">
 </div>
