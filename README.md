@@ -1,6 +1,6 @@
-## Social network
+### Social network
 
-### О проекте
+#### О проекте
 
 Социальная сеть. Пользователь может авторизоваться, видеть список других пользователей, фильтровать список, искать пользователя по имени, отправить сообщение в общий чат, видеть сообщения других пользователей, подписываться/отписываться, изменить информацию о себе, аватар. Также реализована возможность смены темы, языка, валидация форм, пагинация. Написаны тесты для некоторых редьюсеров и санок.
 
@@ -9,7 +9,7 @@ email: free@samuraijs.com, password: free
 
 <!-- lukoyanowa.maria@yandex.ru maria7373 -->
 
-### Технологии
+#### Технологии
 
 <div>
   <img height='25px' src="https://img.shields.io/badge/React-20232A??style=plastic&logo=react&logoColor=61DAFB" alt="React">
@@ -23,7 +23,7 @@ email: free@samuraijs.com, password: free
   <img height='25px' src="https://img.shields.io/badge/Axios-20232A??style=for-the-badge&logo=Axios&logoColor=5A29E4" alt="Axios">
 </div>
 
-### Установка и запуск приложения
+#### Установка и запуск приложения
 
 <details><summary><b>Развернуть</b></summary>
 
