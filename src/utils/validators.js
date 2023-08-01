@@ -26,7 +26,7 @@ export const newMessageBodySchema = Yup.object().shape({
 export const loginSchema = Yup.object().shape({
   email: Yup.string().email("Неверный email").required("Поле должно быть заполнено"),
   password: Yup.string()
-    .min(6, "Минимальная длина пароля - 6 символов")
+    .min(4, "Минимальная длина пароля - 4 символов")
     .required("Поле должно быть заполнено"),
   rememberMe: Yup.boolean(),
   captcha: Yup.string(),

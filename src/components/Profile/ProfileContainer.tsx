@@ -14,6 +14,7 @@ import { LOGIN_PATH } from "../../utils/constants";
 import { withAuthRedirect } from "../../HOC/withAuthRedirect";
 import { IProfile, IProfileData } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
+import { boolean } from "yup";
 
 interface IMapStateProps {
   profile: IProfile | null;
@@ -46,7 +47,7 @@ class ProfileContainer extends React.Component<PropsType> {
     if (userId === "*" || !userId) {
       userId = this.props.authorizedUserId;
       if (!userId) {
-        // this.props.navigate(LOGIN_PATH); 
+        // this.props.navigate(LOGIN_PATH);
         window.location.replace(LOGIN_PATH);
       }
     }
@@ -69,7 +70,7 @@ class ProfileContainer extends React.Component<PropsType> {
     return (
       <Profile
         {...this.props}
-        isOwner={!this.props.router.params.id}
+        isOwner={!this.props.router.params.id || this.props.router.params.id === "*"}
         profile={this.props.profile}
         status={this.props.status}
         updateStatus={this.props.updateStatus}

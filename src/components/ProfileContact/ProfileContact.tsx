@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Typography from "@mui/material/Typography";;
+import Typography from "@mui/material/Typography";
 
 interface IProfileContactProps {
   contactTitle: string;

@@ -21,6 +21,4 @@ const authReducer = (state = initialState, action: ActionTypes): InitialStateTyp
   }
 };
 
-export default authReducer;
-
-//   maria7373
+export default authReducer; 

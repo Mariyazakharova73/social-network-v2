@@ -22,8 +22,6 @@ const result: IResponse = {
   data: {},
 };
 
-
-
 test("success follow thunk", async () => {
   usersAPIMock.follow.mockReturnValue(Promise.resolve(result));
   const thunk = followThunkCreator(1);

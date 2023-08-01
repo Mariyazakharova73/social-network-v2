@@ -78,6 +78,12 @@ class App extends Component<PropsType, IState> {
           main: "#d29262",
         },
       },
+      typography: {
+        fontFamily: [
+          'Raleway', 
+          'serif',
+        ].join(','),
+    },
     });
 
     return (

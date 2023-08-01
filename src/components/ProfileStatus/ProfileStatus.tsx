@@ -8,9 +8,10 @@ import Typography from "@mui/material/Typography";
 interface IProfileStatus {
   prevStatus: string;
   updateStatus: (status: string) => void;
+  isOwner: boolean;
 }
 
-const ProfileStatus: FC<IProfileStatus> = ({ updateStatus, prevStatus }) => {
+const ProfileStatus: FC<IProfileStatus> = ({ updateStatus, prevStatus, isOwner }) => {
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(prevStatus);
 
@@ -34,9 +35,11 @@ const ProfileStatus: FC<IProfileStatus> = ({ updateStatus, prevStatus }) => {
   return !editMode ? (
     <Stack direction="row" alignItems="center" spacing={1}>
       <Typography component="p">Status: {prevStatus ? prevStatus : "Не задан"}</Typography>
-      <IconButton size="small" onClick={activateEditMode}>
-        <EditIcon fontSize="inherit" />
-      </IconButton>
+      {isOwner && (
+        <IconButton size="small" onClick={activateEditMode}>
+          <EditIcon fontSize="inherit" />
+        </IconButton>
+      )}
     </Stack>
   ) : (
     <form>

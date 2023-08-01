@@ -14,8 +14,8 @@ export const LOGIN_PATH = "/login";
 export const CHAT_PATH = "/chat";
 export const menuItems = [
   { name: "Profile", link: PROFILE_PATH },
-  { name: "Account", link: "" },
-  { name: "Login", link: LOGIN_PATH },
+  // { name: "Account", link: "" },
+  // { name: "Login", link: LOGIN_PATH },
   { name: "LogOut", link: LOGIN_PATH },
 ];
 
@@ -29,7 +29,5 @@ export const sidebarData = [
   // { text: "Music", icon: <MusicNoteIcon />, path: MUSIC_PATH },
   { text: "Users", icon: <PeopleIcon />, path: USERS_PATH },
 ];
-
-export const avatar = "https://mui.com/static/images/avatar/3.jpg";
 
 export const API_KEY = "bc4d7bbf-98e2-4f08-9831-e79b832ca0ac";

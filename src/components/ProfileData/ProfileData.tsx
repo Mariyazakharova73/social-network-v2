@@ -37,8 +37,8 @@ const ProfileData: FC<IProfileDataProps> = ({
         </Typography>
       )}
       <Stack direction="row">
-        <Stack direction="row" sx={{ flexWrap: "wrap" }}>
-          Contacts:&ensp;
+        <Stack direction="row" sx={{ flexWrap: "wrap", fontFamily: "raleway" }}>
+          Contacts :&ensp;
           {profile?.contacts &&
             Object.keys(profile?.contacts).map((item) => {
               return (
@@ -59,7 +59,7 @@ const ProfileData: FC<IProfileDataProps> = ({
         )}
       </Stack>
       <Divider />
-      <ProfileStatus prevStatus={status} updateStatus={updateStatus} />
+      <ProfileStatus prevStatus={status} updateStatus={updateStatus} isOwner={isOwner} />
     </Stack>
   );
 };

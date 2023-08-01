@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Avatar from "@mui/material/Avatar";
-import { avatar } from "../../utils/constants";
 import Typography from "@mui/material/Typography";
 import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
@@ -28,16 +27,16 @@ const Post: FC<IPostProps> = ({ item, profile }) => {
     <Card sx={{ marginBottom: 5 }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" src={profile?.photos?.large || ""}>
-            M
+          <Avatar sx={{ bgcolor: red[500] }} src={profile?.photos?.large || ""}>
+            A
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
+          <IconButton>
             <MoreVertIcon />
           </IconButton>
         }
-        title="Мария З."
+        title={profile?.fullName}
         subheader={item.date}
       />
       <CardContent>
@@ -55,9 +54,9 @@ const Post: FC<IPostProps> = ({ item, profile }) => {
           }}
           checkedIcon={<Favorite />}
         />
-        <IconButton aria-label="share">
+        {/* <IconButton aria-label="share">
           <ShareIcon />
-        </IconButton>
+        </IconButton> */}
         <IconButton aria-label="delete" sx={{ marginLeft: "auto" }}>
           <DeleteIcon />
         </IconButton>

@@ -2,7 +2,12 @@
 
 ### О проекте
 
-Социальная сеть. Пользователь может авторизоваться, видеть список других пользователей, фильтровать список, искать пользователя по имени, отправить сообщение в общий чат, видеть сообщения других пользователей, подписываться/отписываться, изменить информацию о себе, аватар. Также реализована возможность смены темы, языка, валидация форм. Написаны тесты для некоторых редьюсеров и санок.
+Социальная сеть. Пользователь может авторизоваться, видеть список других пользователей, фильтровать список, искать пользователя по имени, отправить сообщение в общий чат, видеть сообщения других пользователей, подписываться/отписываться, изменить информацию о себе, аватар. Также реализована возможность смены темы, языка, валидация форм, пагинация. Написаны тесты для некоторых редьюсеров и санок.
+
+Данные для входа:
+email: free@samuraijs.com, password: free
+
+<!-- lukoyanowa.maria@yandex.ru maria7373 -->
 
 ### Технологии
 
@@ -13,8 +18,9 @@
   <img height='25px' src="https://img.shields.io/badge/Material UI-20232A??style=for-the-badge&logo=MUI&logoColor=007FFF" alt="MUI">
   <img height='25px' src="https://img.shields.io/badge/Formik-20232A??style=for-the-badge" alt="Formik">
   <img height='25px' src="https://img.shields.io/badge/WebSocket-20232A??style=for-the-badge" alt="WebSocket">
+  <img height='25px' src="https://img.shields.io/badge/React Router v6-20232A??style=plastic&logo=reactrouter&logoColor=CA4245" alt="React Router">
   <img height='25px' src="https://img.shields.io/badge/Jest-20232A??style=for-the-badge&logo=jest&logoColor=C21325" alt="Jest">
-
+  <img height='25px' src="https://img.shields.io/badge/Axios-20232A??style=for-the-badge&logo=Axios&logoColor=5A29E4" alt="Axios">
 </div>
 
 ### Установка и запуск приложения

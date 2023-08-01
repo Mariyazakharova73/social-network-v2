@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "typeface-raleway";
 
 import "./index.css";
 import { MainApp } from "./App";

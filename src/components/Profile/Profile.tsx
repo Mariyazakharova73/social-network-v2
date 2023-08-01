@@ -30,7 +30,7 @@ const Profile: FC<IProfileProps> = ({
         savePhoto={savePhoto}
         saveProfile={saveProfile}
       />
-      <MyPosts />
+      {isOwner && <MyPosts />}
     </>
   );
 };
