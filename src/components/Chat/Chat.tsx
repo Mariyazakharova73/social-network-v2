@@ -6,11 +6,12 @@ import {
   startMessagesListeningThunkCreator,
   stopMessagesListeningThunkCreator,
 } from "../../redux/actions/chatActions";
-import { AppDispatch, AppStateType } from "../../redux/redux-store";
+import { AppDispatch} from "../../redux/redux-store";
+import { selectStatus } from './../../redux/selectors/chatSelectors';
 
 const Chat: FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const status = useSelector((state: AppStateType) => state.chatReducer.status);
+  const status = useSelector(selectStatus);
 
   useEffect(() => {
     dispatch(startMessagesListeningThunkCreator());

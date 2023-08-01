@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { IProfile, IProfileData } from "../../types/types";
-import MyPostsContainer from "../MyPosts/MyPostsContainer";
+import MyPosts from "../MyPosts/MyPosts";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 
 interface IProfileProps {
@@ -30,7 +30,7 @@ const Profile: FC<IProfileProps> = ({
         savePhoto={savePhoto}
         saveProfile={saveProfile}
       />
-      <MyPostsContainer />
+      <MyPosts />
     </>
   );
 };

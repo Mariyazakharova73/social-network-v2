@@ -6,12 +6,13 @@ import { Formik, Form as FormikForm } from "formik";
 import { messageSchema } from "../../utils/validators";
 import { createField } from "../../utils/helpers";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, AppStateType } from "../../redux/redux-store";
+import { AppDispatch } from "../../redux/redux-store";
 import { sendMessageThunkCreator } from "../../redux/actions/chatActions";
+import { selectStatus } from './../../redux/selectors/chatSelectors';
 
 const ChatMessageForm: FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const status = useSelector((state: AppStateType) => state.chatReducer.status);
+  const status = useSelector(selectStatus);
 
   return (
     <Formik

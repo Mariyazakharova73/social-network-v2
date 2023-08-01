@@ -13,7 +13,6 @@ let ws: WebSocket | null = null;
 type EventsNamesType = "messages-received" | "status-changed";
 
 const closeHandler = () => {
-  console.log("close ws");
   notifysubscribersAboutStatus("pending");
   setTimeout(createWsChannel, 3000);
 };

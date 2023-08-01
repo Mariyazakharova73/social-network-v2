@@ -1,5 +1,5 @@
 import React, { FC, MouseEvent, useState } from "react";
-import ProfileAvatar from "./ProfileAvatar";
+import ProfileAvatar from "../ProfileAvatar/ProfileAvatar";
 import ProfileForm from "../Modal/ProfileForm";
 import ProfileData from "../ProfileData/ProfileData";
 import { StyledStack } from "./ProfileInfoStyles";

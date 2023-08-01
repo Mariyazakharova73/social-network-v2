@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Users from "./Users";
+import Users from "../../components/Users/Users";
 import {
   getCurrentPage,
   getPageSize,
@@ -13,7 +13,7 @@ import { getUsersThunkCreator } from "../../redux/actions/usersActionsV2";
 import { useLocation, useSearchParams } from "react-router-dom";
 // @ts-ignore
 import queryString from "query-string";
-import { changeStrValues } from "./../../utils/helpers";
+import { changeStrValues } from "../../utils/helpers";
 
 interface IUsresProps {}
 

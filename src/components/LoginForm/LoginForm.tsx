@@ -16,7 +16,7 @@ import Notifications from "../Notifications/Notifications";
 import s from "./LoginForm.module.css";
 import { createField } from "../../utils/helpers";
 import { useDispatch } from "react-redux";
-import { loginThunkCreator } from "./../../redux/actions/authActions";
+import { loginThunkCreator } from "../../redux/actions/authActions";
 import { AppDispatch } from "../../redux/redux-store";
 
 interface ILoginFormProps {

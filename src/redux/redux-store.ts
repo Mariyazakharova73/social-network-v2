@@ -2,7 +2,6 @@ import { createStore, combineReducers, applyMiddleware, compose, Action } from "
 import thunk from "redux-thunk";
 import { ThunkAction } from "redux-thunk";
 import profileReducer from "./reducers/profileReducer";
-import dialogsReducer from "./reducers/dialogsReducer";
 import sidebarReducer from "./reducers/sidebarReducer";
 import usersReducer from "./reducers/usersReducer";
 import authReducer from "./reducers/authReducer";
@@ -11,7 +10,6 @@ import chatReducer from "./reducers/chatReducer";
 
 export const rootReducer = combineReducers({
   profileReducer: profileReducer,
-  dialogsReducer: dialogsReducer,
   usersReducer: usersReducer,
   sidebarReducer: sidebarReducer,
   authReducer: authReducer,

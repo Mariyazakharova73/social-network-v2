@@ -4,12 +4,11 @@ import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import List from "@mui/material/List";
-import styles from "../../App.module.css";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import { IChatMessage } from "./../../redux/types/chatTypes";
 import { useSelector } from "react-redux";
-import { AppStateType } from "../../redux/redux-store";
+import { selectChatMesssages } from "../../redux/selectors/chatSelectors";
 
 interface IChatMessageProps {
   message: IChatMessage;
@@ -39,7 +38,7 @@ const Message: FC<IChatMessageProps> = React.memo(({ message }) => {
 });
 
 const ChatMessages: FC = () => {
-  const messages = useSelector((state: AppStateType) => state.chatReducer.messages);
+  const messages = useSelector(selectChatMesssages);
   const ref = useRef<HTMLDivElement>(null);
   const [isAutoScroll, setIsAutoScroll] = useState(true);
 

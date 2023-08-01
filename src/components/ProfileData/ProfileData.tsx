@@ -43,7 +43,10 @@ const ProfileData: FC<IProfileDataProps> = ({
             Object.keys(profile?.contacts).map((item) => {
               return (
                 <React.Fragment key={item}>
-                  <ProfileContact contactTitle={item} contactValue={profile?.contacts[item as keyof IContacts]} />
+                  <ProfileContact
+                    contactTitle={item}
+                    contactValue={profile?.contacts[item as keyof IContacts]}
+                  />
                   &ensp;
                 </React.Fragment>
               );

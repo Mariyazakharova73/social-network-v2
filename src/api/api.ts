@@ -14,7 +14,7 @@ export interface IResponse<D = {}, RC = ResultCodes> {
   resultCode: RC;
 }
 
-export interface GetItemsType {
+export interface IGetItems {
   items: Array<IUser>;
   totalCount: number;
   error: string | null;

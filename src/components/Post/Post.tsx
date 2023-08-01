@@ -14,20 +14,21 @@ import CardActions from "@mui/material/CardActions";
 import { red } from "@mui/material/colors";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
-import { IPost } from "../../types/types";
+import { IPost, IProfile } from "../../types/types";
 
 interface IPostProps {
   item: IPost;
+  profile: IProfile | null;
 }
 
-const Post: FC<IPostProps> = ({ item }) => {
+const Post: FC<IPostProps> = ({ item, profile }) => {
   const [selected, setSelected] = React.useState(false);
 
   return (
     <Card sx={{ marginBottom: 5 }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" src={avatar}>
+          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" src={profile?.photos?.large || ""}>
             M
           </Avatar>
         }
