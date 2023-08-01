@@ -1,7 +1,8 @@
-import React, { Component, Suspense } from "react";
-import { Route, Routes, HashRouter, Navigate } from "react-router-dom";
-import { connect, Provider } from "react-redux";
-import store, { AppStateType } from "./redux/redux-store";
+import React, { Suspense, useEffect, useState } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "./redux/redux-store";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import MobileMenu from "./components/MobileMenu/MobileMenu";
 import UsersPage from "./pages/UsersPage/UsersPage";
 import DesktopMenu from "./components/DesktopMenu/DesktopMenu";
@@ -14,7 +15,7 @@ import {
   CHAT_PATH,
 } from "./utils/constants";
 import { ThemeProvider } from "@mui/system";
-import { createTheme, PaletteMode } from "@mui/material";
+import { createTheme, GlobalStyles } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -25,112 +26,79 @@ import Header from "./components/Header/Header";
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 const ChatPage = React.lazy(() => import("./pages/ChatPage/ChatPage"));
 
-interface IMapStateProps {
-  initialized: boolean;
-}
+const App = () => {
+  const [mode, setMode] = useState<any>("light");
+  const [open, setOpen] = useState(false);
 
-interface IMapDispatchProps {
-  initializeApp: any;
-}
-
-interface IOwnProps {}
-
-interface IState {
-  mode: PaletteMode | undefined;
-  open: boolean;
-}
-
-type PropsType = IMapStateProps & IMapDispatchProps & IOwnProps;
-
-class App extends Component<PropsType, IState> {
-  constructor(props: PropsType) {
-    super(props);
-    this.state = {
-      mode: "light",
-      open: false,
-    };
-  }
-
-  componentDidMount() {
-    this.props.initializeApp();
-  }
-
-  toggleDrawer = (newOpen: boolean) => () => {
-    this.setState({ ...this.state, open: newOpen });
-  };
-
-  changeMode = () => {
-    this.setState({ ...this.state, mode: this.state.mode === "light" ? "dark" : "light" });
-  };
-
-  render() {
-    if (!this.props.initialized) {
-      return <Preloader initialized={this.props.initialized} />;
-    }
-
-    const theme = createTheme({
-      palette: {
-        mode: this.state.mode,
-        primary: {
-          main: "#057147",
-        },
-        secondary: {
-          main: "#d29262",
-        },
+  const theme = createTheme({
+    palette: {
+      mode: mode,
+      primary: {
+        main: "#057147",
       },
-      typography: {
-        fontFamily: [
-          'Raleway', 
-          'serif',
-        ].join(','),
+      secondary: {
+        main: "#d29262",
+      },
     },
-    });
+    typography: {
+      fontFamily: ["montserrat", "serif"].join(","),
+    },
+  });
 
-    return (
-      <ThemeProvider theme={theme}>
-        <Box bgcolor="background.default" color="text.primary">
-          <Header
-            toggleDrawer={this.toggleDrawer}
-            changeMode={this.changeMode}
-            mode={this.state.mode}
-          />
-          <Stack direction="row" spacing={2}>
-            <MobileMenu toggleDrawer={this.toggleDrawer} open={this.state.open} />
-            <DesktopMenu />
-            <Box flex={4} p={2}>
-              <Suspense fallback={<Preloader initialized={false} />}>
-                <Routes>
-                  <Route path={MAIN_PATH} element={<Navigate to={PROFILE_PATH} />} />
-                  <Route path={`${PROFILE_ITEM_PATH}?`} element={<ProfileContainer />} />
-                  <Route path={USERS_PATH} element={<UsersPage />} />
-                  <Route path={LOGIN_PATH} element={<LoginPage />} />
-                  <Route path={CHAT_PATH} element={<ChatPage />} />
-                  <Route path="*" element={<div>404 NOT FOUND</div>} />
-                </Routes>
-              </Suspense>
-            </Box>
-          </Stack>
-        </Box>
-      </ThemeProvider>
-    );
-  }
-}
+  const dispatch: AppDispatch = useDispatch();
 
-const mapStateToProps = (state: AppStateType): IMapStateProps => ({
-  initialized: state.appReducer.initialized,
-});
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
 
-let AppContainer = connect<IMapStateProps, IMapDispatchProps, IOwnProps, AppStateType>(
-  mapStateToProps,
-  { initializeApp: initializeAppThunkCreator }
-)(App);
+  const changeMode = () => {
+    setMode((prev: any) => (prev === "light" ? "dark" : "light"));
+    localStorage.setItem("theme", mode === "light" ? "dark" : "light");
+  };
 
-export const MainApp = () => {
+  useEffect(() => {
+    dispatch(initializeAppThunkCreator());
+  }, [dispatch]);
+
+  useEffect(() => {
+    let theme = localStorage.getItem("theme");
+    if (theme) {
+      setMode(theme);
+    }
+  }, [mode]);
+
   return (
-    <HashRouter>
-      <Provider store={store}>
-        <AppContainer />
-      </Provider>
-    </HashRouter>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles
+        styles={{
+          body: { backgroundColor: theme.palette.background.default },
+        }}
+      />
+      <Box
+        bgcolor="background.default"
+        color="text.primary"
+        sx={{ maxWidth: "1440px", margin: "0 auto" }}
+      >
+        <Header toggleDrawer={toggleDrawer} changeMode={changeMode} mode={mode} />
+        <Stack direction="row" spacing={2}>
+          <MobileMenu toggleDrawer={toggleDrawer} open={open} />
+          <DesktopMenu />
+          <Box flex={4} p={2}>
+            <Suspense fallback={<Preloader initialized={false} />}>
+              <Routes>
+                <Route path={MAIN_PATH} element={<Navigate to={PROFILE_PATH} />} />
+                <Route path={`${PROFILE_ITEM_PATH}?`} element={<ProfileContainer />} />
+                <Route path={USERS_PATH} element={<UsersPage />} />
+                <Route path={LOGIN_PATH} element={<LoginPage />} />
+                <Route path={CHAT_PATH} element={<ChatPage />} />
+                <Route path="*" element={<ErrorPage />} />
+              </Routes>
+            </Suspense>
+          </Box>
+        </Stack>
+      </Box>
+    </ThemeProvider>
   );
 };
+
+export default App;

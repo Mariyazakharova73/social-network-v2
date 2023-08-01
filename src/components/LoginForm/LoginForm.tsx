@@ -68,7 +68,7 @@ const LoginForm: FC<ILoginFormProps> = ({ captchaUrl }) => {
       validationSchema={loginSchema}
     >
       {({ values, handleChange, errors, touched, dirty, status }) => (
-        <Box sx={{ maxWidth: { sm: "70%" } }}>
+        <Box>
           <FormikForm>
             <Stack spacing={2}>
               <Field

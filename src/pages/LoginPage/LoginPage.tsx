@@ -1,10 +1,10 @@
 import React, { FC } from "react";
-import Stack from "@mui/material/Stack";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { PROFILE_PATH } from "../../utils/constants";
 import { selectIsAuth, selectCaptchaUrl } from "../../redux/selectors/authSelectors";
+import { StyledStack } from "./LoginPageStyles";
 
 const LoginPage: FC = () => {
   const captchaUrl = useSelector(selectCaptchaUrl);
@@ -15,9 +15,9 @@ const LoginPage: FC = () => {
   }
 
   return (
-    <Stack spacing={2} maxWidth="500px">
+    <StyledStack spacing={2}>
       <LoginForm captchaUrl={captchaUrl} />
-    </Stack>
+    </StyledStack>
   );
 };
 

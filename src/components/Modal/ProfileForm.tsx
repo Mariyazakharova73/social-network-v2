@@ -94,7 +94,7 @@ const ProfileForm: FC<IProfileForm> = ({ openForm, handleCloseModal, saveProfile
             <FormikForm>
               <Stack spacing={2}>
                 {createField<ProfileFormTypeKeys>("fullName", "Full name", touched, errors)}
-                <label style={{ fontFamily: "raleway" }}>
+                <label style={{ fontFamily: "montserrat" }}>
                   <Field size="small" as={Checkbox} name="lookingForAJob" type="checkbox" />
                   Looking for a job
                 </label>

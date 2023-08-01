@@ -8,10 +8,10 @@ interface ICustomizedSwitchesProps {
   mode: PaletteMode | undefined;
 }
 
-const CustomizedSwitches: FC<ICustomizedSwitchesProps> = ({ changeMode }) => {
+const CustomizedSwitches: FC<ICustomizedSwitchesProps> = ({ changeMode, mode }) => {
   return (
     <FormControlLabel
-      control={<MaterialUISwitch sx={{ m: 1 }} onChange={changeMode} />}
+      control={<MaterialUISwitch sx={{ m: 1 }} onChange={changeMode} checked={mode === "dark"} />}
       label={undefined}
     />
   );

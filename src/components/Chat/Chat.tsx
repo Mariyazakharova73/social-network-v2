@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from "react";
-import ChatMessages from "./../ChatMessages/ChatMessages";
+import ChatMessages from "../ChatMessages/ChatMessages";
 import ChatMessageForm from "./../ChatMessageForm/ChatMessageForm";
 import { useDispatch, useSelector } from "react-redux";
 import {

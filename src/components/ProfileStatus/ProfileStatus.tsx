@@ -34,7 +34,9 @@ const ProfileStatus: FC<IProfileStatus> = ({ updateStatus, prevStatus, isOwner }
 
   return !editMode ? (
     <Stack direction="row" alignItems="center" spacing={1}>
-      <Typography component="p">Status: {prevStatus ? prevStatus : "Не задан"}</Typography>
+      <Typography component="p">
+        <span style={{ fontWeight: "bold" }}>Status: </span> {prevStatus ? prevStatus : "Не задан"}
+      </Typography>
       {isOwner && (
         <IconButton size="small" onClick={activateEditMode}>
           <EditIcon fontSize="inherit" />

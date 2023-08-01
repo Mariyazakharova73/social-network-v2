@@ -1,41 +1,8 @@
 import React, { FC, UIEvent, useEffect, useRef, useState } from "react";
-import ListItemText from "@mui/material/ListItemText";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
 import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import { IChatMessage } from "./../../redux/types/chatTypes";
 import { useSelector } from "react-redux";
 import { selectChatMesssages } from "../../redux/selectors/chatSelectors";
-
-interface IChatMessageProps {
-  message: IChatMessage;
-}
-
-const Message: FC<IChatMessageProps> = React.memo(({ message }) => {
-  return (
-    <>
-      <ListItem>
-        <ListItemAvatar>
-          <Avatar alt={message.userName} src={message.photo} />
-        </ListItemAvatar>
-        <ListItemText
-          primary={message.userName}
-          secondary={
-            <>
-              <Typography component="span" variant="body2" color="text.primary">
-                {message.message}
-              </Typography>
-            </>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-    </>
-  );
-});
+import Message from "../ChatMessage/ChatMessage";
 
 const ChatMessages: FC = () => {
   const messages = useSelector(selectChatMesssages);
