@@ -52,10 +52,14 @@ const UsersPage: FC<IUsresProps> = () => {
     setSearchParams({ term: filter.term, friend: filter.friend, page: currentPage });
   }, [filter, currentPage]);
 
-  return isFetching ? (
-    <CircularProgress thickness={5} color="secondary" size={50} />
-  ) : (
-    <Users searchParams={searchParams} setSearchParams={setSearchParams} />
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      {isFetching ? (
+        <CircularProgress thickness={5} color="secondary" size={50} />
+      ) : (
+        <Users searchParams={searchParams} setSearchParams={setSearchParams} />
+      )}
+    </div>
   );
 };
 

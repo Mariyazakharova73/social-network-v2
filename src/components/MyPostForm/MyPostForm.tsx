@@ -34,18 +34,9 @@ const MyPostForm: FC<IMyPostForm> = ({ onAddPost }) => {
       {({ values, handleChange, errors, touched, dirty }) => (
         <Box sx={{ maxWidth: { sm: "70%" } }} mb={2}>
           <FormikForm>
-            {createField<MyPostFormTypeKeys>(
-              "newPostText",
-              null,
-              touched,
-              errors,
-              "text",
-              "medium",
-              true,
-              "Your news",
-              "filled",
-              true
-            )}
+            {createField<MyPostFormTypeKeys>("newPostText", "Your news", touched, errors, {
+              fullWidth: true,
+            })}
             <Box mt={2} sx={{ textAlign: "end" }}>
               <Button
                 variant="contained"

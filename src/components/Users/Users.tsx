@@ -1,6 +1,5 @@
 import React, { ChangeEvent, FC } from "react";
-import List from "@mui/material/List";
-import { StyledListItem } from "./UsersStyles";
+import { StyledListItem, StyledList } from "./UsersStyles";
 import Stack from "@mui/material/Stack";
 import UserCard from "../UserCard/UserCard";
 import { Pagination } from "@mui/material";
@@ -55,7 +54,7 @@ const Users: FC<IUsersProps> = ({ searchParams, setSearchParams }) => {
 
   return (
     <>
-      <Stack spacing={2}>
+      <Stack spacing={2} alignItems='center'>
         <UsersSearchForm
           searchParams={searchParams}
           setSearchParams={setSearchParams}
@@ -71,7 +70,7 @@ const Users: FC<IUsersProps> = ({ searchParams, setSearchParams }) => {
           color="secondary"
         />
       </Stack>
-      <List sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+      <StyledList>
         {users.map((user) => {
           return (
             <StyledListItem key={user.id}>
@@ -84,7 +83,7 @@ const Users: FC<IUsersProps> = ({ searchParams, setSearchParams }) => {
             </StyledListItem>
           );
         })}
-      </List>
+      </StyledList>
     </>
   );
 };

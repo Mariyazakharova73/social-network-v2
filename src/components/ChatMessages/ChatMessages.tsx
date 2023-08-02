@@ -3,6 +3,7 @@ import List from "@mui/material/List";
 import { useSelector } from "react-redux";
 import { selectChatMesssages } from "../../redux/selectors/chatSelectors";
 import Message from "../ChatMessage/ChatMessage";
+import s from "./ChatMessages.module.css";
 
 const ChatMessages: FC = () => {
   const messages = useSelector(selectChatMesssages);
@@ -25,7 +26,7 @@ const ChatMessages: FC = () => {
 
   return (
     <div
-      style={{ height: "400px", overflowY: "auto", marginBottom: "50px" }}
+      className={s.wrapper}
       onScroll={scrollHandler}
     >
       <List>

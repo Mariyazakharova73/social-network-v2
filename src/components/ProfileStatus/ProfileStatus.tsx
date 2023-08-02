@@ -4,6 +4,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import s from "./ProfileStatus.module.css";
 
 interface IProfileStatus {
   prevStatus: string;
@@ -35,7 +36,7 @@ const ProfileStatus: FC<IProfileStatus> = ({ updateStatus, prevStatus, isOwner }
   return !editMode ? (
     <Stack direction="row" alignItems="center" spacing={1}>
       <Typography component="p">
-        <span style={{ fontWeight: "bold" }}>Status: </span> {prevStatus ? prevStatus : "Не задан"}
+        <span className={s.text}>Status: </span> {prevStatus ? prevStatus : "Не задан"}
       </Typography>
       {isOwner && (
         <IconButton size="small" onClick={activateEditMode}>

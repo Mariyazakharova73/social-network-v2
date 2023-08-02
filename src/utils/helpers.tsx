@@ -17,35 +17,6 @@ export const updateObjectInArray = (
   });
 };
 
-export function createField<FormKeysType extends string>(
-  name: FormKeysType,
-  placeholder: string | null,
-  touched: any,
-  errors: any,
-  type: string = "text",
-  size: string = "small",
-  fullWidth: boolean = false,
-  label: string | null = null,
-  variant: string = "outlined",
-  multiline: boolean = false
-) {
-  return (
-    <Field
-      variant={variant}
-      label={label}
-      fullWidth={fullWidth}
-      multiline={multiline}
-      size={size}
-      as={TextField}
-      name={name}
-      placeholder={placeholder}
-      error={touched[name] && !!errors[name]}
-      helperText={touched[name] && errors[name]}
-      type={type}
-    />
-  );
-}
-
 export const changeStrValues = (dataFriend: string) => {
   switch (dataFriend) {
     case "null":
@@ -58,3 +29,22 @@ export const changeStrValues = (dataFriend: string) => {
       return null;
   }
 };
+
+export function createField<FormKeysType extends string>(
+  name: FormKeysType,
+  placeholder: string | null,
+  touched: any,
+  errors: any,
+  props: any = {}
+) {
+  return (
+    <Field
+      name={name}
+      placeholder={placeholder}
+      as={TextField}
+      error={touched[name] && !!errors[name]}
+      helperText={touched[name] && errors[name]}
+      {...props}
+    />
+  );
+}

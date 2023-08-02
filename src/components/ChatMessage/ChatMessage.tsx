@@ -3,7 +3,6 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
-
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import { IChatMessage } from "../../redux/types/chatTypes";

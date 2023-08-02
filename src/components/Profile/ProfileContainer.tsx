@@ -14,7 +14,6 @@ import { LOGIN_PATH } from "../../utils/constants";
 import { withAuthRedirect } from "../../HOC/withAuthRedirect";
 import { IProfile, IProfileData } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
-import { boolean } from "yup";
 
 interface IMapStateProps {
   profile: IProfile | null;
