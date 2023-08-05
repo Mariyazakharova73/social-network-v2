@@ -22,12 +22,4 @@ export const menuItems = [
 export const BASE_URL = "https://social-network.samuraijs.com/api/1.0";
 export const WS_URL = "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx";
 
-export const sidebarData = [
-  { text: "Profile", icon: <PersonIcon />, path: PROFILE_PATH },
-  { text: "Chat", icon: <ChatIcon />, path: CHAT_PATH },
-  // { text: "News", icon: <NewspaperIcon />, path: NEWS_PATH },
-  // { text: "Music", icon: <MusicNoteIcon />, path: MUSIC_PATH },
-  { text: "Users", icon: <PeopleIcon />, path: USERS_PATH },
-];
-
 export const API_KEY = "bc4d7bbf-98e2-4f08-9831-e79b832ca0ac";

@@ -9,7 +9,7 @@ export interface IMessage {
 }
 
 export interface IPost {
-  id: number;
+  id: number | string;
   message: string;
   likesCount: number;
   date: string;

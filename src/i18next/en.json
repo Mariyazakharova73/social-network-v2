@@ -1,0 +1,16 @@
+{
+	"logo": "logo",
+	"login": "Login",
+	"myPosts": "My posts",
+	"error": "Some error occured. Please refresh the page",
+	"buttonSend": "Send",
+	"logout": "Выйти",
+	"chatMessage": "Enter your message",
+	"email": "Email",
+	"password": "Password",
+	"remenberMe": "Remember me",
+	"captcha": "Enter the code from the image",
+	"profile": "Profile",
+	"chat": "Chat",
+	"users": "Users"
+}

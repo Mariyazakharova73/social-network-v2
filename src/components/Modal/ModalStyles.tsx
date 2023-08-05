@@ -1,6 +1,7 @@
 import { styled } from "@mui/system";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
 
 export const StyledBoxforModal = styled(Box)(({ theme }) => ({
   position: "absolute",
@@ -42,8 +43,15 @@ export const StyledModalForm = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.common.white,
   padding: 30,
   borderRadius: 20,
+  maxWidth: "720px",
   [theme.breakpoints.down("sm")]: {
     width: "70%",
-    minWidth: 'auto'
+    minWidth: "auto",
   },
+}));
+
+export const StyledStack = styled(Stack)(({ theme }) => ({
+  flexWrap: "wrap", 
+  rowGap: "16px", 
+  columnGap: "16px",
 }));

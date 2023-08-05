@@ -6,10 +6,10 @@ import { Formik, Form as FormikForm, Field } from "formik";
 import { profileSchema } from "../../utils/validators";
 import Stack from "@mui/material/Stack";
 import Modal from "@mui/material/Modal";
-import { StyledModalForm } from "./ModalStyles";
+import { StyledModalForm, StyledStack } from "./ModalStyles";
 import Checkbox from "@mui/material/Checkbox";
 import Notifications from "../Notifications/Notifications";
-import { createField } from "../../utils/helpers";
+import { createField, setProfileInitialValues, getProfileDataForSubmit } from "../../utils/helpers";
 import { IProfile, IProfileData } from "../../types/types";
 
 interface IProfileForm {
@@ -19,19 +19,19 @@ interface IProfileForm {
   profile: IProfile | null;
 }
 
-interface IProfileFormValues {
-  fullName: string;
-  lookingForAJob: boolean;
-  lookingForAJobDescription: string;
-  aboutMe: string;
-  facebook: string;
-  website: string;
-  vk: string;
-  twitter: string;
-  instagram: string;
-  youtube: string;
-  github: string;
-  mainLink: string;
+export interface IProfileFormValues {
+  fullName?: string;
+  lookingForAJob?: boolean;
+  lookingForAJobDescription?: string;
+  aboutMe?: string;
+  facebook?: string;
+  website?: string;
+  vk?: string;
+  twitter?: string;
+  instagram?: string;
+  youtube?: string;
+  github?: string;
+  mainLink?: string;
 }
 
 export type ProfileFormTypeKeys = Extract<keyof IProfileFormValues, string>;
@@ -46,46 +46,23 @@ const ProfileForm: FC<IProfileForm> = ({ openForm, handleCloseModal, saveProfile
     setOpen(false);
   };
 
+  const submitProfileData = (
+    values: IProfileFormValues,
+    { resetForm }: { resetForm: () => void }
+  ) => {
+    const data = getProfileDataForSubmit(values);
+    saveProfile(data);
+    resetForm();
+    setTimeout(() => {
+      handleCloseModal();
+    }, 1000);
+  };
+
   return (
     <Formik
-      initialValues={{
-        fullName: profile?.fullName,
-        lookingForAJob: profile?.lookingForAJob,
-        lookingForAJobDescription: profile?.lookingForAJobDescription,
-        aboutMe: profile?.aboutMe,
-        facebook: profile?.contacts?.facebook,
-        website: profile?.contacts?.website,
-        vk: profile?.contacts?.vk,
-        twitter: profile?.contacts?.twitter,
-        instagram: profile?.contacts?.instagram,
-        youtube: profile?.contacts?.youtube,
-        github: profile?.contacts?.github,
-        mainLink: profile?.contacts?.mainLink,
-      }}
+      initialValues={setProfileInitialValues(profile)}
       enableReinitialize
-      onSubmit={(values, { resetForm, setStatus }) => {
-        const data = {
-          fullName: values.fullName || "",
-          lookingForAJob: values.lookingForAJob || false,
-          lookingForAJobDescription: values.lookingForAJobDescription || "",
-          aboutMe: values.aboutMe || "",
-          contacts: {
-            facebook: values.facebook || "",
-            website: values.website || "",
-            vk: values.vk || "",
-            twitter: values.twitter || "",
-            instagram: values.instagram || "",
-            youtube: values.youtube || "",
-            github: values.github || "",
-            mainLink: values.mainLink || "",
-          },
-        };
-        saveProfile(data);
-        resetForm();
-        setTimeout(() => {
-          handleCloseModal();
-        }, 1000);
-      }}
+      onSubmit={submitProfileData}
       validationSchema={profileSchema}
     >
       {({ values, handleChange, errors, touched, dirty, status }) => (
@@ -105,16 +82,16 @@ const ProfileForm: FC<IProfileForm> = ({ openForm, handleCloseModal, saveProfile
                   errors
                 )}
                 {createField<ProfileFormTypeKeys>("aboutMe", "About me", touched, errors)}
-                <Stack direction="row" sx={{ flexWrap: "wrap" }} spacing={1}>
+                <StyledStack direction="row">
                   {profile?.contacts &&
                     Object.keys(profile?.contacts).map((item) => {
                       return (
                         <React.Fragment key={item}>
-                          {createField(item, item, touched, errors)}
+                          {createField(item, item, touched, errors,)}
                         </React.Fragment>
                       );
                     })}
-                </Stack>
+                </StyledStack>
                 <Box mt={2} sx={{ textAlign: "end" }}>
                   <Button
                     variant="contained"

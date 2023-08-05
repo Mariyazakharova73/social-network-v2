@@ -20,15 +20,20 @@ export type MyPostFormTypeKeys = Extract<keyof IMyPostFormValues, string>;
 const MyPostForm: FC<IMyPostForm> = ({ onAddPost }) => {
   const windowSize = useWindowSize();
 
+  const submitMyPostData = (
+    values: IMyPostFormValues,
+    { resetForm }: { resetForm: () => void }
+  ) => {
+    onAddPost(values.newPostText);
+    resetForm();
+  };
+
   return (
     <Formik
       initialValues={{
         newPostText: "",
       }}
-      onSubmit={(values, { resetForm }) => {
-        onAddPost(values.newPostText);
-        resetForm();
-      }}
+      onSubmit={submitMyPostData}
       validationSchema={newPostTextSchema}
     >
       {({ values, handleChange, errors, touched, dirty }) => (

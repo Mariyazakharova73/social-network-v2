@@ -18,6 +18,7 @@ import { createField } from "../../utils/helpers";
 import { useDispatch } from "react-redux";
 import { loginThunkCreator } from "../../redux/actions/authActions";
 import { AppDispatch } from "../../redux/redux-store";
+import { useTranslation } from "react-i18next";
 
 interface ILoginFormProps {
   captchaUrl: string | null;
@@ -33,6 +34,7 @@ interface ILoginFormValues {
 type LoginFormValuesTypeKeys = keyof ILoginFormValues;
 
 const LoginForm: FC<ILoginFormProps> = ({ captchaUrl }) => {
+  const { t } = useTranslation();
   const [showPassword, setShowPassword] = React.useState(false);
   const [open, setOpen] = React.useState(false);
 
@@ -51,6 +53,16 @@ const LoginForm: FC<ILoginFormProps> = ({ captchaUrl }) => {
     setOpen(false);
   };
 
+  const submitLoginData = (
+    values: ILoginFormValues,
+    { resetForm, setStatus }: { resetForm: () => void; setStatus: () => void }
+  ) => {
+    const { email, password, rememberMe, captcha } = values;
+
+    dispatch(loginThunkCreator(email, password, rememberMe, captcha, setStatus, setOpen));
+    resetForm();
+  };
+
   return (
     <Formik
       initialValues={{
@@ -59,45 +71,24 @@ const LoginForm: FC<ILoginFormProps> = ({ captchaUrl }) => {
         rememberMe: true,
         captcha: "",
       }}
-      onSubmit={(values, { resetForm, setStatus }) => {
-        const { email, password, rememberMe, captcha } = values;
-
-        dispatch(loginThunkCreator(email, password, rememberMe, captcha, setStatus, setOpen));
-        resetForm();
-      }}
+      onSubmit={submitLoginData}
       validationSchema={loginSchema}
     >
       {({ values, handleChange, errors, touched, dirty, status }) => (
         <Box>
           <FormikForm>
             <Stack spacing={2}>
-              <Field
-                as={TextField}
-                variant="filled"
-                name="email"
-                placeholder="Email"
-                InputProps={{
+              {createField<LoginFormValuesTypeKeys>("email", t("email"), touched, errors, {
+                InputProps: {
                   startAdornment: (
                     <InputAdornment position="start">
                       <AccountCircle />
                     </InputAdornment>
                   ),
-                }}
-                fullWidth
-                error={touched.email && !!errors.email}
-                helperText={touched.email && errors.email}
-                type="text"
-              />
-              <Field
-                as={TextField}
-                name="password"
-                placeholder="Password"
-                fullWidth
-                variant="filled"
-                error={touched.password && !!errors.password}
-                helperText={touched.password && errors.password}
-                type={showPassword ? "text" : "password"}
-                InputProps={{
+                },
+              })}
+              {createField<LoginFormValuesTypeKeys>("password", t("password"), touched, errors, {
+                InputProps: {
                   endAdornment: (
                     <InputAdornment position="end">
                       <IconButton
@@ -109,8 +100,9 @@ const LoginForm: FC<ILoginFormProps> = ({ captchaUrl }) => {
                       </IconButton>
                     </InputAdornment>
                   ),
-                }}
-              />
+                },
+                type: showPassword ? "text" : "password",
+              })}
               <Box mt={2} sx={{ textAlign: "end" }}>
                 <Button
                   variant="contained"
@@ -119,17 +111,17 @@ const LoginForm: FC<ILoginFormProps> = ({ captchaUrl }) => {
                   disabled={!dirty || !!errors.email || !!errors.password}
                   fullWidth
                 >
-                  Send
+                  {t("buttonSend")}
                 </Button>
                 <label>
                   <Field as={Checkbox} name="rememberMe" type="checkbox" />
-                  Запомнить меня
+                  {t("remenberMe")}
                 </label>
               </Box>
               {captchaUrl && (
                 <div>
                   <img className={s.image} src={captchaUrl} alt="Captcha." />
-                  {createField("captcha", "Введите код с картинки", touched, errors)}
+                  {createField("captcha", t("captcha"), touched, errors)}
                 </div>
               )}
             </Stack>

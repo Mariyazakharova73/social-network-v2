@@ -8,8 +8,10 @@ import {
 } from "../../redux/actions/chatActions";
 import { AppDispatch } from "../../redux/redux-store";
 import { selectStatus } from "./../../redux/selectors/chatSelectors";
+import { useTranslation } from "react-i18next";
 
 const Chat: FC = () => {
+  const { t } = useTranslation();
   const dispatch: AppDispatch = useDispatch();
   const status = useSelector(selectStatus);
 
@@ -22,7 +24,7 @@ const Chat: FC = () => {
 
   return (
     <>
-      {status === "error" && <p>Some error occured. Please refresh the page</p>}
+      {status === "error" && <p>{t("error")}</p>}
       <ChatMessages />
       <ChatMessageForm />
     </>

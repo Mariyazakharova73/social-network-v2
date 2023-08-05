@@ -31,6 +31,7 @@ const UsersSearchForm: FC<IUsersSearchFormProps> = ({
   searchParams,
   setSearchParams,
 }) => {
+  
   const filter = useSelector(getUsersFilter);
 
   const submit = (
@@ -41,7 +42,6 @@ const UsersSearchForm: FC<IUsersSearchFormProps> = ({
       term: values.term,
       friend: changeStrValues(values.friend),
     });
-    //setSubmitting(false);
   };
 
   return (

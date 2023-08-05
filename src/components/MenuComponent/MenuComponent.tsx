@@ -1,43 +1,78 @@
-import React, { FC } from "react";
+import React, { FC, useState, useEffect } from "react";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import SettingsIcon from "@mui/icons-material/Settings";
 import { useLocation, NavLink } from "react-router-dom";
 import styles from "../../App.module.css";
-import { sidebarData } from "../../utils/constants";
+import { PROFILE_PATH, CHAT_PATH, USERS_PATH } from "../../utils/constants";
 import { StyledBox } from "./MenuComponentStyles";
+import Switch from "@mui/material/Switch";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import { useTranslation } from "react-i18next";
+import "../../i18next/i18next";
+import PersonIcon from "@mui/icons-material/Person";
+import ChatIcon from "@mui/icons-material/Chat";
+import PeopleIcon from "@mui/icons-material/People";
 
 const MenuComponent: FC = () => {
+  const [checked, setChecked] = useState(false);
   const location = useLocation();
+
+  const { i18n, t } = useTranslation();
+
+  const handleChangeLng = (event: React.ChangeEvent<HTMLInputElement>) => {
+    i18n.changeLanguage(!checked ? "en" : "ru");
+    localStorage.setItem("lng", !checked ? "en" : "ru");
+    setChecked(event.target.checked);
+  };
+
+  useEffect(() => {
+    setChecked(localStorage.getItem("lng") === "en");
+  }, [checked]);
+
   return (
     <StyledBox>
       <List>
-        {sidebarData.map((obj) => (
-          <ListItem key={obj.text} disablePadding selected={location.pathname === obj.path}>
-            <NavLink to={obj.path} className={styles.link}>
-              <ListItemButton>
-                <ListItemIcon>{obj.icon}</ListItemIcon>
-                <ListItemText primary={obj.text} />
-              </ListItemButton>
-            </NavLink>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        <ListItem key="Settings" disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Settings" />
-          </ListItemButton>
+        <ListItem disablePadding selected={location.pathname === PROFILE_PATH}>
+          <NavLink to={PROFILE_PATH} className={styles.link}>
+            <ListItemButton>
+              <ListItemIcon>
+                <PersonIcon />
+              </ListItemIcon>
+              <ListItemText primary={t("profile")} />
+            </ListItemButton>
+          </NavLink>
+        </ListItem>
+        <ListItem disablePadding selected={location.pathname === CHAT_PATH}>
+          <NavLink to={CHAT_PATH} className={styles.link}>
+            <ListItemButton>
+              <ListItemIcon>
+                <ChatIcon />
+              </ListItemIcon>
+              <ListItemText primary={t("chat")} />
+            </ListItemButton>
+          </NavLink>
+        </ListItem>
+        <ListItem disablePadding selected={location.pathname === USERS_PATH}>
+          <NavLink to={USERS_PATH} className={styles.link}>
+            <ListItemButton>
+              <ListItemIcon>
+                <PeopleIcon />
+              </ListItemIcon>
+              <ListItemText primary={t("users")} />
+            </ListItemButton>
+          </NavLink>
         </ListItem>
       </List>
+      <Divider />
+      <Stack justifyContent="center" alignItems="center" direction="row" p={2}>
+        <Typography>Ru</Typography> <Switch onChange={handleChangeLng} checked={checked} />
+        <Typography>En</Typography>
+      </Stack>
     </StyledBox>
   );
 };

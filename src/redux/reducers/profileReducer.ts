@@ -1,5 +1,5 @@
 import { ActionTypes } from "../types/profileTypes";
-import { IPost, IProfile} from "./../../types/types";
+import { IPost, IProfile } from "./../../types/types";
 import {
   ADD_POST,
   SET_USER_PROFILE,
@@ -7,6 +7,7 @@ import {
   DELETE_POST,
   SAVE_PHOTO_SUCCESS,
 } from "./../types/profileTypes";
+import { v1 } from "uuid";
 
 const initialState = {
   posts: [
@@ -33,7 +34,7 @@ const profileReducer = (state = initialState, action: ActionTypes): InitialState
   switch (action.type) {
     case ADD_POST:
       let newPost = {
-        id: 5,
+        id: (v1()),
         message: action.newPostText,
         likesCount: 0,
         date: new Date().toLocaleString(),

@@ -30,6 +30,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/redux-store";
 import { logoutThunkCreator } from "../../redux/actions/authActions";
 import s from "./Header.module.css";
+import { useTranslation } from 'react-i18next';
 
 interface IHeaderProps {
   toggleDrawer: (newOpen: boolean) => () => void;
@@ -39,7 +40,7 @@ interface IHeaderProps {
 
 const Header: FC<IHeaderProps> = ({ toggleDrawer, changeMode, mode }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const { t } = useTranslation();
   const dispatch: AppDispatch = useDispatch();
   const isAuth = useSelector(selectIsAuth);
   const profile = useSelector(selectCurrentUser);
@@ -62,7 +63,7 @@ const Header: FC<IHeaderProps> = ({ toggleDrawer, changeMode, mode }) => {
         <Toolbar disableGutters>
           <StyledIconDesktop />
           <StyledTypography variant="h6" noWrap component="a" href="/">
-            logo
+          {t("logo")}
           </StyledTypography>
           <StyledBoxMobile>
             <IconButton onClick={toggleDrawer(true)} color="inherit">
@@ -71,13 +72,13 @@ const Header: FC<IHeaderProps> = ({ toggleDrawer, changeMode, mode }) => {
           </StyledBoxMobile>
           <StyledIconMobile />
           <StyledTypographyMobile variant="h5" noWrap component="a" href="/">
-            logo
+          {t("logo")}
           </StyledTypographyMobile>
           <Stack sx={{ flexGrow: 0 }} direction="row">
             <CustomizedSwitches mode={mode} changeMode={changeMode} />
             {!isAuth ? (
               <NavLink to={LOGIN_PATH} className={s.link}>
-                LOGIN
+                {t("login")}
               </NavLink>
             ) : (
               <Tooltip title="Open settings">
@@ -106,7 +107,7 @@ const Header: FC<IHeaderProps> = ({ toggleDrawer, changeMode, mode }) => {
                 <MenuItem key={item.name} onClick={handleCloseUserMenu}>
                   {item.name === "LogOut" ? (
                     <Button size="small" onClick={logout} endIcon={<LogoutIcon />}>
-                      LogOut
+                      {t("logout")}
                     </Button>
                   ) : (
                     <NavLink to={item.link} className={s.link}>

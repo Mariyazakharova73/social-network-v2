@@ -12,8 +12,10 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import { red } from "@mui/material/colors";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import ShareIcon from "@mui/icons-material/Share";
 import { IPost, IProfile } from "../../types/types";
+import { AppDispatch } from "../../redux/redux-store";
+import { useDispatch } from "react-redux";
+import { deletePostAC } from "../../redux/actions/profileActions";
 
 interface IPostProps {
   item: IPost;
@@ -22,6 +24,12 @@ interface IPostProps {
 
 const Post: FC<IPostProps> = ({ item, profile }) => {
   const [selected, setSelected] = React.useState(false);
+
+  const dispatch: AppDispatch = useDispatch();
+
+  const onClickDelete = (postId: any) => {
+    dispatch(deletePostAC(postId));
+  };
 
   return (
     <Card sx={{ marginBottom: 5 }}>
@@ -54,10 +62,11 @@ const Post: FC<IPostProps> = ({ item, profile }) => {
           }}
           checkedIcon={<Favorite />}
         />
-        {/* <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton> */}
-        <IconButton aria-label="delete" sx={{ marginLeft: "auto" }}>
+        <IconButton
+          aria-label="delete"
+          onClick={() => onClickDelete(item.id)}
+          sx={{ marginLeft: "auto" }}
+        >
           <DeleteIcon />
         </IconButton>
       </CardActions>

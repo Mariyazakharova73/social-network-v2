@@ -8,40 +8,36 @@ import { createField } from "../../utils/helpers";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/redux-store";
 import { sendMessageThunkCreator } from "../../redux/actions/chatActions";
-import { selectStatus } from './../../redux/selectors/chatSelectors';
+import { selectStatus } from "./../../redux/selectors/chatSelectors";
+import { useTranslation } from "react-i18next";
 
 const ChatMessageForm: FC = () => {
+  const { t } = useTranslation();
   const dispatch: AppDispatch = useDispatch();
   const status = useSelector(selectStatus);
+
+  const submitMessageData = (
+    values: { message: string },
+    { resetForm }: { resetForm: () => void }
+  ) => {
+    if (!values.message) return;
+
+    dispatch(sendMessageThunkCreator(values.message));
+    resetForm();
+  };
 
   return (
     <Formik
       initialValues={{
         message: "",
       }}
-      onSubmit={(values, { resetForm }) => {
-        if (!values.message) return;
-
-        dispatch(sendMessageThunkCreator(values.message));
-        resetForm();
-      }}
+      onSubmit={submitMessageData}
       validationSchema={messageSchema}
       validateOnBlur
     >
       {({ values, handleChange, errors, touched, dirty }) => (
         <FormikForm>
-          {createField(
-            "message",
-            null,
-            touched,
-            errors,
-            "text",
-            "medium",
-            false,
-            "Enter your message",
-            "filled",
-            true
-          )}
+          {createField("message", t("chatMessage"), touched, errors)}
           <Box mt={2}>
             <Button
               variant="contained"
@@ -49,7 +45,7 @@ const ChatMessageForm: FC = () => {
               endIcon={<SendIcon />}
               disabled={!dirty || !!errors.message || status !== "ready"}
             >
-              Send
+              {t("buttonSend")}
             </Button>
           </Box>
         </FormikForm>

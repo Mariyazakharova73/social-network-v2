@@ -6,6 +6,7 @@ import App from "./App";
 import { HashRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/redux-store";
+import './i18next/i18next'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

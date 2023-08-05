@@ -8,11 +8,14 @@ import { useDispatch } from "react-redux";
 import { addPostAC } from "./../../redux/actions/profileActions";
 import { useSelector } from "react-redux";
 import { selectCurrentUser, selectPosts } from "./../../redux/selectors/profileSelectors";
+import "../../i18next/i18next";
+import { useTranslation } from 'react-i18next';
 
 const MyPosts: FC = React.memo(() => {
   const dispatch: AppDispatch = useDispatch();
   const profile = useSelector(selectCurrentUser);
   const posts = useSelector(selectPosts);
+  const { t } = useTranslation();
 
   const onAddPost = (data: string) => {
     dispatch(addPostAC(data));
@@ -21,11 +24,11 @@ const MyPosts: FC = React.memo(() => {
   return (
     <>
       <Typography mt={2} variant="h6" component="h2">
-        My posts
+        {t("myPosts")}
       </Typography>
       <MyPostForm onAddPost={onAddPost} />
       <List>
-        {posts.map((item) => {
+        {posts.map((item: any) => {
           return <Post key={item.id} item={item} profile={profile} />;
         })}
       </List>
