@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/social-network-v2/static/css/main.b50448c6.css",
-    "main.js": "/social-network-v2/static/js/main.fc4318e0.js",
+    "main.js": "/social-network-v2/static/js/main.2a5cc1be.js",
     "static/css/416.c0c3624e.chunk.css": "/social-network-v2/static/css/416.c0c3624e.chunk.css",
-    "static/js/416.410f9bc6.chunk.js": "/social-network-v2/static/js/416.410f9bc6.chunk.js",
+    "static/js/416.25bd83c7.chunk.js": "/social-network-v2/static/js/416.25bd83c7.chunk.js",
     "static/css/4.d6092df0.chunk.css": "/social-network-v2/static/css/4.d6092df0.chunk.css",
-    "static/js/4.3fff3382.chunk.js": "/social-network-v2/static/js/4.3fff3382.chunk.js",
+    "static/js/4.ffb802ca.chunk.js": "/social-network-v2/static/js/4.ffb802ca.chunk.js",
     "static/media/montserrat-latin-700italic.woff": "/social-network-v2/static/media/montserrat-latin-700italic.6779372f04095051c62e.woff",
     "static/media/montserrat-latin-800italic.woff": "/social-network-v2/static/media/montserrat-latin-800italic.fe82abb0bcede51bf724.woff",
     "static/media/montserrat-latin-600italic.woff": "/social-network-v2/static/media/montserrat-latin-600italic.c4fcfeeb057724724097.woff",
@@ -45,14 +45,14 @@
     "static/media/montserrat-latin-100.woff2": "/social-network-v2/static/media/montserrat-latin-100.8d7d79679b70dbe27172.woff2",
     "index.html": "/social-network-v2/index.html",
     "main.b50448c6.css.map": "/social-network-v2/static/css/main.b50448c6.css.map",
-    "main.fc4318e0.js.map": "/social-network-v2/static/js/main.fc4318e0.js.map",
+    "main.2a5cc1be.js.map": "/social-network-v2/static/js/main.2a5cc1be.js.map",
     "416.c0c3624e.chunk.css.map": "/social-network-v2/static/css/416.c0c3624e.chunk.css.map",
-    "416.410f9bc6.chunk.js.map": "/social-network-v2/static/js/416.410f9bc6.chunk.js.map",
+    "416.25bd83c7.chunk.js.map": "/social-network-v2/static/js/416.25bd83c7.chunk.js.map",
     "4.d6092df0.chunk.css.map": "/social-network-v2/static/css/4.d6092df0.chunk.css.map",
-    "4.3fff3382.chunk.js.map": "/social-network-v2/static/js/4.3fff3382.chunk.js.map"
+    "4.ffb802ca.chunk.js.map": "/social-network-v2/static/js/4.ffb802ca.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b50448c6.css",
-    "static/js/main.fc4318e0.js"
+    "static/js/main.2a5cc1be.js"
   ]
 }
