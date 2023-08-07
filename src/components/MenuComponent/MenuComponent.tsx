@@ -15,14 +15,19 @@ import Typography from "@mui/material/Typography";
 import { useTranslation } from "react-i18next";
 import "../../i18next/i18next";
 import PersonIcon from "@mui/icons-material/Person";
-import ChatIcon from "@mui/icons-material/Chat";
+import Chat from "@mui/icons-material/Chat";
 import PeopleIcon from "@mui/icons-material/People";
 
 const MenuComponent: FC = () => {
   const [checked, setChecked] = useState(false);
   const location = useLocation();
-
   const { i18n, t } = useTranslation();
+
+  const arrData = [
+    { link: PROFILE_PATH, text: t("profile"), icon: <PersonIcon /> },
+    { link: USERS_PATH, text: t("users"), icon: <PeopleIcon /> },
+    { link: CHAT_PATH, text: t("chat"), icon: <Chat /> },
+  ];
 
   const handleChangeLng = (event: React.ChangeEvent<HTMLInputElement>) => {
     i18n.changeLanguage(!checked ? "en" : "ru");
@@ -37,36 +42,18 @@ const MenuComponent: FC = () => {
   return (
     <StyledBox>
       <List>
-        <ListItem disablePadding selected={location.pathname === PROFILE_PATH}>
-          <NavLink to={PROFILE_PATH} className={styles.link}>
-            <ListItemButton>
-              <ListItemIcon>
-                <PersonIcon />
-              </ListItemIcon>
-              <ListItemText primary={t("profile")} />
-            </ListItemButton>
-          </NavLink>
-        </ListItem>
-        <ListItem disablePadding selected={location.pathname === CHAT_PATH}>
-          <NavLink to={CHAT_PATH} className={styles.link}>
-            <ListItemButton>
-              <ListItemIcon>
-                <ChatIcon />
-              </ListItemIcon>
-              <ListItemText primary={t("chat")} />
-            </ListItemButton>
-          </NavLink>
-        </ListItem>
-        <ListItem disablePadding selected={location.pathname === USERS_PATH}>
-          <NavLink to={USERS_PATH} className={styles.link}>
-            <ListItemButton>
-              <ListItemIcon>
-                <PeopleIcon />
-              </ListItemIcon>
-              <ListItemText primary={t("users")} />
-            </ListItemButton>
-          </NavLink>
-        </ListItem>
+        {arrData.map((item, index) => {
+          return (
+            <ListItem disablePadding selected={location.pathname === item.link} key={index}>
+              <NavLink to={item.link} className={styles.link}>
+                <ListItemButton>
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.text} />
+                </ListItemButton>
+              </NavLink>
+            </ListItem>
+          );
+        })}
       </List>
       <Divider />
       <Stack justifyContent="center" alignItems="center" direction="row" p={2}>

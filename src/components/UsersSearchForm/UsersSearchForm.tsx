@@ -3,10 +3,12 @@ import { Formik, Form, Field } from "formik";
 import { FilterType } from "../../redux/reducers/usersReducer";
 import { useSelector } from "react-redux";
 import { getUsersFilter } from "../../redux/selectors/usersSelectors";
-import { changeStrValues } from "./../../utils/helpers";
+import { changeStrValues, createField } from "./../../utils/helpers";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
+import s from "./UsersSearchForm.module.css";
+import { useTranslation } from "react-i18next";
 
 interface IUsersSearchFormProps {
   onFilterChanged: (filter: FilterType) => void;
@@ -31,7 +33,7 @@ const UsersSearchForm: FC<IUsersSearchFormProps> = ({
   searchParams,
   setSearchParams,
 }) => {
-  
+  const { t } = useTranslation();
   const filter = useSelector(getUsersFilter);
 
   const submit = (
@@ -54,15 +56,8 @@ const UsersSearchForm: FC<IUsersSearchFormProps> = ({
       enableReinitialize
     >
       {({ isSubmitting, handleChange, values, errors, touched, dirty }) => (
-        <Form style={{ display: "flex", gap: "5px", flexWrap: "wrap", justifyContent: 'center' }}>
-          <Field
-            as={TextField}
-            variant="outlined"
-            placeholder="Поиск..."
-            type="text"
-            name="term"
-            size="small"
-          />
+        <Form className={s.form}>
+          {createField("term", t("search"), touched, errors, { size: "small" })}
           <TextField
             value={values.friend}
             size="small"
@@ -70,17 +65,12 @@ const UsersSearchForm: FC<IUsersSearchFormProps> = ({
             name="friend"
             onChange={handleChange}
           >
-            <MenuItem value="null">All</MenuItem>
-            <MenuItem value="true">Only followed</MenuItem>
-            <MenuItem value="false">Only unfollowed</MenuItem>
+            <MenuItem value="null">{t("all")}</MenuItem>
+            <MenuItem value="true">{t("followed")}</MenuItem>
+            <MenuItem value="false">{t("unfollowed")}</MenuItem>
           </TextField>
-          <Button
-            variant="contained"
-            type="submit"
-            disabled={isSubmitting}
-            sx={{ height: "40px" }}
-          >
-            Find
+          <Button variant="contained" type="submit" disabled={isSubmitting} sx={{ height: "40px" }}>
+            {t("find")}
           </Button>
         </Form>
       )}

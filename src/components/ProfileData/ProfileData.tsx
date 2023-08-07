@@ -8,6 +8,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import { IContacts, IProfile } from "../../types/types";
 import s from "./ProfileData.module.css";
+import { useTranslation } from "react-i18next";
 
 interface IProfileDataProps {
   profile: IProfile | null;
@@ -24,28 +25,29 @@ const ProfileData: FC<IProfileDataProps> = ({
   isOwner,
   handleOpenForm,
 }) => {
+  const { t } = useTranslation();
   return (
     // при width больше 600px ml=16px
     <Stack ml={{ sm: 2 }}>
       <Typography component="p">
-        <span className={s.text}>Full name:</span> {profile?.fullName}
+        <span className={s.text}>{t("fullName")}:&ensp;</span> {profile?.fullName}
       </Typography>
       <Typography component="p">
-        <span className={s.text}>About me:</span> {profile?.aboutMe}
+        <span className={s.text}>{t("aboutMe")}:&ensp;</span> {profile?.aboutMe}
       </Typography>
       <Typography component="p">
-        <span className={s.text}>Looking for a job: </span>
+        <span className={s.text}>{t("job")}:&ensp;</span>
         {profile?.lookingForAJob ? "yes" : "no"}
       </Typography>
       {profile?.lookingForAJobDescription && (
         <Typography component="p">
-          <span className={s.text}>My professional skills: </span>
+          <span className={s.text}>{t("skills")}:&ensp;</span>
           {profile?.lookingForAJobDescription}
         </Typography>
       )}
       <Stack direction="row">
         <Stack direction="row" sx={{ flexWrap: "wrap", fontFamily: "montserrat" }}>
-          <span className={s.text}>Contacts:&ensp;</span>
+          <span className={s.text}>{t("contacts")}:&ensp;</span>
           {profile?.contacts &&
             Object.keys(profile?.contacts).map((item) => {
               return (

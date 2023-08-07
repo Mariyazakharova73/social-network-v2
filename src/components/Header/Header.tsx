@@ -11,7 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
-import { menuItems, LOGIN_PATH } from "../../utils/constants";
+import { LOGIN_PATH, PROFILE_PATH } from "../../utils/constants";
 import { NavLink } from "react-router-dom";
 import {
   StyledTypography,
@@ -30,7 +30,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/redux-store";
 import { logoutThunkCreator } from "../../redux/actions/authActions";
 import s from "./Header.module.css";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 interface IHeaderProps {
   toggleDrawer: (newOpen: boolean) => () => void;
@@ -39,8 +39,8 @@ interface IHeaderProps {
 }
 
 const Header: FC<IHeaderProps> = ({ toggleDrawer, changeMode, mode }) => {
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { t } = useTranslation();
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const dispatch: AppDispatch = useDispatch();
   const isAuth = useSelector(selectIsAuth);
   const profile = useSelector(selectCurrentUser);
@@ -63,7 +63,7 @@ const Header: FC<IHeaderProps> = ({ toggleDrawer, changeMode, mode }) => {
         <Toolbar disableGutters>
           <StyledIconDesktop />
           <StyledTypography variant="h6" noWrap component="a" href="/">
-          {t("logo")}
+            {t("logo")}
           </StyledTypography>
           <StyledBoxMobile>
             <IconButton onClick={toggleDrawer(true)} color="inherit">
@@ -72,7 +72,7 @@ const Header: FC<IHeaderProps> = ({ toggleDrawer, changeMode, mode }) => {
           </StyledBoxMobile>
           <StyledIconMobile />
           <StyledTypographyMobile variant="h5" noWrap component="a" href="/">
-          {t("logo")}
+            {t("logo")}
           </StyledTypographyMobile>
           <Stack sx={{ flexGrow: 0 }} direction="row">
             <CustomizedSwitches mode={mode} changeMode={changeMode} />
@@ -103,19 +103,16 @@ const Header: FC<IHeaderProps> = ({ toggleDrawer, changeMode, mode }) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {menuItems.map((item) => (
-                <MenuItem key={item.name} onClick={handleCloseUserMenu}>
-                  {item.name === "LogOut" ? (
-                    <Button size="small" onClick={logout} endIcon={<LogoutIcon />}>
-                      {t("logout")}
-                    </Button>
-                  ) : (
-                    <NavLink to={item.link} className={s.link}>
-                      <Typography textAlign="center">{item.name}</Typography>
-                    </NavLink>
-                  )}
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseUserMenu}>
+                <NavLink to={PROFILE_PATH} className={s.link}>
+                  <Typography textAlign="center">{t("profile")}</Typography>
+                </NavLink>
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Button size="small" onClick={logout} endIcon={<LogoutIcon />}>
+                  {t("logout")}
+                </Button>
+              </MenuItem>
             </Menu>
           </Stack>
         </Toolbar>

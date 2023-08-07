@@ -48,5 +48,5 @@ email: free@samuraijs.com, password: free
 [Ссылка на проект Social network](https://mariyazakharova73.github.io/social-network-v2/)
 
 <div align="center">
-  <img width="575" alt="Основной функционал приложения" src="./src/images/app.png">
+  <img width="575" alt="Приложение." src="./src/images/app.png">
 </div>

@@ -11,6 +11,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Notifications from "../Notifications/Notifications";
 import { createField, setProfileInitialValues, getProfileDataForSubmit } from "../../utils/helpers";
 import { IProfile, IProfileData } from "../../types/types";
+import { useTranslation } from "react-i18next";
 
 interface IProfileForm {
   openForm: boolean;
@@ -37,6 +38,7 @@ export interface IProfileFormValues {
 export type ProfileFormTypeKeys = Extract<keyof IProfileFormValues, string>;
 
 const ProfileForm: FC<IProfileForm> = ({ openForm, handleCloseModal, saveProfile, profile }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = React.useState(false);
 
   const handleClose = (e: SyntheticEvent | Event, reason?: string) => {
@@ -70,24 +72,24 @@ const ProfileForm: FC<IProfileForm> = ({ openForm, handleCloseModal, saveProfile
           <StyledModalForm>
             <FormikForm>
               <Stack spacing={2}>
-                {createField<ProfileFormTypeKeys>("fullName", "Full name", touched, errors)}
+                {createField<ProfileFormTypeKeys>("fullName", t("fullName"), touched, errors)}
                 <label style={{ fontFamily: "montserrat" }}>
                   <Field size="small" as={Checkbox} name="lookingForAJob" type="checkbox" />
-                  Looking for a job
+                  {t("job")}
                 </label>
                 {createField<ProfileFormTypeKeys>(
                   "lookingForAJobDescription",
-                  "My professional skills",
+                  t("skills"),
                   touched,
                   errors
                 )}
-                {createField<ProfileFormTypeKeys>("aboutMe", "About me", touched, errors)}
+                {createField<ProfileFormTypeKeys>("aboutMe", t("aboutMe"), touched, errors)}
                 <StyledStack direction="row">
                   {profile?.contacts &&
                     Object.keys(profile?.contacts).map((item) => {
                       return (
                         <React.Fragment key={item}>
-                          {createField(item, item, touched, errors,)}
+                          {createField(item, item, touched, errors)}
                         </React.Fragment>
                       );
                     })}
@@ -112,7 +114,7 @@ const ProfileForm: FC<IProfileForm> = ({ openForm, handleCloseModal, saveProfile
                     }
                     fullWidth
                   >
-                    Save
+                    {t("saveButton")}
                   </Button>
                 </Box>
               </Stack>

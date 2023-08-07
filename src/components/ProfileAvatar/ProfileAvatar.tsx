@@ -11,6 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import EditPhotoModal from "../Modal/EditPhotoModal";
 import OpenImageModal from "../Modal/OpenImageModal";
+import { useTranslation } from "react-i18next";
 
 interface IProfileAvatarProps {
   handleClick: (e: MouseEvent<HTMLButtonElement>) => void;
@@ -29,6 +30,7 @@ const ProfileAvatar: FC<IProfileAvatarProps> = ({
   isOwner,
   savePhoto,
 }) => {
+  const { t } = useTranslation();
   const open = Boolean(anchorEl);
   const [openModal, setOpenModal] = React.useState(false);
   const [openPhotoModal, setOpenPhotoModal] = React.useState(false);
@@ -82,14 +84,14 @@ const ProfileAvatar: FC<IProfileAvatarProps> = ({
           <ListItemIcon>
             <PanoramaIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Open photo</ListItemText>
+          <ListItemText>{t("openPhoto")}</ListItemText>
         </MenuItem>
         {isOwner && (
           <MenuItem onClick={handleClickEditPhoto}>
             <ListItemIcon>
               <EditIcon fontSize="small" />
             </ListItemIcon>
-            <ListItemText>Edit photo</ListItemText>
+            <ListItemText>{t("editPhoto")}</ListItemText>
           </MenuItem>
         )}
       </Menu>

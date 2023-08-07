@@ -19,7 +19,7 @@ const initialState = {
     },
     {
       id: 1,
-      message: "Хочу найти новую работу",
+      message: "Социальная сеть",
       likesCount: 5,
       date: "05.06.2023, 18:48:00",
     },
@@ -34,7 +34,7 @@ const profileReducer = (state = initialState, action: ActionTypes): InitialState
   switch (action.type) {
     case ADD_POST:
       let newPost = {
-        id: (v1()),
+        id: v1(),
         message: action.newPostText,
         likesCount: 0,
         date: new Date().toLocaleString(),

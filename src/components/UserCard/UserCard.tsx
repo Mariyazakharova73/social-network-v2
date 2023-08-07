@@ -8,6 +8,7 @@ import { NavLink } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { PROFILE_PATH } from "../../utils/constants";
 import { IUser } from "../../types/types";
+import { useTranslation } from "react-i18next";
 
 interface IUserCardProps {
   user: IUser;
@@ -17,6 +18,7 @@ interface IUserCardProps {
 }
 
 const UserCard: FC<IUserCardProps> = ({ user, unfollow, follow, followingInProgress }) => {
+  const { t } = useTranslation();
   return (
     <StyledCard>
       <StyledCardActions>
@@ -28,34 +30,34 @@ const UserCard: FC<IUserCardProps> = ({ user, unfollow, follow, followingInProgr
             loading={followingInProgress.some((item) => {
               return item === user.id;
             })}
-            loadingIndicator="Loading…"
+            loadingIndicator={t("loading")}
             onClick={() => {
               unfollow(user.id);
             }}
             variant="contained"
             size="small"
           >
-            <span>Unfollow</span>
+            <span>{t("unsubscribe")}</span>
           </LoadingButton>
         ) : (
           <LoadingButton
             loading={followingInProgress.some((item) => {
               return item === user.id;
             })}
-            loadingIndicator="Loading…"
+            loadingIndicator={t("loading")}
             onClick={() => {
               follow(user.id);
             }}
             variant="contained"
             size="small"
           >
-            <span>Follow</span>
+            <span>{t("subscribe")}</span>
           </LoadingButton>
         )}
       </StyledCardActions>
       <CardContent>
         <Typography sx={{ fontSize: 15 }} color="text.secondary">
-          {user.status ? user.status : "Не задан"}
+          {user.status ? user.status : t("noStatus")}
         </Typography>
         <Typography>{user.name}</Typography>
       </CardContent>

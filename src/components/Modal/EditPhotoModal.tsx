@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { MuiFileInput } from "mui-file-input";
 import { StyledBoxforModal } from "./ModalStyles";
+import { useTranslation } from "react-i18next";
 
 interface IEditPhotoModal {
   openModal: boolean;
@@ -11,6 +12,7 @@ interface IEditPhotoModal {
 }
 
 const EditPhotoModal: FC<IEditPhotoModal> = ({ openModal, savePhoto, handleCloseModal }) => {
+  const { t } = useTranslation();
   const [file, setFile] = React.useState(null);
 
   const handleChange = (newFile: any) => {
@@ -25,10 +27,10 @@ const EditPhotoModal: FC<IEditPhotoModal> = ({ openModal, savePhoto, handleClose
       <Modal open={openModal} onClose={handleCloseModal}>
         <StyledBoxforModal>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Загрузка новой фотографии
+            {t("photoUpload")}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Вы можете загрузить изображение в формате jpg или png.
+            {t("photoFormat")}
           </Typography>
           <MuiFileInput sx={{ mt: 2 }} value={file} onChange={handleChange} />
         </StyledBoxforModal>

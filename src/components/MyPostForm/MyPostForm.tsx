@@ -6,6 +6,7 @@ import useWindowSize from "../../hooks/useWindowSize";
 import { Formik, Form as FormikForm } from "formik";
 import { newPostTextSchema } from "../../utils/validators";
 import { createField } from "../../utils/helpers";
+import { useTranslation } from "react-i18next";
 
 interface IMyPostForm {
   onAddPost: (post: string) => void;
@@ -18,6 +19,7 @@ interface IMyPostFormValues {
 export type MyPostFormTypeKeys = Extract<keyof IMyPostFormValues, string>;
 
 const MyPostForm: FC<IMyPostForm> = ({ onAddPost }) => {
+  const { t } = useTranslation();
   const windowSize = useWindowSize();
 
   const submitMyPostData = (
@@ -39,7 +41,7 @@ const MyPostForm: FC<IMyPostForm> = ({ onAddPost }) => {
       {({ values, handleChange, errors, touched, dirty }) => (
         <Box sx={{ maxWidth: { sm: "70%" } }} mb={2}>
           <FormikForm>
-            {createField<MyPostFormTypeKeys>("newPostText", "Your news", touched, errors, {
+            {createField<MyPostFormTypeKeys>("newPostText", t("yourNews"), touched, errors, {
               fullWidth: true,
             })}
             <Box mt={2} sx={{ textAlign: "end" }}>
@@ -50,7 +52,7 @@ const MyPostForm: FC<IMyPostForm> = ({ onAddPost }) => {
                 fullWidth={windowSize ? windowSize < 600 : false}
                 disabled={!dirty || !!errors.newPostText}
               >
-                Send
+                {t("buttonSend")}
               </Button>
             </Box>
           </FormikForm>

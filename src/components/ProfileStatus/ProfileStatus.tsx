@@ -5,6 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import s from "./ProfileStatus.module.css";
+import { useTranslation } from "react-i18next";
 
 interface IProfileStatus {
   prevStatus: string;
@@ -13,6 +14,7 @@ interface IProfileStatus {
 }
 
 const ProfileStatus: FC<IProfileStatus> = ({ updateStatus, prevStatus, isOwner }) => {
+  const { t } = useTranslation();
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(prevStatus);
 
@@ -36,7 +38,7 @@ const ProfileStatus: FC<IProfileStatus> = ({ updateStatus, prevStatus, isOwner }
   return !editMode ? (
     <Stack direction="row" alignItems="center" spacing={1}>
       <Typography component="p">
-        <span className={s.text}>Status: </span> {prevStatus ? prevStatus : "Не задан"}
+        <span className={s.text}>{t("status")}:&ensp;</span> {prevStatus ? prevStatus : "Не задан"}
       </Typography>
       {isOwner && (
         <IconButton size="small" onClick={activateEditMode}>
