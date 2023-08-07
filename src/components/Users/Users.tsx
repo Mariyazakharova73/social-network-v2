@@ -21,12 +21,9 @@ import {
 } from "../../redux/actions/usersActionsV2";
 import { AppDispatch } from "../../redux/redux-store";
 
-interface IUsersProps {
-  searchParams: URLSearchParams;
-  setSearchParams: any;
-}
+interface IUsersProps {}
 
-const Users: FC<IUsersProps> = ({ searchParams, setSearchParams }) => {
+const Users: FC<IUsersProps> = () => {
   const totalItemsCount = useSelector(getTotalUsersCount);
   const currentPage = useSelector(getCurrentPage);
   const pageSize = useSelector(getPageSize);
@@ -54,12 +51,8 @@ const Users: FC<IUsersProps> = ({ searchParams, setSearchParams }) => {
 
   return (
     <>
-      <Stack spacing={2} alignItems='center'>
-        <UsersSearchForm
-          searchParams={searchParams}
-          setSearchParams={setSearchParams}
-          onFilterChanged={onFilterChanged}
-        />
+      <Stack spacing={2} alignItems="center">
+        <UsersSearchForm onFilterChanged={onFilterChanged} />
         <Pagination
           page={currentPage}
           onChange={handlePageChange}

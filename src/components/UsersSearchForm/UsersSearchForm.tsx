@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import { FilterType } from "../../redux/reducers/usersReducer";
 import { useSelector } from "react-redux";
 import { getUsersFilter } from "../../redux/selectors/usersSelectors";
@@ -12,8 +12,6 @@ import { useTranslation } from "react-i18next";
 
 interface IUsersSearchFormProps {
   onFilterChanged: (filter: FilterType) => void;
-  searchParams: URLSearchParams;
-  setSearchParams: any;
 }
 
 type FriendFormType = "true" | "false" | "null";
@@ -23,15 +21,13 @@ interface IFormValues {
   friend: FriendFormType;
 }
 
-const usersSearchFormValidate = (values: any) => {
+const usersSearchFormValidate = (values: IFormValues) => {
   const errors = {};
   return errors;
 };
 
 const UsersSearchForm: FC<IUsersSearchFormProps> = ({
   onFilterChanged,
-  searchParams,
-  setSearchParams,
 }) => {
   const { t } = useTranslation();
   const filter = useSelector(getUsersFilter);
@@ -57,7 +53,7 @@ const UsersSearchForm: FC<IUsersSearchFormProps> = ({
     >
       {({ isSubmitting, handleChange, values, errors, touched, dirty }) => (
         <Form className={s.form}>
-          {createField("term", t("search"), touched, errors, { size: "small" })}
+          {createField("term", t("search"), touched, errors, t, { size: "small" })}
           <TextField
             value={values.friend}
             size="small"

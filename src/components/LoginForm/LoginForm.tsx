@@ -78,7 +78,7 @@ const LoginForm: FC<ILoginFormProps> = ({ captchaUrl }) => {
         <Box>
           <FormikForm>
             <Stack spacing={2}>
-              {createField<LoginFormValuesTypeKeys>("email", t("email"), touched, errors, {
+              {createField<LoginFormValuesTypeKeys>("email", t("email"), touched, errors, t, {
                 InputProps: {
                   startAdornment: (
                     <InputAdornment position="start">
@@ -87,7 +87,7 @@ const LoginForm: FC<ILoginFormProps> = ({ captchaUrl }) => {
                   ),
                 },
               })}
-              {createField<LoginFormValuesTypeKeys>("password", t("password"), touched, errors, {
+              {createField<LoginFormValuesTypeKeys>("password", t("password"), touched, errors, t, {
                 InputProps: {
                   endAdornment: (
                     <InputAdornment position="end">
@@ -121,7 +121,7 @@ const LoginForm: FC<ILoginFormProps> = ({ captchaUrl }) => {
               {captchaUrl && (
                 <div>
                   <img className={s.image} src={captchaUrl} alt="Captcha." />
-                  {createField("captcha", t("captcha"), touched, errors)}
+                  {createField("captcha", t("captcha"), touched, errors, t)}
                 </div>
               )}
             </Stack>

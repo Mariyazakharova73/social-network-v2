@@ -41,7 +41,7 @@ export interface IToggleIsFetchingAction {
 
 export interface IToggleFollowingProgressAction {
   type: typeof TOGGLE_IS_FOLLOWING_PROGRESS;
-  followingInProgress: any;
+  followingInProgress: boolean;
   userId: number;
 }
 

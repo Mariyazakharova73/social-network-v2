@@ -16,7 +16,7 @@ import { IResponse } from "../../api/api";
 import { FilterType } from "../reducers/usersReducer";
 
 export const actions = {
-  toggleFollowingProgressAC: (followingInProgress: any, userId: number) =>
+  toggleFollowingProgressAC: (followingInProgress: boolean, userId: number) =>
     ({
       type: TOGGLE_IS_FOLLOWING_PROGRESS,
       followingInProgress,

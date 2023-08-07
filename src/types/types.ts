@@ -1,3 +1,4 @@
+
 export interface IDialog {
   id: number;
   name: string;
@@ -55,4 +56,13 @@ export interface IUser {
   status: string;
   photos?: IPhotos;
   followed: boolean;
+}
+
+export interface IFile {
+  lastModified: number;
+  lastModifiedDate: Date;
+  name: string;
+  size: number;
+  type: string;
+  webkitRelativePath: string;
 }

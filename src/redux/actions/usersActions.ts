@@ -39,7 +39,7 @@ const _followUnfollowFlow = async (
 };
 
 export const toggleFollowingProgressAC = (
-  followingInProgress: any,
+  followingInProgress: boolean,
   userId: number
 ): IToggleFollowingProgressAction => ({
   type: TOGGLE_IS_FOLLOWING_PROGRESS,

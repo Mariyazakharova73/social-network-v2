@@ -15,7 +15,7 @@ import {
   CHAT_PATH,
 } from "./utils/constants";
 import { ThemeProvider } from "@mui/system";
-import { createTheme, GlobalStyles } from "@mui/material";
+import { createTheme, GlobalStyles, PaletteMode } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -27,7 +27,7 @@ const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileCo
 const ChatPage = React.lazy(() => import("./pages/ChatPage/ChatPage"));
 
 const App = () => {
-  const [mode, setMode] = useState<any>("light");
+  const [mode, setMode] = useState<PaletteMode | undefined>("light");
   const [open, setOpen] = useState(false);
 
   const theme = createTheme({
@@ -52,7 +52,7 @@ const App = () => {
   };
 
   const changeMode = () => {
-    setMode((prev: any) => (prev === "light" ? "dark" : "light"));
+    setMode((prev) => (prev === "light" ? "dark" : "light"));
     localStorage.setItem("theme", mode === "light" ? "dark" : "light");
   };
 
@@ -61,7 +61,7 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    let theme = localStorage.getItem("theme");
+    let theme = localStorage.getItem("theme") as PaletteMode;
     if (theme) {
       setMode(theme);
     }

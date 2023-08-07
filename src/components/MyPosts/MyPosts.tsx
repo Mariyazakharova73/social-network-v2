@@ -28,7 +28,7 @@ const MyPosts: FC = React.memo(() => {
       </Typography>
       <MyPostForm onAddPost={onAddPost} />
       <List>
-        {posts.map((item: any) => {
+        {posts.map((item) => {
           return <Post key={item.id} item={item} profile={profile} />;
         })}
       </List>

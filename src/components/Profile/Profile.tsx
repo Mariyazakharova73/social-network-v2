@@ -8,7 +8,7 @@ interface IProfileProps {
   status: string;
   updateStatus: (status: string) => void;
   isOwner: boolean;
-  savePhoto: (file: any) => void;
+  savePhoto: (file: string | Blob) => void;
   saveProfile: (data: IProfileData) => void;
 }
 

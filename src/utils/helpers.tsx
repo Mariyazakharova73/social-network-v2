@@ -1,5 +1,6 @@
 import TextField from "@mui/material/TextField";
-import { Field } from "formik";
+import { Field, FormikErrors, FormikTouched } from "formik";
+import i18next from "i18next";
 import { IProfile, IUser } from "../types/types";
 import { IProfileFormValues } from "./../components/Modal/ProfileForm";
 
@@ -34,8 +35,9 @@ export const changeStrValues = (dataFriend: string) => {
 export function createField<FormKeysType extends string>(
   name: FormKeysType,
   placeholder: string | null,
-  touched: any,
-  errors: any,
+  touched: FormikTouched<any>,
+  errors: FormikErrors<any>,
+  t: typeof i18next.t,
   props: any = {}
 ) {
   return (
@@ -44,7 +46,7 @@ export function createField<FormKeysType extends string>(
       placeholder={placeholder}
       as={TextField}
       error={touched[name] && !!errors[name]}
-      helperText={touched[name] && errors[name]}
+      helperText={touched[name] && t(errors[name])}
       {...props}
     />
   );

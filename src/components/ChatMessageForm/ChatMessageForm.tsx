@@ -37,7 +37,7 @@ const ChatMessageForm: FC = () => {
     >
       {({ values, handleChange, errors, touched, dirty }) => (
         <FormikForm>
-          {createField("message", t("chatMessage"), touched, errors)}
+          {createField("message", t("chatMessage"), touched, errors, t)}
           <Box mt={2}>
             <Button
               variant="contained"

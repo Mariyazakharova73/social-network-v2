@@ -14,6 +14,7 @@ import { LOGIN_PATH } from "../../utils/constants";
 import { withAuthRedirect } from "../../HOC/withAuthRedirect";
 import { IProfile, IProfileData } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
+import { NavigateFunction } from "react-router-dom";
 
 interface IMapStateProps {
   profile: IProfile | null;
@@ -26,15 +27,15 @@ interface IMapDispatchProps {
   getUserProfile: (userId: number) => void;
   getStatus: (userId: number) => void;
   updateStatus: (status: string) => void;
-  savePhoto: (file: any) => void;
+  savePhoto: (file: string | Blob) => void;
   saveProfile: (data: IProfileData) => void;
 }
 
 interface IOwnProps {
   router: {
-    location: any;
-    navigate: any;
-    params: { id: any };
+    location: Location;
+    navigate: NavigateFunction;
+    params: { id: number | null | "*"};
   };
 }
 
@@ -51,8 +52,8 @@ class ProfileContainer extends React.Component<PropsType> {
       }
     }
 
-    this.props.getUserProfile(userId);
-    this.props.getStatus(userId);
+    this.props.getUserProfile(userId as number);
+    this.props.getStatus(userId as number);
   }
 
   componentDidMount() {

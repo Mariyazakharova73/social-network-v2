@@ -1,18 +1,12 @@
 import * as Yup from "yup";
+import { REG_EXP } from "./constants";
 
 const validateUrl = () => {
-  return Yup.string()
-    .matches(
-      /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-      "Введите корректный url!"
-    )
-    .required("Поле должно быть заполнено");
+  return Yup.string().matches(REG_EXP, "checkUrl").required("requiredField");
 };
 
 const validateText = () => {
-  return Yup.string()
-    .min(2, "Минимальная длина текста - 2 символа")
-    .required("Поле должно быть заполнено");
+  return Yup.string().min(2, "minLength").required("requiredField");
 };
 
 export const newPostTextSchema = Yup.object().shape({
@@ -24,10 +18,8 @@ export const newMessageBodySchema = Yup.object().shape({
 });
 
 export const loginSchema = Yup.object().shape({
-  email: Yup.string().email("Неверный email").required("Поле должно быть заполнено"),
-  password: Yup.string()
-    .min(4, "Минимальная длина пароля - 4 символов")
-    .required("Поле должно быть заполнено"),
+  email: Yup.string().email("checkEmail").required("requiredField"),
+  password: Yup.string().min(4, "passwordLength").required("requiredField"),
   rememberMe: Yup.boolean(),
   captcha: Yup.string(),
 });

@@ -36,11 +36,11 @@ export const loginThunkCreator = (
   email: string,
   password: string,
   rememberMe: boolean,
-  captcha: any,
-  setStatus: any,
-  setOpen: any
+  captcha: string,
+  setStatus: ({ testError }: { testError: string }) => void,
+  setOpen: (value: boolean) => void
 ): BaseThunkType<ActionTypes> => {
-  return async (dispatch: any) => {
+  return async (dispatch) => {
     const res = await authAPI.login(email, password, rememberMe, captcha);
     if (res.resultCode === ResultCodes.Success) {
       dispatch(getAuthUserDataThunkCreator());
@@ -56,7 +56,7 @@ export const loginThunkCreator = (
 };
 
 export const logoutThunkCreator = (): BaseThunkType<ActionTypes> => {
-  return async (dispatch: any) => {
+  return async (dispatch) => {
     const res = await authAPI.logout();
     if (res.resultCode === ResultCodes.Success) {
       //  зачищаем информацию о себе
@@ -73,7 +73,7 @@ export const getCaptchaUrlSuccessAC = (captchaUrl: string): IGetCaptchaUrlSucces
 };
 
 export const getCaptchaUrlThunkCreator = (): BaseThunkType<ActionTypes> => {
-  return async (dispatch: any) => {
+  return async (dispatch) => {
     const res = await securityAPI.getCaptchaUrl();
     const captchaUrl = res.url;
     console.log(captchaUrl);

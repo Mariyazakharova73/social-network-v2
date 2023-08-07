@@ -72,7 +72,9 @@ const ProfileForm: FC<IProfileForm> = ({ openForm, handleCloseModal, saveProfile
           <StyledModalForm>
             <FormikForm>
               <Stack spacing={2}>
-                {createField<ProfileFormTypeKeys>("fullName", t("fullName"), touched, errors)}
+                {createField<ProfileFormTypeKeys>("fullName", t("fullName"), touched, errors, t, {
+                  size: "small",
+                })}
                 <label style={{ fontFamily: "montserrat" }}>
                   <Field size="small" as={Checkbox} name="lookingForAJob" type="checkbox" />
                   {t("job")}
@@ -81,15 +83,19 @@ const ProfileForm: FC<IProfileForm> = ({ openForm, handleCloseModal, saveProfile
                   "lookingForAJobDescription",
                   t("skills"),
                   touched,
-                  errors
+                  errors,
+                  t,
+                  { size: "small" }
                 )}
-                {createField<ProfileFormTypeKeys>("aboutMe", t("aboutMe"), touched, errors)}
+                {createField<ProfileFormTypeKeys>("aboutMe", t("aboutMe"), touched, errors, t, {
+                  size: "small",
+                })}
                 <StyledStack direction="row">
                   {profile?.contacts &&
                     Object.keys(profile?.contacts).map((item) => {
                       return (
                         <React.Fragment key={item}>
-                          {createField(item, item, touched, errors)}
+                          {createField(item, item, touched, errors, t, { size: "small" })}
                         </React.Fragment>
                       );
                     })}

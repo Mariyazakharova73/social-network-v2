@@ -13,7 +13,7 @@ export interface IAddPostAction {
 
 export interface IDeletePostAction {
   type: typeof DELETE_POST;
-  postId: number;
+  postId: number | string;
 }
 
 export interface ISetUserProfileAction {

@@ -11,3 +11,6 @@ export const BASE_URL = "https://social-network.samuraijs.com/api/1.0";
 export const WS_URL = "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx";
 
 export const API_KEY = "bc4d7bbf-98e2-4f08-9831-e79b832ca0ac";
+
+export const REG_EXP =
+  /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/;

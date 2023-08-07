@@ -22,7 +22,7 @@ export const profileAPI = {
       return res.data;
     });
   },
-  savePhoto(photo: any) {
+  savePhoto(photo: string | Blob) {
     const formData = new FormData();
     formData.append("image", photo);
     return instance

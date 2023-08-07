@@ -4,7 +4,7 @@
 	"myPosts": "My posts",
 	"error": "Some error occured. Please refresh the page",
 	"buttonSend": "Send",
-	"logout": "Выйти",
+	"logout": "Logout",
 	"chatMessage": "Enter your message",
 	"email": "Email",
 	"password": "Password",
@@ -33,5 +33,10 @@
 	"all": "All",
 	"followed": "Only followed",
 	"unfollowed": "Only unfollowed",
-	"find": "Find"
+	"find": "Find",
+	"requiredField": "Field must be filled",
+	"checkUrl": "Please enter a valid URL!",
+	"minLength": "Minimum text length - 2 characters",
+	"checkEmail": "Invalid email",
+	"passwordLength": "Minimum password length - 4 characters"
 }

@@ -15,11 +15,11 @@ import { useTranslation } from "react-i18next";
 
 interface IProfileAvatarProps {
   handleClick: (e: MouseEvent<HTMLButtonElement>) => void;
-  anchorEl: any;
+  anchorEl: null | HTMLElement;
   handleClose: () => void;
   photo: string;
   isOwner: boolean;
-  savePhoto: (file: any) => void;
+  savePhoto: (file: string | Blob) => void;
 }
 
 const ProfileAvatar: FC<IProfileAvatarProps> = ({

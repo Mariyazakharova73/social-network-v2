@@ -41,7 +41,7 @@ const MyPostForm: FC<IMyPostForm> = ({ onAddPost }) => {
       {({ values, handleChange, errors, touched, dirty }) => (
         <Box sx={{ maxWidth: { sm: "70%" } }} mb={2}>
           <FormikForm>
-            {createField<MyPostFormTypeKeys>("newPostText", t("yourNews"), touched, errors, {
+            {createField<MyPostFormTypeKeys>("newPostText", t("yourNews"), touched, errors, t, {
               fullWidth: true,
             })}
             <Box mt={2} sx={{ textAlign: "end" }}>

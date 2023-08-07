@@ -11,7 +11,6 @@ import { CircularProgress } from "@mui/material";
 import { AppDispatch } from "../../redux/redux-store";
 import { getUsersThunkCreator } from "../../redux/actions/usersActionsV2";
 import { useLocation, useSearchParams } from "react-router-dom";
-// @ts-ignore
 import queryString from "query-string";
 import { changeStrValues } from "../../utils/helpers";
 
@@ -57,7 +56,7 @@ const UsersPage: FC<IUsresProps> = () => {
       {isFetching ? (
         <CircularProgress thickness={5} color="secondary" size={50} />
       ) : (
-        <Users searchParams={searchParams} setSearchParams={setSearchParams} />
+        <Users />
       )}
     </div>
   );

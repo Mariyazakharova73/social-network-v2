@@ -27,7 +27,7 @@ const Post: FC<IPostProps> = ({ item, profile }) => {
 
   const dispatch: AppDispatch = useDispatch();
 
-  const onClickDelete = (postId: any) => {
+  const onClickDelete = (postId: string | number) => {
     dispatch(deletePostAC(postId));
   };
 

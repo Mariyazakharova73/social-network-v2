@@ -7,17 +7,17 @@ import { useTranslation } from "react-i18next";
 
 interface IEditPhotoModal {
   openModal: boolean;
-  savePhoto: (file: any) => void;
+  savePhoto: (file: string | Blob) => void;
   handleCloseModal: () => void;
 }
 
 const EditPhotoModal: FC<IEditPhotoModal> = ({ openModal, savePhoto, handleCloseModal }) => {
   const { t } = useTranslation();
-  const [file, setFile] = React.useState(null);
+  const [file, setFile] = React.useState<File | null>(null);
 
-  const handleChange = (newFile: any) => {
+  const handleChange = (newFile: File | null) => {
     setFile(newFile);
-    savePhoto(newFile);
+    savePhoto(newFile as string | Blob);
     setTimeout(() => {
       handleCloseModal();
     }, 2000);

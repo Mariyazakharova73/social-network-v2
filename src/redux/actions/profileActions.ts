@@ -22,7 +22,10 @@ export const addPostAC = (newPostText: string): IAddPostAction => {
   };
 };
 
-export const deletePostAC = (postId: number): IDeletePostAction => ({ type: DELETE_POST, postId });
+export const deletePostAC = (postId: number | string): IDeletePostAction => ({
+  type: DELETE_POST,
+  postId,
+});
 
 export const setUserProfileAC = (profile: IProfile): ISetUserProfileAction => ({
   type: SET_USER_PROFILE,
@@ -66,7 +69,7 @@ export const savePhotoSuccessAC = (photos: IPhotos): ISavePhotoSuccessAction => 
   photos,
 });
 
-export const savePhotoThunkCreator = (file: any): BaseThunkType<ActionTypes> => {
+export const savePhotoThunkCreator = (file: string | Blob): BaseThunkType<ActionTypes> => {
   return async (dispatch) => {
     const res = await profileAPI.savePhoto(file);
     if (res.resultCode === 0) {

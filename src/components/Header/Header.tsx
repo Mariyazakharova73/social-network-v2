@@ -40,12 +40,13 @@ interface IHeaderProps {
 
 const Header: FC<IHeaderProps> = ({ toggleDrawer, changeMode, mode }) => {
   const { t } = useTranslation();
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const dispatch: AppDispatch = useDispatch();
   const isAuth = useSelector(selectIsAuth);
   const profile = useSelector(selectCurrentUser);
 
-  const handleOpenUserMenu = (e: any) => {
+  const handleOpenUserMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(e.currentTarget);
     setAnchorElUser(e.currentTarget);
   };
 
