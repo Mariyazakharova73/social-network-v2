@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/4.d6092df0.chunk.css","mappings":"AAAA,6BACE,YAAa,CAEb,kBAAkB,CADlB,eAEF","sources":["components/ChatMessages/ChatMessages.module.css"],"sourcesContent":[".wrapper {\r\n  height: 400px;\r\n  overflow-y: auto;\r\n  margin-bottom: 50px\r\n}"],"names":[],"sourceRoot":""}
